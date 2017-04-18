@@ -1,0 +1,15 @@
+{
+  "name": "TenthPres/LiveStreamJockey",
+  "description": "Uses APIs from Streaming providers to provide the best and most relevant streams on the Tenth Website.",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "James Kurtz",
+      "email": "jkrrv@jkrrv.org"
+    }
+  ],
+  "require": {
+    "jkrrv/youtube-live-embed" : "dev-master"
+  }
+}
