@@ -1,0 +1,35 @@
+{
+  "live": [
+    {
+      "name": "Tenth Presbyterian Live Stream Event",
+      "priority": 1,
+      "id": "current-livestream",
+      "sources": [
+        {
+          "type": "yt",
+          "language": "en-us",
+          "id": "yt-CH7acgqXR1U",
+          "url": "//www.youtube.com/embed/CH7acgqXR1U?autoplay=1&rel=0&showinfo=0",
+          "thumb": "https://i.ytimg.com/vi/CH7acgqXR1U/hqdefault_live.jpg"
+        },
+        {
+          "type": "sa-vid",
+          "language": "en-us",
+          "id": "sa-vid",
+          "url": "https://radio20.sermonaudio.com:443/biblefortoday/biblefortoday-1--/playlist.m3u8",
+          "thumb": "//vps.sermonaudio.com/webcasts/biblefortoday.jpg"
+        },
+        {
+          "type": "sa-aud",
+          "language": "en-us",
+          "id": "sa-aud",
+          "url": "https://radio20.sermonaudio.com:443/biblefortoday/biblefortoday-1--/playlist.m3u8?wowzaaudioonly=true",
+          "thumb": "//vps.sermonaudio.com/webcasts/biblefortoday.jpg"
+        }
+      ]
+    }
+  ],
+  "archive": [
+
+  ]
+}

@@ -10,6 +10,8 @@
     }
   ],
   "require": {
-    "jkrrv/youtube-live-embed" : "dev-master"
+    "jkrrv/youtube-live-embed" : "dev-master",
+    "kevinrob/guzzle-cache-middleware": "^2.0",
+    "doctrine/cache": "^1.6"
   }
 }
