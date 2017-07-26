@@ -1,30 +1,29 @@
 // load the knockout library & separate css file
 var knockoutLib = document.createElement('script'),
     head  = document.getElementsByTagName('head')[0],
-    stylesht = document.createElement('link');
+    stylesht = document.createElement('link'),
+    scripts = document.getElementsByTagName('script'),
+    container = scripts[scripts.length-1].parentNode,
+    scriptBase = scripts[scripts.length-1].src.replace(/(\/\/.*?\/.*\/).*/g, '$1'),
+    mediaElt = document.createElement('p'),
+    div = document.createElement('div'),
+    progList = document.createElement('div'),
+    vm = {};
 
-knockoutLib.src = 'node_modules/knockout/build/output/knockout-latest.js';
+knockoutLib.src = scriptBase + 'node_modules/knockout/build/output/knockout-latest.js';
 knockoutLib.type = 'text/javascript';
 knockoutLib.onload = initalizeModels;
 head.appendChild(knockoutLib);
 
 stylesht.rel  = 'stylesheet';
 stylesht.type = 'text/css';
-stylesht.href = 'style.min.css';
+stylesht.href = scriptBase + '/style.min.css';
 head.appendChild(stylesht);
-
-var scripts = document.getElementsByTagName('script'),
-    container = scripts[scripts.length-1].parentNode,
-    mediaElt = document.createElement('p'),
-    div = document.createElement('div'),
-    progList = document.createElement('div'),
-    vm = {};
-
 
 // impose some styling on the container.
 container.style.width = "100%";
-container.style.paddingBottom = "56.25%";
-container.style.marginBottom = "4em"; // space for progList
+container.style.paddingBottom = "56.25%";   // 16:9 ratio
+container.style.marginBottom = "4em";   // space for progList
 container.style.position = "relative";
 container.style.font = "inherit";
 container.style.fontFamily = "\"Whitney SSm A\", \"Whitney SSm B\", \"Open Sans\", sans-serif";
@@ -43,12 +42,14 @@ container.appendChild(div);
 // place progList for later.
 progList.id = "progList";
 progList.setAttribute("data-bind", "foreach: vm.livePrograms");
+progList.setAttribute("oncontextmenu","return false;");
 progList.innerHTML = "<div data-bind=\"foreach: sources, visible: sources.length > 1 \"><a data-bind=\"attr: {title: providerName(type), class: type, id: id }, css: { 'active': vm.currentMode() === id }, click: playSource \"></a></div>";
 container.appendChild(progList);
 
 // insert "loading" into container.
-mediaElt.style.width = "100%";
-mediaElt.style.top = "45%";
+//mediaElt.style.width = "100%";
+mediaElt.style.top = "47%";
+mediaElt.style.transform = "translateY(-50%)";
 mediaElt.style.position = "absolute";
 mediaElt.innerHTML = "loading...";
 mediaElt.style.backgroundColor = "#eee";
@@ -90,17 +91,25 @@ function liveStreamJsonListener() {
             mediaElt.innerHTML = "There is no livestream currently available.<br />We will display the livestream here as soon as it begins."
         }
     }
+    
+    document.body.getElementsByTagName('strong')[0].innerHTML = response.msg.join('<br /><br />');
 
 }
 
 function doRequest() {
     var req = new XMLHttpRequest();
+    req.Timeout = 4000;
+    req.withCredentials = true;
     req.addEventListener('load', liveStreamJsonListener);
-    req.open("GET", "json?current=" + vm.currentMode());
+    req.addEventListener('timeout', liveStreamJsonTimeout);
+    req.open("GET", scriptBase + "json/?current=" + vm.currentMode());
     // req.open("GET", "json/test.json?current=" + vm.currentMode());
     req.send();
 }
 
+function liveStreamJsonTimeout() {
+    window.console.info('XHR Timeout');
+}
 
 function playSource(source) {
     clearVideoWindow();
@@ -145,5 +154,3 @@ function clearVideoWindow() {
     mediaElt.setAttribute('allowFullScreen','');
     container.appendChild(mediaElt);
 }
-
-
