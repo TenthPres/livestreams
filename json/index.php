@@ -33,6 +33,7 @@ $stack->push(
 
 $client = new Client(['handler' => $stack]);
 
+
 // YouTube Query
 $ytle = new YouTubeLiveEmbed('UC_GR2sUKyKPiULviFLvPDQg');
 $ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
@@ -44,6 +45,7 @@ $ytV = $ytle->videos();
 //	$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
 //	$ytV= $ytle->videos();
 //}
+
 
 // SermonAudio Query
 
@@ -113,33 +115,18 @@ if ($sa->isLive) {
 }
 
 
-
-
-
-session_name("kurtz");
-session_set_cookie_params(3600 * 24 * 30); // 30 days
-session_start();
-
 // message presentation
 
 $r->msg = [];
 
-//if ($_GET['current'] == 'loading') {
-//$r->msg[] = "You are now viewing our new Livestream page which is in Beta testing. Please feel encouraged to report any difficulties you might have experienced using this new page, as well as any suggestions for improvement to: <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: ".session_id()."%0D%0A%0D%0A\">Tenth's Technology Committee</a>. Thank you!</strong>";
-//} else {
 $r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: ".session_id()."%0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.</strong>";
-//$r->msg[] = "<script>location.reload();</script>";
-//}
-
-if ($_GET['current'] == "yt-lPK1h5WIdn0") {
-//	$r->msg[] = "This is the livestream for today's 9:00am service.  <a href=\"\livestream-beta\">Find the 11:00am service here</a>.";
-}
-if ($_GET['current'] == "yt-BkEWiPMn-a8") {
-//	$r->msg[] = "This is the livestream for today's 11:00am service.  <a href=\"\livestream-beta\">Find the 6:30pm service here</a>.";
-}
 
 
-//$r->msg[] = "You are now viewing our new Livestream page which is in Beta testing.  <a href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback\">Let the Technology Committee know what you think</a>.";
+// Response
+
+session_name("kurtz");
+session_set_cookie_params(3600 * 24 * 30); // 30 days
+session_start();
 
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: http://www.tenth.org");
