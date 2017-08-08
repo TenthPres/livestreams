@@ -84,7 +84,12 @@ function liveStreamJsonListener() {
 
     vm.livePrograms(response.live);
 
-    if (vm.currentMode() == "loading") {
+    if (!sourceIsValid(vm.currentMode())) { // if the client is watching a source that's no longer valid.
+        clearVideoWindow();
+        vm.currentMode('loading');
+    }
+
+    if (vm.currentMode() == "loading") { // if the client is in "loading" mode
         if (response.live.length > 0) {
             playSource(response.live[0].sources[0]);
         } else {
@@ -109,6 +114,21 @@ function doRequest() {
 
 function liveStreamJsonTimeout() {
     window.console.info('XHR Timeout');
+}
+
+function sourceIsValid(sourceId) {
+    if (sourceId === 'loading') // 'loading' is always a valid source.
+        return true;
+
+    if (sourceId.indexOf('yt-') > -1) // youtube is always a valid source (at least, for now).
+        return true;
+
+    // for everything else, if it's in the list of current sources, it's valid.  If it's not, it's not.
+    return undefined !== vm.livePrograms().find(function (prg) {
+        return undefined !== prg.sources.find(function(src) {
+            return(src.id === this.id);
+        }, this);
+    }, {"id":sourceId});
 }
 
 function playSource(source) {
