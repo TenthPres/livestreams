@@ -1,0 +1,16 @@
+{
+  "name": "tenth-livestream",
+  "license": "UNLICENSED",
+  "description": "Handle Livestream sources for presentation on church website.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TenthPres/livestreams"
+  },
+  "dependencies": {
+    "font-awesome": ">=4.7",
+    "knockout": ">=3.4"
+  },
+  "devDependencies": {
+    "less": "^2.7.2"
+  }
+}
