@@ -39,12 +39,12 @@ $ytle = new YouTubeLiveEmbed('UC_GR2sUKyKPiULviFLvPDQg');
 $ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
 $ytV = $ytle->videos();
 
-//// YouTube: Just in case there aren't any current live streams...
-//if (count($ytV) == 0) { // test video from California Academy of Natural Sciences
-//	$ytle = new YouTubeLiveEmbed('UCZvXaNYIcapCEcaJe_2cP7A');
-//	$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
-//	$ytV= $ytle->videos();
-//}
+// YouTube: Just in case there aren't any current live streams...
+if (isset($_GET['test'])) { // test video from California Academy of Natural Sciences
+	$ytle = new YouTubeLiveEmbed('UCZvXaNYIcapCEcaJe_2cP7A');
+	$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
+	$ytV = $ytle->videos();
+}
 
 
 // SermonAudio Query

@@ -8,7 +8,8 @@ var knockoutLib = document.createElement('script'),
     mediaElt = document.createElement('p'),
     div = document.createElement('div'),
     progList = document.createElement('div'),
-    vm = {};
+    vm = {},
+    isTestingMode = !(getUrlParameter('test') !== null);
 
 knockoutLib.src = scriptBase + 'node_modules/knockout/build/output/knockout-latest.js';
 knockoutLib.type = 'text/javascript';
@@ -107,8 +108,7 @@ function doRequest() {
     req.withCredentials = true;
     req.addEventListener('load', liveStreamJsonListener);
     req.addEventListener('timeout', liveStreamJsonTimeout);
-    req.open("GET", scriptBase + "json/?current=" + vm.currentMode());
-    // req.open("GET", "json/test.json?current=" + vm.currentMode());
+    req.open("GET", scriptBase + "json/?current=" + vm.currentMode() + (isTestingMode ? '&test=1' : ''));
     req.send();
 }
 
@@ -173,4 +173,14 @@ function clearVideoWindow() {
     mediaElt.style.border = 0;
     mediaElt.setAttribute('allowFullScreen','');
     container.appendChild(mediaElt);
+}
+
+function getUrlParameter(name) { // shoutout to https://stackoverflow.com/a/11582513/2339939
+    var uri = (new RegExp('[?&]' + name + '(?:=([^&;]+))?').exec(location.search) || ['&', '&'])[1];
+    uri = (uri || null);
+    if (uri === '&')
+        return undefined;
+    if (uri === null)
+        return uri;
+    return decodeURIComponent(uri.replace(/\+/g, '%20'));
 }
