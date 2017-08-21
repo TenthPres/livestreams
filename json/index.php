@@ -79,10 +79,9 @@ if (count($ytV) > 0 || $sa->isLive) {
 }
 
 
-// YouTube: source object
-if (count($ytV) > 0) {
+// YouTube: source objects
+foreach ($ytV as $v) {
 	$sources = &$r->live[0]->sources;
-	$v = $ytV[0];
 	$sources[] = (object)[
 		'type' => 'yt',
 		'language' => 'en-us',
