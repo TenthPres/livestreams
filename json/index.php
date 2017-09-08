@@ -78,7 +78,6 @@ if (count($ytV) > 0 || $sa->isLive) {
 	$r->live[0]->sources = [];
 }
 
-
 // YouTube: source objects
 foreach ($ytV as $v) {
 	$sources = &$r->live[0]->sources;
@@ -89,6 +88,7 @@ foreach ($ytV as $v) {
 		'url' => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0",
 		'thumb' => $v->thumb_high
 	];
+
 	unset($sources);
 }
 
@@ -118,7 +118,13 @@ if ($sa->isLive) {
 
 $r->msg = [];
 
-$r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: ".session_id()."%0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.</strong>";
+$sid = $_COOKIE['kurtz'];
+
+$r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: {$sid} %0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.</strong>";
+
+// Assuming first provider is the best provider, provide an indication to the user when they're watching a provider other than the first.
+if($_GET['current'] !== 'loading' && explode('-', $_GET['current'],2)[0] !== explode('-', $r->live[0]->sources[0]->id, 2)[0])
+	$r->msg[] = "A better quality stream may be available than the one you're currently watching.  <a href=\"#\" onclick='playSource(" . json_encode($r->live[0]->sources[0]) . "); return false;'>Click here to switch</a>.";
 
 
 // Response
@@ -137,5 +143,5 @@ flush();
 
 
 $f_csv = fopen("usage.csv", "a");
-fputcsv($f_csv, [(new DateTime())->format('Y-m-d H:i:s'), session_id(), $_SERVER['REMOTE_ADDR'], $_GET['current'], $_SERVER['HTTP_USER_AGENT']]);
+fputcsv($f_csv, [(new DateTime())->format('Y-m-d H:i:s'), $sid, $_SERVER['REMOTE_ADDR'], $_GET['current'], $_SERVER['HTTP_USER_AGENT']]);
 fclose($f_csv);
