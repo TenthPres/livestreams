@@ -134,7 +134,7 @@ session_set_cookie_params(3600 * 24 * 30); // 30 days
 session_start();
 
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: http://www.tenth.org");
+header("Access-Control-Allow-Origin: https://www.tenth.org");
 header("Access-Control-Allow-Credentials: true");
 echo json_encode($r);
 
