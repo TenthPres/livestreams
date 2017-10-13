@@ -18,7 +18,7 @@ head.appendChild(knockoutLib);
 
 stylesht.rel  = 'stylesheet';
 stylesht.type = 'text/css';
-stylesht.href = scriptBase + '/style.min.css';
+stylesht.href = scriptBase + 'style.min.css';
 head.appendChild(stylesht);
 
 // impose some styling on the container.
@@ -90,7 +90,7 @@ function liveStreamJsonListener() {
         vm.currentMode('loading');
     }
 
-    if (vm.currentMode() == "loading") { // if the client is in "loading" mode
+    if (vm.currentMode() === "loading") { // if the client is in "loading" mode
         if (response.live.length > 0) {
             playSource(response.live[0].sources[0]);
         } else {
@@ -98,7 +98,7 @@ function liveStreamJsonListener() {
         }
     }
     
-    document.body.getElementsByTagName('strong')[0].innerHTML = response.msg.join('<br /><br />');
+    document.body.getElementsByClassName('video_messages')[0].innerHTML = response.msg.join('<br /><br />');
 
 }
 
