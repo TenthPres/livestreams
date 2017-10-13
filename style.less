@@ -80,3 +80,39 @@ div#progList {
     }
   }
 }
+
+
+// Everything follows really should be handled in the site templating instead.
+
+@media (max-width: 767px) {
+  body > .content > .row > .main {
+    h3, div.features-grid {
+      display:none;
+    }
+  }
+
+  div.content div.sidebar {
+    padding-top:10px;
+  }
+}
+
+div.video_messages {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+div.sidebar > p {
+  font-weight: normal;
+}
+
+@media (min-width: 768px) {
+  div.content div.sidebar {
+    float: right;
+    width: 30%;
+  }
+
+  body > div.content > div.row > div.main {
+    margin-right: 0;
+  }
+}
+

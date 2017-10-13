@@ -7,7 +7,6 @@
 
 
 
-
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" dir="ltr"> <![endif]-->
 <!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en" dir="ltr"> <![endif]-->
@@ -21,15 +20,15 @@
 	<meta name="keywords" value="" />
 	<meta name="description" value="" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"04bd4783a3","applicationID":"4166444","transactionName":"J1hXRkVYWAkAQ01VWAdYVF1DXkIASkEXW1sNVBZCVlBRFkpCClZA","queueTime":0,"applicationTime":145,"agent":""}</script>
-	<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1026.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"04bd4783a3","applicationID":"4166444","transactionName":"J1hXRkVYWAkAQ01VWAdYVF1DXkIASkEXW1sNVBZCVlBRFkpCClZA","queueTime":0,"applicationTime":173,"agent":""}</script>
+	<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1059.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="canonical" href="http://www.tenth.org/livestream?refresh-cache=true" />
+	<link rel="canonical" href="http://www.tenth.org/livestream-beta" />
 
 	<title>
 
 
-		Livestream
+		Livestream BETA
 		|
 
 		Tenth Presbyterian Church
@@ -56,30 +55,15 @@
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/theme/images/AppIcon76x76_2x.png?6e40698498d28bc8fe49f88ab216c06b" />
 	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/theme/images/AppIcon76x76_2x.png?6e40698498d28bc8fe49f88ab216c06b" />
 
-
-
-	<script src="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/theme/javascripts/modernizr.custom.35870.js?7d86ecca57b730182874acd695b4bac3" type="text/javascript" ></script>
-
-
-
-	<!--Load Fonts from TypeKit.com-->
-	<script type="text/javascript" src="//use.typekit.net/dwx2wxq.js"></script>
-	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
 	<!--Load Fonts from cloud.typography.com-->
 	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/6969852/611862/css/fonts.css" />
 
-
-
 	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510bed777c209bca"></script>
 
-
-	<link href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/theme/stylesheets/style.css?740e1a4a524af8ae8cf2a3ad60943cd9" media="screen" rel="stylesheet" type="text/css">
-
-
+	<link href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/theme/stylesheets/style.css?6c6e3138eef14aea7dee0e3b049943c4" media="screen" rel="stylesheet" type="text/css">
 
 </head>
-<body class="blah livestream">
+<body class="livestream-beta">
 
 
 
@@ -101,11 +85,11 @@
 					</a>
 				</div>
 				<!-- Logo End -->
-				<a class="navbar-toggle" href="#main-nav" data-toggle="collapse"><i class="fa fa-bars"></i> Livestream</a>
+				<a class="navbar-toggle" href="#main-nav" data-toggle="collapse"><i class="fa fa-bars"></i> Livestream BETA</a>
 			</div>
 			<!-- Mobile Menu End -->
 			<!-- Menu Start -->
-			<nav class="blah main-menu collapse navbar-collapse menu" id="main-nav">
+			<nav class="main-menu collapse navbar-collapse menu" id="main-nav">
 
 				<form class="blah navbar-form site-search" method="get" action="/search">
 					<input id="search-box" type="text" name="q" class="form-control" placeholder="Search">
@@ -121,6 +105,9 @@
 					<li class=""><a href="/events">Events</a></li>
 					<li class=""><a href="/resource-library">Resource Library</a></li>
 					<li class=""><a href="/blog">Blog</a></li>
+					<li class="visible-xs "><a href="/access-tenth">AccessTenth</a></li>
+					<li class="visible-xs "><a href="/about/giving">Giving</a></li>
+					<li class="visible-xs "><a href="/about/contact-us">Contact</a></li>
 				</ul>
 				<!-- end global nav -->
 			</nav>
@@ -141,6 +128,7 @@
 				<ul class="navbar-nav nav navbar-right quicklinks">
 					<li class=""><a href="/access-tenth">AccessTenth</a></li>
 					<li class=""><a href="/about/giving">Giving</a></li>
+					<li class=""><a href="/about/capital-campaign">Capital Campaign</a></li>
 					<li class=""><a href="/about/contact-us">Contact</a></li>
 				</ul>
 				<!-- end utility nav-->
@@ -160,174 +148,49 @@
 
 <div class="content" style="">
 
-
 	<div class="row">
 
 		<div class="main">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			<header class=" sub-head landing-header" style="">
-
-				<h1 class="page-title">Livestream</h1>
-
-
-
-
-
-
-
-
-
+			<header class="landing-header" style="">
+				<h1 class="page-title">Livestream BETA</h1>
 			</header>
 
 
-
-
-
-
-
-
-
-			<!--Begin SermonAudio Link Button-->
+			<!--Begin Livestream Embed Code-->
 			<div class="video">
-				<script language="JavaScript" type="text/javascript" src="script.js"></script>
+				<script async language="JavaScript" type="text/javascript" src="script.js"></script>
 			</div>
-			<!--End SermonAudio Link Button-->
+			<!--End Livestream Embed Code-->
 
 			<h3>More from Tenth</h3>
 
+			<div class="features-grid  features-count-6" >
 
+				<a class="feature feature-with-background feature-with-body" href="/resource-library/blog-entries/tenth-on-the-high-seas" style="background-image: url('https://dncqdsevn7j5.cloudfront.net/images/dynamic/W1siZnUiLCJodHRwczovL2Qxbndmcnp4aGkxOGRwLmNsb3VkZnJvbnQubmV0L3NpdGVzLzU1ZGYzYjM2MjAwY2M5NmViMzAwMDAwNi9jb250ZW50X2VudHJ5NTVlMDk0ZWExYWFmNTEyZTM5MDAwOTRiLzU5Nzc4Zjc0ZjM1YjRhZGM1YzAwMDBlOS9maWxlcy9MaWFtYXJlXzNfU1BPVC5qcGciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl0sWyJwIiwiY29udmVydCIsIi1xdWFsaXR5IDgwIl1d/Liamare_3_SPOT.jpg?sha=63b5018bf8cd914e');">
 
+					<header class="feature-header"
+							style="
+        background-image: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.) 100%);
+        background-image: -o-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.) 100%);
+        background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.) 100%);
+        background-repeat: repeat-x;
+        filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#BF000000', GradientType=0);
+      "
+					>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-			<div class="features-grid  features-count-5" >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+						<h3 class="feature-title">Tenth on the High Seas</h3>
+						<div class="feature-body">A Dutch Ship Captain's Story</div>
+					</header>
+				</a>
 
 				<a class="feature
        feature-with-background
-
-
-
     " href="/resource-library" style="
 
         background-image: url('https://dncqdsevn7j5.cloudfront.net/images/dynamic/W1siZnUiLCJodHRwczovL2Qxbndmcnp4aGkxOGRwLmNsb3VkZnJvbnQubmV0L3NpdGVzLzU1ZGYzYjM2MjAwY2M5NmViMzAwMDAwNi9jb250ZW50X2VudHJ5NTVlMDk0ZWExYWFmNTEyZTM5MDAwOTRiLzU2YjExYjhiZmNhMWFiZTQ4YzAwMDkyMi9maWxlcy9maWxlMDAwMTAzNDQyNDE0OC5qcGciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl0sWyJwIiwiY29udmVydCIsIi1xdWFsaXR5IDgwIl1d/file0001034424148.jpg?sha=0fc5d2dbd32fc8df');
 
     ">
-
 
 					<header class="feature-header"
 							style="
@@ -340,41 +203,14 @@
 
       "
 					>
-
 						<h3 class="feature-title">Resource Library</h3>
-
-
 					</header>
-
-
 				</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 				<a class="feature
        feature-with-background
-
-
-
     " href="/about" style="
-
         background-image: url('https://dncqdsevn7j5.cloudfront.net/images/dynamic/W1siZnUiLCJodHRwczovL2Qxbndmcnp4aGkxOGRwLmNsb3VkZnJvbnQubmV0L3NpdGVzLzU1ZGYzYjM2MjAwY2M5NmViMzAwMDAwNi9jb250ZW50X2VudHJ5NTVlMDk0ZWExYWFmNTEyZTM5MDAwOTRiLzU2YjExYjhlMzIzNjliZGY5OTAwMDg1My9maWxlcy9CSUJMRS1PVVRIRUxEX29uLWJsdWVfb2xkLXN0ZWVwbGVfZmVhdHVyZS1pbWdfMi5qcGciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl0sWyJwIiwiY29udmVydCIsIi1xdWFsaXR5IDgwIl1d/BIBLE-OUTHELD_on-blue_old-steeple_feature-img_2.jpg?sha=7b35eb83c1897e9b');
-
     ">
 
 
@@ -397,23 +233,6 @@
 
 
 				</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 				<a class="feature
        feature-with-background
@@ -447,23 +266,6 @@
 
 				</a>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				<a class="feature
        feature-with-background
 
@@ -495,22 +297,6 @@
 
 
 				</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 				<a class="feature
@@ -556,70 +342,40 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		</div>
+		<div class="sidebar">
 
+			<h4>Streams Live Now</h4>
+			<strong>Morning Worship Service</strong>
+			<p>
+				<a href="">Liam Goligher</a> preaching on Hebrews 12:12-17
+			</p>
+			<p>
+				<a class="btn btn-xs btn-default" href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59c85faafead17a811000002/files/171015.pdf?1507825930" target="_blank">Bulletin</a>
+				<a class="btn btn-xs btn-default" href="">Watch</a>
+				<a class="btn btn-xs btn-default" href="">Listen</a>
+			</p>
+			<br />
 
-		<h3>Livestream Schedule</h3>
-		<hr>
-		<h4>Sundays</h4>
-		<p>8:50 AM, 10:50 AM, 6:15 PM</p>
-		<a class="btn btn-xs btn-default" href="/events/preaching-schedule" target="_blank">Preaching Schedule <i class="fa fa-angle-right"></i></a>
-		<hr>
+			<strong>Internationals Outreach Service</strong>
+			<p>
+				<a href="">Enrique Leal</a> preaching on Colossians 2
+			</p>
+			<p>
+			<a class="btn btn-xs btn-default" href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59c85faafead17a811000002/files/171015.pdf?1507825930" target="_blank">Bulletin</a>
+				<a class="btn btn-xs btn-default" href="">Listen</a>
+			</p>
+			<hr>
 
+			<div class="video_messages"><i>Loading...</i></div>
+			<hr />
 
-
-
-
-
-		<a class="btn btn-xs btn-default" href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/58d58f413b158087f100029a/files/170416_Easter.pdf?1491946872" target="_blank">Bulletin</a>
-
-
-
-
-		<hr>
-
-
-
-
-
-
-
-		<h4><strong>Having Troubles? Try One of Our Livestream Alternatives</strong></h4>
-
-		<p><em><a href="https://www.youtube.com/watch?v=nTn2L6HRtpc&list=PLdVuoO90C3zc2TkWedBFh9OY6_H0M89Qg"><strong>YouTube Livestream </strong>up to 1080p (scheduled events)</a></em></p>
-		<p><em><a href="https://www.facebook.com/tenth"><strong>Facebook Livestream</strong> (account required)</a></em></p>
-
-		<br>
-		<h4><strong>Archived Resources</strong></h4>
-		<br>
-		<p><em><a href="/resource-library"><strong>Resource Library: </strong></a>Archived sermons and other resources.</em></p>
-
-		<p><em><a href="https://www.youtube.com/user/TenthPresbyterian/playlists"><strong>YouTube: </strong></a>Archived sermons and full services.</em></p>
-
-		<p><em><a href="https://vimeo.com/search/sort:latest?q=Tenth+Presbyterian+Church"><strong>Vimeo: </strong></a>Archived sermons and full services.</em></p>
-
-		<p><em><a href="http://www.sermonaudio.com/source_detail.asp?sourceid=tenth"><strong>Sermon Audio: </strong></a>Archived sermons.</em></p>
-		<br>
-		<h4><strong>Sermon Series by Dr. Goligher</strong></h4>
-		<p><em>Archived sermon series by Dr. Liam Goligher are sorted and also available <a href="blog/posts/dr-liam-golighers-sermon-series--3"><strong>here</strong></a>.</em></p>
-		<br>
-
-
-
+			<p>
+				<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
+				<a class="btn btn-primary" href="https://www.tenth.org/about/sundays-at-tenth">Join Us</a>
+				<a class="btn btn-primary" href="https://secure.accessacs.com/access/oglogin.aspx?sn=91460">Give</a>
+			</p>
+		</div>
 
 
 
@@ -673,21 +429,21 @@
 
 
 <script>
-	var refTagger = {
-		settings: {
-			bibleVersion: "ESV",
-			logosLinkIcon: "dark",
-			//cssOverride: true,
-			noSearchTagNames: [],
-			socialSharing: [],
-			noSearchClassNames: ["lead","feature-lead"]
-		}
-	};
-	(function(d, t) {
-		var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-		g.src = "//api.reftagger.com/v2/RefTagger.js";
-		s.parentNode.insertBefore(g, s);
-	}(document, "script"));
+    var refTagger = {
+        settings: {
+            bibleVersion: "ESV",
+            logosLinkIcon: "dark",
+            //cssOverride: true,
+            noSearchTagNames: [],
+            socialSharing: [],
+            noSearchClassNames: ["lead","feature-lead"]
+        }
+    };
+    (function(d, t) {
+        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        g.src = "//api.reftagger.com/v2/RefTagger.js";
+        s.parentNode.insertBefore(g, s);
+    }(document, "script"));
 </script>
 
 
@@ -735,4 +491,3 @@
 
 </body>
 </html>
-
