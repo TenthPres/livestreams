@@ -1,4 +1,5 @@
 
+// Import relevant bits of Font Awesome
 @fa_path: "node_modules/font-awesome/less";
 @import (reference) "@{fa_path}/variables.less";
 @fa-font-path: "/live/node_modules/font-awesome/fonts";
@@ -7,17 +8,6 @@
 //@import (less) "@{fa_path}/core.less";
 //@import (reference,less) "@{fa_path}/icons.less";
 
-div.video {
-  text-align:center;
-  background-color:rgb(238,238,238);
-  & > p {
-    width:94%;
-    margin: 0 3% 10px;
-  }
-  & > * {
-    width:100%;
-  }
-}
 
 div#progList {
   & > div {
@@ -82,7 +72,50 @@ div#progList {
 }
 
 
-// Everything follows really should be handled in the site templating instead.
+// Everything follows really should be handled in the site templating instead.  Oh well...
+
+div.video {
+  text-align:center;
+  background-color:rgb(238,238,238);
+
+  & > p {
+    width:94%;
+    margin: 0 3% 10px;
+  }
+
+  & > * {
+    width:100%;
+  }
+
+  & {
+    width: 100%;
+    padding-bottom: 56.25%;
+    margin-bottom: 4em;
+    position: relative;
+    font-style: inherit;
+    font-variant: inherit;
+    font-weight: inherit;
+    font-stretch: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-family: "Whitney SSm A", "Whitney SSm B", "Open Sans", sans-serif;
+    border-radius: 0;
+  }
+
+  & > p {
+    top: 47%;
+    transform: translateY(-50%);
+    position: absolute;
+  }
+
+  & > .video_mediaElt {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border: 0;
+  }
+}
 
 @media (max-width: 767px) {
   body > .content > .row > .main {
@@ -101,18 +134,26 @@ div.video_messages {
   font-weight: 600;
 }
 
-div.sidebar > p {
-  font-weight: normal;
+div.sidebar {
+  & > p {
+    font-weight: normal;
+  }
+  & h3 {
+    font-size: 18px;
+  }
 }
 
 @media (min-width: 768px) {
-  div.content div.sidebar {
+  body > div.content > div.row > div.sidebar {
     float: right;
     width: 30%;
+    margin-top: 60px;
   }
 
   body > div.content > div.row > div.main {
     margin-right: 0;
+    width:70%;
   }
 }
+
 

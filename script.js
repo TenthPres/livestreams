@@ -6,7 +6,6 @@ var knockoutLib = document.createElement('script'),
     container = scripts[scripts.length-1].parentNode,
     scriptBase = scripts[scripts.length-1].src.replace(/(\/\/.*?\/.*\/).*/g, '$1'),
     mediaElt = document.createElement('p'),
-    div = document.createElement('div'),
     progList = document.createElement('div'),
     vm = {},
     isTestingMode = !(getUrlParameter('test') !== null);
@@ -21,25 +20,6 @@ stylesht.type = 'text/css';
 stylesht.href = scriptBase + 'style.min.css';
 head.appendChild(stylesht);
 
-// impose some styling on the container.
-container.style.width = "100%";
-container.style.paddingBottom = "56.25%";   // 16:9 ratio
-container.style.marginBottom = "4em";   // space for progList
-container.style.position = "relative";
-container.style.font = "inherit";
-container.style.fontFamily = "\"Whitney SSm A\", \"Whitney SSm B\", \"Open Sans\", sans-serif";
-container.style.borderRadius = 0;
-
-// place div for later.
-div.style.width = "100%";
-div.style.height = "100%";
-div.style.position = "absolute";
-div.style.left = 0;
-div.style.right = 0;
-div.style.border = 0;
-div.style.display = "none";
-container.appendChild(div);
-
 // place progList for later.
 progList.id = "progList";
 progList.setAttribute("data-bind", "foreach: vm.livePrograms");
@@ -48,12 +28,7 @@ progList.innerHTML = "<div data-bind=\"foreach: sources, visible: sources.length
 container.appendChild(progList);
 
 // insert "loading" into container.
-//mediaElt.style.width = "100%";
-mediaElt.style.top = "47%";
-mediaElt.style.transform = "translateY(-50%)";
-mediaElt.style.position = "absolute";
 mediaElt.innerHTML = "loading...";
-mediaElt.style.backgroundColor = "#eee";
 container.appendChild(mediaElt);
 
 function providerName(type) {
@@ -165,12 +140,7 @@ function clearVideoWindow() {
     //place mediaElt for later
     container.removeChild(mediaElt);
     mediaElt = document.createElement('iframe');
-    mediaElt.style.width = "100%";
-    mediaElt.style.height = "100%";
-    mediaElt.style.position = "absolute";
-    mediaElt.style.left = 0;
-    mediaElt.style.right = 0;
-    mediaElt.style.border = 0;
+    mediaElt.classList.add("video_mediaElt");
     mediaElt.setAttribute('allowFullScreen','');
     container.appendChild(mediaElt);
 }
