@@ -10,13 +10,17 @@
 
 
 div#progList {
+  left:0;
+  right:0;
+  bottom:-2em;
+  height:2em;
+  border:0;
+  position:absolute;
+  text-align:left;
+
   & > div {
-    left:0;
-    right:0;
-    bottom:-2em;
-    border:0;
-    position:absolute;
-    text-align:left;
+
+    display:inline-block;
 
     opacity: 0.2;
     transition: opacity 3s;
@@ -73,7 +77,6 @@ div#progList {
 
 
 // Everything follows really should be handled in the site templating instead.  Oh well...
-
 div.video {
   text-align:center;
   background-color:rgb(238,238,238);
