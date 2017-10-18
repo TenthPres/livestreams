@@ -24,7 +24,7 @@ head.appendChild(stylesht);
 progList.id = "progList";
 progList.setAttribute("data-bind", "foreach: vm.livePrograms");
 progList.setAttribute("oncontextmenu","return false;");
-progList.innerHTML = "<div data-bind=\"foreach: sources, visible: sources.length > 1 \"><a data-bind=\"attr: {title: providerName(type), class: type, id: id }, css: { 'active': vm.currentMode() === id }, click: playSource \"></a></div>";
+progList.innerHTML = "<div data-bind=\"foreach: sources \"><a data-bind=\"attr: {title: providerName(type), class: type, id: id }, css: { 'active': vm.currentMode() === id }, click: playSource \"></a></div>";
 container.appendChild(progList);
 
 // insert "loading" into container.
@@ -47,7 +47,7 @@ function initalizeModels() {
     vm.livePrograms = ko.observableArray([]);
     vm.currentMode = ko.observable("loading");
 
-    ko.applyBindings(vm, container);
+    ko.applyBindings(vm, document.body);
 
     doRequest();
     setInterval(doRequest, 5000);
@@ -73,8 +73,7 @@ function liveStreamJsonListener() {
         }
     }
 
-    document.body.getElementsByClassName('video_messages')[0].innerHTML = response.msg.join('<br /><br />');
-
+    document.body.getElementsByClassName('video_messages')[0].innerHTML = response.msg.join('<br /><br />'); // Move to a KO binding. Maybe.
 }
 
 function doRequest() {
