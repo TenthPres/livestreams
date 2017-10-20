@@ -361,12 +361,15 @@
 						<a href="">Enrique Leal</a> preaching on Colossians 2
 					</p>
 					<p>
-					<a class="btn btn-xs btn-default" href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59c85faafead17a811000002/files/171015.pdf?1507825930" target="_blank">Bulletin</a>
+						<a class="btn btn-xs btn-default" href="//d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59c85faafead17a811000002/files/171015.pdf?1507825930" target="_blank">Bulletin</a>
 						<a class="btn btn-xs btn-default" href="">Listen</a>
 					</p>
 				</div>
 				<div class="video_event" data-bind="foreach: vm.livePrograms">
 					<h3 data-bind="text: name" ></h3>
+					<p>
+						<a class="btn btn-xs btn-default" data-bind="foreach: sources">Watch</a>
+					</p>
 				</div>
 			</div>
 			<hr>
