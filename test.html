@@ -368,7 +368,9 @@
 				<div class="video_event" data-bind="foreach: vm.livePrograms">
 					<h3 data-bind="text: name" ></h3>
 					<p>
-						<a class="btn btn-xs btn-default" data-bind="foreach: sources">Watch</a>
+						<span data-bind="foreach: sources">
+							<a class="btn btn-xs btn-default">Watch</a>
+						</span>
 					</p>
 				</div>
 			</div>
