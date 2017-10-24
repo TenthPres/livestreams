@@ -50,21 +50,28 @@ if (isset($_GET['test'])) { // test video from California Academy of Natural Sci
 
 $sourceID = 'tenth';
 
-$sa_curl = $client->request('GET', 'http://www.sermonaudio.com/playwebcast.asp?SourceID='.$sourceID)->getBody();
+// URL queried to determine if the webcast is online.  Currently, this ONLY determines whether the stream is online.
+$sa_curl = $client->request('GET', 'https://embed.sermonaudio.com/button/l/'.$sourceID.'/')->getBody();
 
-$sa_urlPos = strpos($sa_curl, "file:") + 7;
-$sa_urlEnd = strpos($sa_curl, "'", $sa_urlPos);
-$sa_videoUrl = substr($sa_curl, $sa_urlPos, $sa_urlEnd - $sa_urlPos);
-$sa_urlPos = strpos($sa_curl, "image:", $sa_urlEnd) + 8;
-$sa_urlEnd = strpos($sa_curl, "'", $sa_urlPos);
-$sa_imageUrl = substr($sa_curl, $sa_urlPos, $sa_urlEnd - $sa_urlPos);
+//$sa_urlPos = strpos($sa_curl, "file:") + 7;
+//$sa_urlEnd = strpos($sa_curl, "'", $sa_urlPos);
+//$sa_videoUrl = substr($sa_curl, $sa_urlPos, $sa_urlEnd - $sa_urlPos);
+//$sa_urlPos = strpos($sa_curl, "image:", $sa_urlEnd) + 8;
+//$sa_urlEnd = strpos($sa_curl, "'", $sa_urlPos);
+//$sa_imageUrl = substr($sa_curl, $sa_urlPos, $sa_urlEnd - $sa_urlPos);
 $sa = (object)[
-	'isLive' => (strpos($sa_curl, "currently not in progress") === false),
-	'videoIfrUrl' => "//www.sermonaudio.com/playwebcast.asp?sourceid=" . $sourceID . "&max=true&autoplay=true",
-	'videoUrl' => $sa_videoUrl, // this is the m3u8 file
+	'isLive' => (strpos($sa_curl, "Webcast Offline") === false),
+
+	'videoIfrUrl' => '//embed.sermonaudio.com/player/l/'.$sourceID.'/?autoplay=true',
+
+//	'videoUrl' => $sa_videoUrl, // this is the m3u8 file
+
+	// it appears that there isn't a parameter for audio-only in the new embed options, so here's the old one.  See Issue #
 	'audioIfrUrl' => "//www.sermonaudio.com/playwebcast.asp?sourceid=" . $sourceID . "&max=true&autoplay=true&stream=audioonly",
-	'audioUrl' => $sa_videoUrl . "?wowzaaudioonly=true", // this is the m3u8 file
-	'thumbUrl' => $sa_imageUrl
+
+//	'audioUrl' => $sa_videoUrl . "?wowzaaudioonly=true", // this is the m3u8 file
+
+//	'thumbUrl' => $sa_imageUrl
 ];
 
 // Create Events based on the YouTube Streams.  Assuming only one stream per event.
@@ -92,14 +99,14 @@ if ($sa->isLive) {
 		'language' => 'en-us',
 		'id' => "sa-vid",
 		'url' => $sa->videoIfrUrl,
-		'thumb' => $sa->thumbUrl
+//		'thumb' => $sa->thumbUrl
 	];
 	$sources[] = (object)[
 		'type' => 'sa-aud',
 		'language' => 'en-us',
 		'id' => "sa-aud",
 		'url' => $sa->audioIfrUrl,
-		'thumb' => $sa->thumbUrl
+//		'thumb' => $sa->thumbUrl
 	];
 
 // SermonAudio: Merge into YouTube-based event or create a new generic one.
