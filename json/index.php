@@ -80,6 +80,7 @@ foreach ($ytV as $v) {
 		'name' => $v->title,
 		'priority' => 1,
 		'id' => "ev-yt" . $v->id,
+		'description' => $v->description,
 		'sources' => [
 			(object)[
 				'type' => 'yt',
