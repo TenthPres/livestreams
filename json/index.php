@@ -119,6 +119,7 @@ if ($sa->isLive) {
 			'name' => "Livestream",
 			'priority' => 1,
 			'id' => "ev-sa",
+			'description' => "",
 			'sources' => $sources
 		];
 	}
