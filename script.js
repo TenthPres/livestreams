@@ -8,7 +8,7 @@ var knockoutLib = document.createElement('script'),
     mediaElt = document.createElement('p'),
     progList = document.createElement('div'),
     vm = {},
-    isTestingMode = !(getUrlParameter('test') !== null);
+    isTestingMode = (!(getUrlParameter('test') !== null)) + 2 * (!(getUrlParameter('static') !== null));
 
 knockoutLib.src = scriptBase + 'node_modules/knockout/build/output/knockout-latest.js';
 knockoutLib.type = 'text/javascript';
@@ -24,27 +24,47 @@ head.appendChild(stylesht);
 progList.id = "progList";
 progList.setAttribute("data-bind", "foreach: vm.livePrograms");
 progList.setAttribute("oncontextmenu","return false;");
-progList.innerHTML = "<div data-bind=\"foreach: sources \"><a data-bind=\"attr: {title: providerName(type), class: type, id: id }, css: { 'active': vm.currentMode() === id }, click: playSource \"></a></div>";
+progList.innerHTML = "<div data-bind=\"foreach: sources \"><a data-bind=\"attr: {title: providerName($data), class: type, id: id }, css: { 'active': vm.currentMode() === id }, click: playSource \"></a></div>";
 container.appendChild(progList);
 
 // insert "loading" into container.
 mediaElt.innerHTML = "loading...";
 container.appendChild(mediaElt);
 
-function providerName(type) {
-    switch (type) {
+function providerName(data) {
+    var s = "";
+
+    switch (data.type) {
         case "yt":
-            return "YouTube Video";
+            s += "YouTube Video";
+            break;
+
+        case "fbl":
+            s += "Facebook Live";
+            break;
+
         case "sa-vid":
-            return "SermonAudio Video";
+            s += "SermonAudio Video";
+            break;
+
+
         case "sa-aud":
-            return "Audio only";
+            s += "Audio only";
+            break;
+
     }
+
+    if (vm.currentMode() === data.id)
+        s += "\nNow Playing";
+
+    return s;
 }
 
 function initalizeModels() {
 
     vm.livePrograms = ko.observableArray([]);
+    vm.archive = ko.observableArray([]);
+    vm.messages = ko.observableArray([]);
     vm.currentMode = ko.observable("loading");
 
     ko.applyBindings(vm, document.body);
@@ -58,7 +78,13 @@ function liveStreamJsonListener() {
     // receive response.
     var response = JSON.parse(this.responseText);
 
-    vm.livePrograms(response.live);
+    if (JSON.stringify(vm.livePrograms()) !== JSON.stringify(response.live)) { // update vm streams if there's a change
+        vm.livePrograms(response.live);
+    }
+
+    if (JSON.stringify(vm.archive()) !== JSON.stringify(response.archive)) { // update vm archive if there's a change
+        vm.archive(response.archive);
+    }
 
     if (!sourceIsValid(vm.currentMode())) { // if the client is watching a source that's no longer valid.
         clearVideoWindow();
@@ -73,16 +99,20 @@ function liveStreamJsonListener() {
         }
     }
 
-    document.body.getElementsByClassName('video_messages')[0].innerHTML = response.msg.join('<br /><br />'); // Move to a KO binding. Maybe.
+    if (JSON.stringify(vm.messages()) !== JSON.stringify(response.msg)) { // update vm messages if there's a change
+        vm.messages(response.msg);
+        document.body.getElementsByClassName('video_messages')[0].innerHTML = vm.messages().join('<br /><br />');
+    }
 }
 
 function doRequest() {
     var req = new XMLHttpRequest();
-    req.Timeout = 4000;
+    req.Timeout = 3800;
     req.withCredentials = true;
     req.addEventListener('load', liveStreamJsonListener);
     req.addEventListener('timeout', liveStreamJsonTimeout);
-    req.open("GET", scriptBase + "json/?current=" + vm.currentMode() + (isTestingMode ? '&test=1' : ''));
+    // req.open("GET", scriptBase + "json/test.json");
+    req.open("GET", scriptBase + "json/?current=" + vm.currentMode() + (isTestingMode ? '&test='+isTestingMode : ''));
     req.send();
 }
 
@@ -91,7 +121,7 @@ function liveStreamJsonTimeout() {
 }
 
 function sourceIsValid(sourceId) {
-    if (sourceId === 'loading') // 'loading' is always a valid source.
+    if (sourceId === 'loading') // 'loading' is always a valid source because of the possibility that it could be paused.
         return true;
 
     if (sourceId.indexOf('yt-') > -1) // youtube is always a valid source (at least, for now).
@@ -112,17 +142,39 @@ function playSource(source) {
         case "yt":
             playYouTube(source);
             return;
+
+        case "fbl":
+            playFacebook(source);
+            return;
+
         case "sa-vid":
             playSaVid(source);
             return;
+
         case "sa-aud":
             playSaAud(source);
             return;
     }
 }
 
+function playVerb(source) {
+    switch (source.type) {
+        case "yt":
+        case "fbl":
+        case "sa-vid":
+            return "Watch";
+
+        case "sa-aud":
+            return "Listen";
+    }
+}
+
 
 function playYouTube(source) {
+    mediaElt.src = source.url;
+}
+
+function playFacebook(source) {
     mediaElt.src = source.url;
 }
 
@@ -141,6 +193,7 @@ function clearVideoWindow() {
     mediaElt = document.createElement('iframe');
     mediaElt.classList.add("video_mediaElt");
     mediaElt.setAttribute('allowFullScreen','');
+    mediaElt.setAttribute('scrolling','no');
     container.appendChild(mediaElt);
 }
 

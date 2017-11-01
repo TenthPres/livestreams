@@ -28,8 +28,22 @@
       ]
     }
   ],
-  "archive": [],
-  "msg": [
-    "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: 7ma2sphq64tgkm0ketlm38gip3 %0D%0A%0D%0A\">The Technology Committee would love to know what you think<\/a>."
-  ]
+  "archive": [
+    {
+      "name": "Morning Worship Service  Sunday, 29 October 2017",
+      "priority": 1,
+      "id": "ev-ytEUPEWfeyoL0",
+      "description": "9am Service featuring Liam Goligher preaching \u201cJustification\u201d from Romans 5:1-2",
+      "sources": [
+        {
+          "type": "yt",
+          "language": "en-us",
+          "id": "yt-EUPEWfeyoL0",
+          "url": "\/\/www.youtube.com\/embed\/EUPEWfeyoL0?autoplay=1&rel=0&showinfo=0",
+          "thumb": "https:\/\/i.ytimg.com\/vi\/EUPEWfeyoL0\/hqdefault_live.jpg"
+        }
+      ]
+    }
+  ],
+  "msg": []
 }

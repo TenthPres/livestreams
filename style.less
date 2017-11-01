@@ -8,6 +8,21 @@
 //@import (less) "@{fa_path}/core.less";
 //@import (reference,less) "@{fa_path}/icons.less";
 
+.starts-chapter .chapter-num {
+  & {
+    font-family: "adobe-garamond-pro", Garamond, serif;
+    color: #49917b;
+    float: left;
+    font-size: 5em;
+    line-height:.8em;
+    margin-right: -.15em;
+    font-weight:normal;
+  }
+}
+.main .section-nav ul.nav.nav-tabs.row-fluid {
+  padding-left: 0;
+}
+
 
 div#progList {
   left:0;
@@ -50,6 +65,9 @@ div#progList {
       &.yt:before {
         content:@fa-var-youtube-play;
       }
+      &.fbl:before {
+        content:@fa-var-facebook-official;
+      }
       &.sa-vid:before {
         content:@fa-var-video-camera;
       }
@@ -77,6 +95,28 @@ div#progList {
 
 
 // Everything follows really should be handled in the site templating instead.  Oh well...
+.sidebar {
+  .btn.btn-xs {
+    &:after {
+      font-family: FontAwesome, serif;
+      padding-left: .4em;
+    }
+    &.yt:after {
+      content: @fa-var-youtube-play;
+    }
+    &.fbl:after {
+      content: @fa-var-facebook-official;
+    }
+    &.sa-vid:after {
+      content: @fa-var-video-camera;
+    }
+    &.sa-aud:after {
+      content: @fa-var-volume-up;
+    }
+  }
+}
+
+
 div.video {
   text-align:center;
   background-color:rgb(238,238,238);
@@ -158,5 +198,3 @@ div.sidebar {
     width:70%;
   }
 }
-
-
