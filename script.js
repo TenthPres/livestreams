@@ -47,11 +47,9 @@ function providerName(data) {
             s += "SermonAudio Video";
             break;
 
-
         case "sa-aud":
             s += "Audio only";
             break;
-
     }
 
     if (vm.currentMode() === data.id)
@@ -93,7 +91,11 @@ function liveStreamJsonListener() {
 
     if (vm.currentMode() === "loading") { // if the client is in "loading" mode
         if (response.live.length > 0) {
-            playSource(response.live[0].sources[0]);
+            if (response.live[0].sources.length > 0) {
+                playSource(response.live[0].sources[0]);
+            } else {
+                mediaElt.innerHTML = "A livestream is currently available, but is not compatible with your browser.<br />Please consider using a different browser."
+            }
         } else {
             mediaElt.innerHTML = "There is no livestream currently available.<br />We will display the livestream here as soon as it begins."
         }

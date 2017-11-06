@@ -15,6 +15,7 @@ YouTubeLiveEmbed::setApiKey('AIzaSyChOgE1uQkFhxo1xOOdhlSCscmTvR2YcCk');
 $r = (object)[];
 $r->live = [];
 $r->archive = [];
+$r->msg = [];
 
 
 // Create default HandlerStack, add cache to the stack.
@@ -66,7 +67,7 @@ $sa = (object)[
 
 //	'videoUrl' => $sa_videoUrl, // this is the m3u8 file
 
-	// it appears that there isn't a parameter for audio-only in the new embed options, so here's the old one.  See Issue #
+	// it appears that there isn't a parameter for audio-only in the new embed options, so here's the old one.  See Issue #10
 	'audioIfrUrl' => "//www.sermonaudio.com/playwebcast.asp?sourceid=" . $sourceID . "&max=true&autoplay=true&stream=audioonly",
 
 //	'audioUrl' => $sa_videoUrl . "?wowzaaudioonly=true", // this is the m3u8 file
@@ -76,22 +77,29 @@ $sa = (object)[
 
 // Create Events based on the YouTube Streams.  Assuming only one stream per event.
 foreach ($ytV as $v) {
-	$r->live[] = (object)[
+	$LO = (object)[
 		'name' => $v->title,
 		'priority' => 1,
 		'id' => "ev-yt" . $v->id,
 		'description' => $v->description,
-		'sources' => [
-			(object)[
-				'type' => 'yt',
-				'language' => 'en-us',
-				'id' => "yt-" . $v->id,
-				'url' => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0",
-				'thumb' => $v->thumb_high
-				]
-			]
+		'sources' => []
 		];
+
+	// Work-around for Internet Explorer on Windows 7. (See Issue #3)
+	if ($_SERVER['HTTP_USER_AGENT'] !== 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko') {
+		$LO->sources[] = (object) [
+			'type'     => 'yt',
+			'language' => 'en-us',
+			'id'       => "yt-" . $v->id,
+			'url'      => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0",
+			'thumb'    => $v->thumb_high
+		];
+	}
+
+	$r->live[] = $LO;
 }
+
+$youTubeActive = (count($r->live) > 0);
 
 // SermonAudio: Create source objects
 if ($sa->isLive) {
@@ -124,7 +132,6 @@ if ($sa->isLive) {
 		];
 	}
 
-
 	unset($sources);
 }
 
@@ -132,9 +139,6 @@ if ($sa->isLive) {
 $sid = $_COOKIE['kurtz'];
 $current = (isset($_GET['current']) ? $_GET['current'] : null);
 
-// Message Presentation
-$r->msg = [];
-$r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: {$sid} %0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.";
 
 // Static Test values
 if (isset($_GET['test']) && (intval($_GET['test']) & 2)) {
@@ -144,9 +148,28 @@ if (isset($_GET['test']) && (intval($_GET['test']) & 2)) {
 	}
 }
 
-// Assuming first provider is the best provider, provide an indication to the user when they're watching a provider other than the first.
-if(!is_null($current) && $current !== 'loading' && explode('-', $current,2)[0] !== explode('-', $r->live[0]->sources[0]->id, 2)[0])
-	$r->msg[] = "A better quality stream may be available than the one you're currently watching.  <a href=\"#\" onclick='playSource(" . json_encode($r->live[0]->sources[0]) . "); return false;'>Click here to switch</a>.";
+// Work-around for Internet Explorer on Windows 7. (See Issue #3)
+if ($youTubeActive && $_SERVER['HTTP_USER_AGENT'] === 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko') {
+
+	// Add Message for End-users
+	if ($current === 'loading') {
+		$r->msg[] = "<span style=\"color: #f00;\">Streams are available, but won't work with Internet Explorer on Windows 7.  Please consider using a different browser.</span>";
+	} else {
+		$r->msg[] = "Other streams are available, but won't work with Internet Explorer on Windows 7.  Please consider using a different browser.";
+	}
+
+} else {
+
+	// Assuming first provider is the best provider, provide an indication to the user when they're watching a provider other than the first.
+	// TODO: refactor, without the assumption that
+	if ( ! is_null( $current ) && $current !== 'loading' && explode( '-', $current, 2 )[0] !== explode( '-', $r->live[0]->sources[0]->id, 2 )[0] && $youTubeActive ) {
+		$r->msg[] = "A better quality stream may be available than the one you're currently watching.  <a href=\"#\" onclick='playSource(" . json_encode( $r->live[0]->sources[0] ) . "); return false;'>Click here to switch</a>.";
+	}
+}
+
+// Message Presentation
+//$r->msg[] = "<span style=\"background-color: yellow;\">This morning's worship services will not be broadcast due to the sensitive nature of our preacher's work.</span>  Please join us for the livestream of our Evening Service and the conclusion of our Global Outreach Conference at 6:15pm EST (23:30 UTC).  You can <a href=\"https://bit.ly/goconferences\">find previous GO Conference Services here</a>.";
+$r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: {$sid} %0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.";
 
 // Session & Cookie Management
 session_name("kurtz");
