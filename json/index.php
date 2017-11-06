@@ -91,7 +91,7 @@ foreach ($ytV as $v) {
 			'type'     => 'yt',
 			'language' => 'en-us',
 			'id'       => "yt-" . $v->id,
-			'url'      => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0",
+			'url'      => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0&color=white",
 			'thumb'    => $v->thumb_high
 		];
 	}
