@@ -374,6 +374,13 @@
 			<div class="video_messages"><i>Loading...</i></div>
 			<hr data-bind="visible: (vm.messages().length > 0)" />
 
+			<p>
+				<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
+				<a class="btn btn-primary" href="https://www.tenth.org/about/sundays-at-tenth">Join Us</a>
+				<a class="btn btn-primary" href="https://secure.accessacs.com/access/oglogin.aspx?sn=91460">Give</a>
+			</p>
+
+			<hr data-bind="visible: (vm.archive().length > 0)" />
 			<h2 data-bind="visible: (vm.archive().length > 0)">Recent Streams</h2>
 			<div class="video_eventList">
 				<div class="video_event" data-bind="foreach: vm.archive">
@@ -386,13 +393,6 @@
 					</p>
 				</div>
 			</div>
-			<hr data-bind="visible: (vm.archive().length > 0)">
-
-			<p>
-				<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
-				<a class="btn btn-primary" href="https://www.tenth.org/about/sundays-at-tenth">Join Us</a>
-				<a class="btn btn-primary" href="https://secure.accessacs.com/access/oglogin.aspx?sn=91460">Give</a>
-			</p>
 		</div>
 
 	</div>
