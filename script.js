@@ -2,13 +2,14 @@
 var knockoutLib = document.createElement('script'),
     head  = document.getElementsByTagName('head')[0],
     stylesht = document.createElement('link'),
-    scripts = document.getElementsByTagName('script'),
-    container = scripts[scripts.length-1].parentNode,
-    scriptBase = scripts[scripts.length-1].src.replace(/(\/\/.*?\/.*\/).*/g, '$1'),
+    container = document.scripts[document.scripts.length-1].parentNode,
+    scriptBase = document.scripts[document.scripts.length-1].src.replace(/(\/\/.*?\/.*\/).*/g, '$1'),
     mediaElt = document.createElement('p'),
     progList = document.createElement('div'),
     vm = {},
     isTestingMode = (!(getUrlParameter('test') !== null)) + 2 * (!(getUrlParameter('static') !== null));
+
+console.info(scriptBase);
 
 knockoutLib.src = scriptBase + 'node_modules/knockout/build/output/knockout-latest.js';
 knockoutLib.type = 'text/javascript';
