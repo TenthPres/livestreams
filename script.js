@@ -9,8 +9,6 @@ var knockoutLib = document.createElement('script'),
     vm = {},
     isTestingMode = (!(getUrlParameter('test') !== null)) + 2 * (!(getUrlParameter('static') !== null));
 
-console.info(scriptBase);
-
 knockoutLib.src = scriptBase + 'node_modules/knockout/build/output/knockout-latest.js';
 knockoutLib.type = 'text/javascript';
 knockoutLib.onload = initalizeModels;
