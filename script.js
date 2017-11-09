@@ -85,7 +85,7 @@ function liveStreamJsonListener() {
 
     if (!sourceIsValid(vm.currentMode())) { // if the client is watching a source that's no longer valid.
         clearVideoWindow();
-        vm.currentMode('loading');
+        vm.currentMode("loading");
     }
 
     if (vm.currentMode() === "loading") { // if the client is in "loading" mode
@@ -125,7 +125,7 @@ function sourceIsValid(sourceId) {
     if (sourceId === 'loading') // 'loading' is always a valid source because of the possibility that it could be paused.
         return true;
 
-    if (sourceId.indexOf('yt-') > -1) // youtube is always a valid source (at least, for now).
+    if (sourceId.indexOf('yt-') === 0) // youtube is always a valid source (at least, for now).
         return true;
 
     // for everything else, if it's in the list of current sources, it's valid.  If it's not, it's not.
@@ -137,7 +137,7 @@ function sourceIsValid(sourceId) {
 }
 
 function playSource(source) {
-    clearVideoWindow();
+    createVideoFrame();
     vm.currentMode(source.id);
     switch (source.type) {
         case "yt":
@@ -189,7 +189,12 @@ function playSaAud(source) {
 
 
 function clearVideoWindow() {
-    //place mediaElt for later
+    container.removeChild(mediaElt);
+    mediaElt = document.createElement('p');
+    container.appendChild(mediaElt);
+}
+
+function createVideoFrame() {
     container.removeChild(mediaElt);
     mediaElt = document.createElement('iframe');
     mediaElt.classList.add("video_mediaElt");

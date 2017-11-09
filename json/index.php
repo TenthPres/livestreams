@@ -10,7 +10,7 @@ use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
 use Kevinrob\GuzzleCache\Storage\DoctrineCacheStorage;
 use Doctrine\Common\Cache\FilesystemCache;
 
-YouTubeLiveEmbed::setApiKey('AIzaSyChOgE1uQkFhxo1xOOdhlSCscmTvR2YcCk');
+YouTubeLiveEmbed::setApiKey('AIzaSyChOgE1uQkFhxo1xOOdhlSCscmTvR2YcCk'); // TODO reset and remove this from the public repo
 
 $r = (object)[];
 $r->live = [];
@@ -46,6 +46,29 @@ if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from Ca
 	$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
 	$ytV = $ytle->videos();
 }
+
+// Facebook Query  TODO reset and remove the access tokens from the public repo
+if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from... wherever convenient
+	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/ArminvanBuuren/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
+} else {
+	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/Tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
+}
+$fblObj             = json_decode($fbReq->getBody());
+$facebookSrcObjects = [];
+$facebookTitle      = "";
+foreach ($fblObj->data as $video) {
+	if (isset($video->live_status) && $video->live_status === "LIVE") {
+		$facebookSrcObjects[] = (object)[
+			'type' => 'fbl',
+			'language' => 'en-us',
+			'id' => "fbl-" . $video->id,
+			'url' => "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F" . $video->id . "%2F&mute=0"
+		];
+		$facebookTitle = $video->title;
+	}
+}
+
+
 
 // SermonAudio Query
 
@@ -135,6 +158,26 @@ if ($sa->isLive) {
 	unset($sources);
 }
 
+
+// Facebook: merge into existing event or create a new one.  TODO match better, and better handle the possibility of more than one.
+if (count($facebookSrcObjects) > 0) {
+
+	if (count($r->live) > 0) {
+		$r->live[0]->sources = array_merge($r->live[0]->sources, $facebookSrcObjects);
+	} else {
+		$r->live[] = (object)[
+			'name' => $facebookTitle,
+			'priority' => 1,
+			'id' => "ev-" . $facebookSrcObjects[0]->id,
+			'description' => "",
+			'sources' => $facebookSrcObjects
+		];
+	}
+
+	unset($sources);
+}
+
+
 // Some variables to keep things clean later.
 $sid = $_COOKIE['kurtz'];
 $current = (isset($_GET['current']) ? $_GET['current'] : null);
@@ -161,8 +204,8 @@ if ($youTubeActive && $_SERVER['HTTP_USER_AGENT'] === 'Mozilla/5.0 (Windows NT 6
 } else {
 
 	// Assuming first provider is the best provider, provide an indication to the user when they're watching a provider other than the first.
-	// TODO: refactor, without the assumption that
-	if ( ! is_null( $current ) && $current !== 'loading' && explode( '-', $current, 2 )[0] !== explode( '-', $r->live[0]->sources[0]->id, 2 )[0] && $youTubeActive ) {
+	// TODO: refactor, with fewer assumptions
+	if (count($r->live) > 0 && $current !== 'loading' && explode( '-', $current, 2 )[0] !== explode( '-', $r->live[0]->sources[0]->id, 2 )[0] && $youTubeActive ) {
 		$r->msg[] = "A better quality stream may be available than the one you're currently watching.  <a href=\"#\" onclick='playSource(" . json_encode( $r->live[0]->sources[0] ) . "); return false;'>Click here to switch</a>.";
 	}
 }
