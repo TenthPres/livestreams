@@ -49,13 +49,13 @@ if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from Ca
 
 // Facebook Query  TODO reset and remove the access tokens from the public repo
 if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from... wherever convenient
-	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/ArminvanBuuren/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
+	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/bboyworld/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
 } else {
-	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/Tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
+	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
 }
 $fblObj             = json_decode($fbReq->getBody());
 $facebookSrcObjects = [];
-$facebookTitle      = "";
+$facebookTitle      = "Livestream";
 foreach ($fblObj->data as $video) {
 	if (isset($video->live_status) && $video->live_status === "LIVE") {
 		$facebookSrcObjects[] = (object)[
@@ -64,7 +64,9 @@ foreach ($fblObj->data as $video) {
 			'id' => "fbl-" . $video->id,
 			'url' => "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F" . $video->id . "%2F&mute=0"
 		];
-		$facebookTitle = $video->title;
+		if (isset($video->title)) {
+			$facebookTitle = $video->title;
+		}
 	}
 }
 
