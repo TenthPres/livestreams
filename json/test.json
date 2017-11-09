@@ -24,6 +24,12 @@
           "language": "en-us",
           "id": "sa-aud",
           "url": "\/\/www.sermonaudio.com\/playwebcast.asp?sourceid=tenth&max=true&autoplay=true&stream=audioonly"
+        },
+        {
+          "type": "fbl",
+          "language": "en-us",
+          "id": "fbl-10155960098769571",
+          "url": "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F1502879466416589%2F&mute=0&autoplay=1"
         }
       ]
     }

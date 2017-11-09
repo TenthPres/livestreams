@@ -62,7 +62,7 @@ foreach ($fblObj->data as $video) {
 			'type' => 'fbl',
 			'language' => 'en-us',
 			'id' => "fbl-" . $video->id,
-			'url' => "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F" . $video->id . "%2F&mute=0"
+			'url' => "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F" . $video->id . "%2F&mute=0&autoplay=1"
 		];
 		if (isset($video->title)) {
 			$facebookTitle = $video->title;
