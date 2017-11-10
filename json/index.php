@@ -10,7 +10,7 @@ use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
 use Kevinrob\GuzzleCache\Storage\DoctrineCacheStorage;
 use Doctrine\Common\Cache\FilesystemCache;
 
-YouTubeLiveEmbed::setApiKey('AIzaSyChOgE1uQkFhxo1xOOdhlSCscmTvR2YcCk'); // TODO reset and remove this from the public repo
+YouTubeLiveEmbed::setApiKey('AIzaSyCsseQhaNsjAsuUjV97nlA8KXXmrydyNRY'); // TODO reset and remove this from the public repo
 
 $r = (object)[];
 $r->live = [];
@@ -34,17 +34,21 @@ $stack->push(
 
 $client = new Client(['handler' => $stack]);
 
+try { // this catches quota exceeding errors.
 
 // YouTube Query
-$ytle = new YouTubeLiveEmbed('UC_GR2sUKyKPiULviFLvPDQg');
-$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
-$ytV = $ytle->videos();
+	$ytle               = new YouTubeLiveEmbed( 'UC_GR2sUKyKPiULviFLvPDQg' );
+	$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
+	$ytV                = $ytle->videos();
 
 // YouTube: Just in case there aren't any current live streams...
-if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from California Academy of Natural Sciences
-	$ytle = new YouTubeLiveEmbed('UCZvXaNYIcapCEcaJe_2cP7A');
-	$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
-	$ytV = $ytle->videos();
+	if ( isset( $_GET['test'] ) && ( intval( $_GET['test'] ) & 1 ) ) { // test video from California Academy of Natural Sciences
+		$ytle               = new YouTubeLiveEmbed( 'UCZvXaNYIcapCEcaJe_2cP7A' );
+		$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
+		$ytV                = $ytle->videos();
+	}
+} catch (GuzzleHttp\Exception\ClientException $e) {
+	$ytV = [];
 }
 
 // Facebook Query  TODO reset and remove the access tokens from the public repo
