@@ -23,7 +23,7 @@
           "type": "sa-aud",
           "language": "en-us",
           "id": "sa-aud",
-          "url": "\/\/www.sermonaudio.com\/playwebcast.asp?sourceid=tenth&max=true&autoplay=true&stream=audioonly"
+          "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
         },
         {
           "type": "fbl",

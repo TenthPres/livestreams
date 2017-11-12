@@ -97,7 +97,7 @@ $sa = (object)[
 //	'videoUrl' => $sa_videoUrl, // this is the m3u8 file
 
 	// it appears that there isn't a parameter for audio-only in the new embed options, so here's the old one.  See Issue #10
-	'audioIfrUrl' => "//www.sermonaudio.com/playwebcast.asp?sourceid=" . $sourceID . "&max=true&autoplay=true&stream=audioonly",
+	'audioIfrUrl' => "//embed.sermonaudio.com/player/l/".$sourceID."/?autoplay=true&quality=audio",
 
 //	'audioUrl' => $sa_videoUrl . "?wowzaaudioonly=true", // this is the m3u8 file
 
