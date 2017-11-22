@@ -19,9 +19,17 @@
     font-weight:normal;
   }
 }
+
 .main .section-nav ul.nav.nav-tabs.row-fluid {
-  padding-left: 0;
+  & a {
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    padding-left: 0;
+  }
 }
+
+
 
 
 div#progList {
@@ -116,8 +124,12 @@ div#progList {
   }
 }
 
+// TODO remove if the corresponding rule can be removed from the template css
+body.livestream div.video {
+  font:inherit;
+}
 
-div.video {
+body div.video {
   text-align:center;
   background-color:rgb(238,238,238);
 
@@ -160,11 +172,24 @@ div.video {
   }
 }
 
+li#otherStreamsTab {
+  display:none;
+  margin-right:0;
+}
+
 @media (max-width: 767px) {
   body > .content > .row > .main {
     h3, div.features-grid {
       display:none;
     }
+  }
+
+  li#otherStreamsTab {
+    display:inline-block;
+  }
+
+  div.sidebar {
+    display:none;
   }
 
   div.content div.sidebar {
