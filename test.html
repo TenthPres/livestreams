@@ -163,7 +163,7 @@
 
 			<div class="section-nav depth-2">
 				<ul class="nav nav-tabs row-fluid">
-					<li style="float:right" id="otherStreamsTab" data-bind="visible: (vm.livePrograms().length > 1)"><a>Other Streams</a></li>
+					<li style="float:right" id="otherStreamsTab" data-bind="visible: (vm.livePrograms().length + vm.archive().length > 1)"><a onclick="switchTabs_streamsList(this)">Other Streams</a></li>
 					<li class=""><a>Bulletin</a></li>
 					<li class="active"><a>Romans 5:1-2</a></li>
 				</ul>
@@ -175,9 +175,9 @@
 				<p id="p45005005_06-1"><a class="va" rel="v45005005"></a><b class="verse-num" id="v45005006-1">6&nbsp;</b><a class="va" rel="v45005006"></a>For <sup><a class="cf" title="ver. 8, 10; [Hos. 13:9; Eph. 2:5]">j</a></sup>while we were still weak, at the right time <sup><a class="cf" title="See ch. 4:25">k</a></sup>Christ died for the ungodly. <b class="verse-num" id="v45005007-1">7&nbsp;</b><a class="va" rel="v45005007"></a>For one will scarcely die for a righteous person—though perhaps for a good person one would dare even to die—<b class="verse-num" id="v45005008-1">8&nbsp;</b><a class="va" rel="v45005008"></a>but <sup><a class="cf" title="See John 3:16">l</a></sup>God shows his love for us in that <sup><a class="cf" title="ver. 6, 10">m</a></sup>while we were still sinners, Christ died for us. <b class="verse-num" id="v45005009-1">9&nbsp;</b><a class="va" rel="v45005009"></a>Since, therefore, <sup><a class="cf" title="See ch. 3:25">n</a></sup>we have now been justified by his blood, much more shall we be saved by him from <sup><a class="cf" title="1 Thess. 1:10; 2:16; See ch. 1:18">o</a></sup>the wrath of God. <b class="verse-num" id="v45005010-1">10&nbsp;</b><a class="va" rel="v45005010"></a>For if <sup><a class="cf" title="ver. 6, 8; Col. 1:21; [ch. 8:32]">p</a></sup>while we were enemies <sup><a class="cf" title="2 Cor. 5:18-20; Eph. 2:16; Col. 1:20, 21">q</a></sup>we were reconciled to God by the death of his Son, much more, now that we are reconciled, shall we be saved by <sup><a class="cf" title="2 Cor. 4:10, 11">r</a></sup>his life. <b class="verse-num" id="v45005011-1">11&nbsp;</b><a class="va" rel="v45005011"></a>More than that, we also rejoice in God through our Lord Jesus Christ, through whom we have now received <sup><a class="cf" title="ch. 11:15; 2 Cor. 5:18, 19">s</a></sup>reconciliation.</p>
 			</div>
 
-			<div class="body section-content" style="padding-bottom: 121%; height:0; width:100%; position:relative;">
-				<iframe style="width:100%; height:100%; position:absolute; border:none;" width="100%" height="100%" src="https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59ee6a53e6a0b4a8d50001fa/files/171112.pdf?1510330387"></iframe>
-			</div>
+			<!--<div class="body section-content" style="padding-bottom: 121%; height:0; width:100%; position:relative;">-->
+				<!--<iframe style="width:100%; height:100%; position:absolute; border:none;" width="100%" height="100%" src="https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59ee6a53e6a0b4a8d50001fa/files/171112.pdf?1510330387"></iframe>-->
+			<!--</div>-->
 
 
 <!--
@@ -363,8 +363,8 @@
 		</div>
 		<div class="sidebar">
 
-			<h2>Live Now</h2>
 			<div class="video_eventList" data-bind="visible: (vm.livePrograms().length > 0)">
+				<h2>Live Now</h2>
 				<div class="video_event" data-bind="foreach: vm.livePrograms">
 					<h3 data-bind="text: name" ></h3>
 					<p data-bind="text: description"></p>
@@ -374,21 +374,21 @@
 						</span>
 					</p>
 				</div>
+				<hr />
 			</div>
-			<hr data-bind="visible: (vm.livePrograms().length > 0)">
 
-			<div class="video_messages"><i>Loading...</i></div>
-			<hr data-bind="visible: (vm.messages().length > 0)" />
+			<div class="video_messages wideOnly"><i>Loading...</i></div>
+			<hr class="wideOnly" data-bind="visible: (vm.messages().length > 0)" />
 
-			<p>
-				<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
+			<div class="btn-set wideOnly">
 				<a class="btn btn-primary" href="https://www.tenth.org/about/sundays-at-tenth">Join Us</a>
 				<a class="btn btn-primary" href="https://secure.accessacs.com/access/oglogin.aspx?sn=91460">Give</a>
-			</p>
+				<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
+			</div>
 
-			<hr data-bind="visible: (vm.archive().length > 0)" />
-			<h2 data-bind="visible: (vm.archive().length > 0)">Recent Streams</h2>
-			<div class="video_eventList">
+			<div class="video_eventList" data-bind="visible: (vm.archive().length > 0)">
+				<hr class="wideOnly" />
+				<h2>Recent Streams</h2>
 				<div class="video_event" data-bind="foreach: vm.archive">
 					<h3 data-bind="text: name" ></h3>
 					<p data-bind="text: description"></p>
@@ -398,8 +398,18 @@
 						</span>
 					</p>
 				</div>
+				<hr class="narrowOnly">
 			</div>
 		</div>
+		<!--<div>-->
+			<div class="btn-set narrowOnly">
+				<a class="btn btn-primary" href="https://www.tenth.org/about/sundays-at-tenth">Join Us</a>
+				<a class="btn btn-primary" href="https://secure.accessacs.com/access/oglogin.aspx?sn=91460">Give</a>
+				<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
+			</div>
+		<!--</div>-->
+
+
 
 	</div>
 

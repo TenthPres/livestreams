@@ -124,6 +124,24 @@ div#progList {
   }
 }
 
+div.btn-set {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content:space-between;
+  left: 50%;
+  max-width:300px;
+  position: relative;
+  transform: translateX(-50%);
+  width:100%;
+
+  .btn {
+    margin-bottom:2px;
+    margin-right:2px;
+    flex-grow: 4;
+  }
+}
+
 // TODO remove if the corresponding rule can be removed from the template css
 body.livestream div.video {
   font:inherit;
@@ -195,6 +213,15 @@ li#otherStreamsTab {
   div.content div.sidebar {
     padding-top:10px;
   }
+
+  .wideOnly, div.wideOnly{
+    display:none;
+  }
+
+  body div.sidebar {
+    margin-top:0;
+    border:none;
+  }
 }
 
 div.video_messages {
@@ -221,5 +248,9 @@ div.sidebar {
   body > div.content > div.row > div.main {
     margin-right: 0;
     width:70%;
+  }
+
+  .narrowOnly, div.narrowOnly{
+    display:none;
   }
 }

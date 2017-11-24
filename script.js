@@ -106,6 +106,34 @@ function liveStreamJsonListener() {
     }
 }
 
+function switchTabs_streamsList(caller) {
+    switchTabs_reset(caller);
+    document.getElementsByClassName('sidebar')[0].style.display = 'block';
+}
+
+function switchTabs_reset(caller) {
+    // hide other content sections.
+    document.getElementsByClassName('sidebar')[0].style.display = '';
+    var sects = document.getElementsByClassName('section-content');
+    for(var si in sects) {
+        if (!sects.hasOwnProperty(si))
+            continue;
+        sects[si].style.display = 'none';
+    }
+
+    // remove 'active' class from tab
+    var tabs = caller.parentNode.parentNode.children;
+    for(var ti in tabs) {
+        if (!tabs.hasOwnProperty(ti))
+            continue;
+        tabs[ti].classList.remove('active');
+    }
+
+    // add 'active' class to caller tab
+    caller.parentNode.classList.add('active');
+
+}
+
 function doRequest() {
     var req = new XMLHttpRequest();
     req.Timeout = 3800;
