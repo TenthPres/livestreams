@@ -62,7 +62,9 @@ function initalizeModels() {
     vm.livePrograms = ko.observableArray([]);
     vm.archive = ko.observableArray([]);
     vm.messages = ko.observableArray([]);
+    vm.currentProgram = ko.observable("loading");
     vm.currentMode = ko.observable("loading");
+    vm.currentAttachment = ko.observable(null);
 
     ko.applyBindings(vm, document.body);
 
@@ -86,6 +88,7 @@ function liveStreamJsonListener() {
     if (!sourceIsValid(vm.currentMode())) { // if the client is watching a source that's no longer valid.
         clearVideoWindow();
         vm.currentMode("loading");
+        vm.currentProgram("loading");
     }
 
     if (vm.currentMode() === "loading") { // if the client is in "loading" mode
@@ -104,6 +107,11 @@ function liveStreamJsonListener() {
         vm.messages(response.msg);
         document.body.getElementsByClassName('video_messages')[0].innerHTML = vm.messages().join('<br /><br />');
     }
+}
+
+function selectAttachment(attachment) {
+
+    switchTabs_reset(attachment);
 }
 
 function switchTabs_streamsList(caller) {
@@ -157,15 +165,12 @@ function sourceIsValid(sourceId) {
         return true;
 
     // for everything else, if it's in the list of current sources, it's valid.  If it's not, it's not.
-    return undefined !== vm.livePrograms().find(function (prg) {
-        return undefined !== prg.sources.find(function(src) {
-            return(src.id === this.id);
-        }, this);
-    }, {"id":sourceId});
+    return undefined !== _getProgramFromSourceId(sourceId);
 }
 
 function playSource(source) {
     createVideoFrame();
+    vm.currentProgram(_getProgramFromSourceId(source.id));
     vm.currentMode(source.id);
     switch (source.type) {
         case "yt":
@@ -185,6 +190,15 @@ function playSource(source) {
             return;
     }
 }
+
+function _getProgramFromSourceId(sourceId) {
+    return vm.livePrograms().find(function (prg) {
+        return undefined !== prg.sources.find(function(src) {
+            return(src.id === this.id);
+        }, this);
+    }, {"id":sourceId});
+}
+
 
 function playVerb(source) {
     switch (source.type) {
