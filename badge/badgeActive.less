@@ -1,0 +1,40 @@
+body.livestreamActive div.content > div.weeks > div.livestream > a.livestream-link[href="/livestream"] {
+
+  & > *::after {
+    content: "Live Now";
+    font-size: 20px;
+    display: block;
+    margin-top: 1em;
+    font-variant: small-caps;
+    border: 1px solid #e00;
+    padding: .2em;
+    border-radius: .2em;
+    color: #e00;
+    font-family: "Whitney SSm A", "Whitney SSm B", "Open Sans", open-sans, sans-serif;
+    font-weight: 700;
+  }
+
+  &:hover > *::before {
+    font-size: 105%;
+    line-height:100%;
+  }
+
+  & > *::before {
+    transition: line-height 0.1s, font-size 0.1s;
+    line-height:105%;
+    color:#c00;
+    animation: pulses 1.5s linear infinite;
+  }
+}
+
+@keyframes pulses {
+  0% {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
