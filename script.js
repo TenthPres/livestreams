@@ -40,16 +40,19 @@ container.appendChild(progList);
 mediaElt.innerHTML = "loading...";
 container.appendChild(mediaElt);
 
+// noinspection JSUnusedGlobalSymbols
 /**
- * @function Helps clarify provider for a given stream in the UI.  This is called by knockout bindings.
+ * Helps clarify provider for a given stream in the UI.  This is called by knockout bindings.
+ *
+ * @function
  * @param source    {object}    A source object from within a LiveEvent object.  These are defined by the JSON from the
  *                              server, and are stored in vm.livePrograms
  * @returns         {string}    A string useful for distinguishing between streams.
  */
-function providerName(data) {
+function providerName(source) {
     var s = "";
 
-    switch (data.type) {
+    switch (source.type) {
         case "yt":
             s += "YouTube Video";
             break;
@@ -67,14 +70,16 @@ function providerName(data) {
             break;
     }
 
-    if (vm.currentMode() === data.id)
+    if (vm.currentMode() === source.id)
         s += "\nNow Playing";
 
     return s;
 }
 
 /**
- * @function Initialize the observables in the view model with Knockout.
+ * Initialize the observables in the view model with Knockout.
+ *
+ * @function
  */
 function initalizeModels() {
 
@@ -92,7 +97,9 @@ function initalizeModels() {
 }
 
 /**
- * @function Listener for Live XHR Response
+ * Listener for Live XHR Response
+ *
+ * @function
  */
 function liveStreamJsonListener() {
     // receive response.
@@ -107,7 +114,7 @@ function liveStreamJsonListener() {
     }
 
     if (!sourceIsValid(vm.currentMode())) { // if the client is watching a source that's no longer valid.
-        clearVideoWindow();
+        clearMediaWindow();
         vm.currentMode("loading");
         vm.currentProgram("loading");
     }
@@ -133,18 +140,35 @@ function liveStreamJsonListener() {
     }
 }
 
-
+/**
+ * For UI iterations that allow attachments (scripture, order of worship, etc.) to be shown to the user.
+ *
+ * @param attachment The html node which is the selected tab.
+ */
 function selectAttachment(attachment) {
     switchTabs_reset(attachment);
 }
 
+/**
+ * When the window is narrow, the list of possible streams appears as one of the attachment tabs.  The considerations
+ * for that particular tab are a little special, so it gets its own function.  TODO is it actually special?
+ *
+ * @function
+ * @param caller
+ */
 function switchTabs_streamsList(caller) {
     switchTabs_reset(caller);
     document.getElementsByClassName('sidebar')[0].style.display = 'block';
 }
 
+/**
+ * Resets the tabs and marks the tab itself as 'active' for styling.
+ *
+ * @function
+ * @param caller
+ */
 function switchTabs_reset(caller) {
-    // hide other content sections.
+    /* Hide other content sections. */
     document.getElementsByClassName('sidebar')[0].style.display = '';
     var sects = document.getElementsByClassName('section-content');
     for(var si in sects) {
@@ -153,7 +177,7 @@ function switchTabs_reset(caller) {
         sects[si].style.display = 'none';
     }
 
-    // remove 'active' class from tab
+    /* Remove 'active' class from tab */
     var tabs = caller.parentNode.parentNode.children;
     for(var ti in tabs) {
         if (!tabs.hasOwnProperty(ti))
@@ -161,13 +185,15 @@ function switchTabs_reset(caller) {
         tabs[ti].classList.remove('active');
     }
 
-    // add 'active' class to caller tab
+    /* Add 'active' class to caller tab */
     caller.parentNode.classList.add('active');
 
 }
 
 /**
- * @function Create and send the Live XHR Request
+ * Create and send the Live XHR Request
+ *
+ * @function
  */
 function doRequest() {
     var req = new XMLHttpRequest();
@@ -181,7 +207,9 @@ function doRequest() {
 }
 
 /**
- * @function Handler for when the XHR times out.  TODO figure out a good way for reporting this back to some analytics mechanism.
+ * Handler for when the XHR times out.  TODO figure out a good way for reporting this back to some analytics mechanism.
+ *
+ * @function
  */
 function liveStreamJsonTimeout() {
     window.console.info('XHR Timeout');
@@ -203,6 +231,14 @@ function sourceIsValid(sourceId) {
     return undefined !== _getProgramFromSourceId(sourceId);
 }
 
+/**
+ * Returns the program (event) object which contains a given sourceId.
+ *
+ * @function
+ * @param {string} sourceId
+ * @returns {object}
+ * @private
+ */
 function _getProgramFromSourceId(sourceId) {
     return vm.livePrograms().find(function (prg) {
         return undefined !== prg.sources.find(function(src) {
@@ -212,7 +248,9 @@ function _getProgramFromSourceId(sourceId) {
 }
 
 /**
- * @function Starts playing a given source.
+ * Starts playing a given source.
+ *
+ * @function
  * @param source {object} A source object from within a LiveEvent object.
  */
 function playSource(source) {
@@ -231,8 +269,11 @@ function playSource(source) {
     }
 }
 
+// noinspection JSUnusedGlobalSymbols
 /**
- * @function Provides the verb to use to describe the primary interaction with each stream.
+ * Provides the verb to use to describe the primary interaction with each stream.
+ *
+ * @function
  * @param source {object} A source object from within a LiveEvent object.
  * @returns {string} The pertinent verb
  */
@@ -250,7 +291,9 @@ function playVerb(source) {
 }
 
 /**
- * @function Play a YouTube source.
+ * Play a YouTube source.
+ *
+ * @function
  * @param source {object} A source object from within a LiveEvent object.
  */
 function playYouTube(source) {
@@ -259,7 +302,9 @@ function playYouTube(source) {
 }
 
 /**
- * @function Play a video within an iFrame with no vendor-specific arrangements.
+ * Play a video within an iFrame with no vendor-specific arrangements.
+ *
+ * @function
  * @param source {object} A source object from within a LiveEvent object.
  */
 function playIFrame(source) {
@@ -267,18 +312,22 @@ function playIFrame(source) {
 }
 
 /**
- * @function Clear the mediaElement and replace with a space for text.
+ * Clear the mediaElement and replace with a space for text.
+ *
+ * @function
  */
-function clearVideoWindow() {
+function clearMediaWindow() {
     container.removeChild(mediaElt);
     mediaElt = document.createElement('p');
     container.appendChild(mediaElt);
 }
 
 /**
- * @function Clear the mediaElement and replace with an iFrame for inserting video into.
+ * Clear the mediaElement and replace with an iFrame for inserting video into.
+ *
+ * @function
  */
-function createVideoFrame() {
+function createMediaFrame() {
     container.removeChild(mediaElt);
     mediaElt = document.createElement('iframe');
     mediaElt.classList.add("video_mediaElt");
@@ -288,11 +337,13 @@ function createVideoFrame() {
 }
 
 /**
- * @function Extract a URL Parameter from the request bar.
+ * Extract a given URL Parameter from the request bar.
+ *
+ * @function
  * @param name {string}  The name of the parameter for which the value is sought.
  * @returns {string|undefined}  The value of the specified parameter.
  *
- * @link Taken from https://stackoverflow.com/a/11582513/2339939
+ * @link https://stackoverflow.com/a/11582513/2339939
  */
 function getUrlParameter(name) {
     var uri = (new RegExp('[?&]' + name + '(?:=([^&;]+))?').exec(location.search) || ['&', '&'])[1];
