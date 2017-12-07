@@ -165,7 +165,7 @@
 				<ul class="nav nav-tabs row-fluid">
 					<li style="float:right" id="otherStreamsTab" data-bind="visible: (vm.livePrograms().length + vm.archive().length > 1)"><a onclick="switchTabs_streamsList(this)">Other Streams</a></li>
 					<!-- ko foreach: vm.currentProgram().attachments -->
-					<li><a data-bind="text: name, css: { active: vm.currentAttachment() === this }" onclick="selectAttachment(this)"></a></li>
+					<li><a data-bind="text: name, css: { active: vm.currentAttachment() === this }, event: {click: selectAttachment}"></a></li>
 					<!-- /ko -->
 				</ul>
 			</div>
@@ -370,7 +370,7 @@
 					<h3 data-bind="text: name" ></h3>
 					<p data-bind="text: description"></p>
 					<p>
-						<span data-bind="foreach: sources">
+						<span class="sourceButtons" data-bind="foreach: sources">
 							<a data-bind="click: playSource, text: playVerb($data), attr: {title: providerName($data), class: type + ' btn btn-xs btn-default', id: id }, css: { 'active': vm.currentMode() === id }"></a>
 						</span>
 					</p>

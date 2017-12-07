@@ -8,29 +8,6 @@
 //@import (less) "@{fa_path}/core.less";
 //@import (reference,less) "@{fa_path}/icons.less";
 
-.starts-chapter .chapter-num {
-  & {
-    font-family: "adobe-garamond-pro", Garamond, serif;
-    color: #49917b;
-    float: left;
-    font-size: 5em;
-    line-height:.8em;
-    margin-right: -.15em;
-    font-weight:normal;
-  }
-}
-
-.main .section-nav ul.nav.nav-tabs.row-fluid {
-  & a {
-    cursor: pointer;
-  }
-  @media (min-width: 768px) {
-    padding-left: 0;
-  }
-}
-
-
-
 
 div#progList {
   left:0;
@@ -102,7 +79,9 @@ div#progList {
 }
 
 
-// Everything follows really should be handled in the site templating instead.  Oh well...
+/* Everything below this point is essentially an overriding of the Tenth.org default css.  */
+
+
 .sidebar {
   .btn.btn-xs {
     &:after {
@@ -124,29 +103,6 @@ div#progList {
   }
 }
 
-div.btn-set {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-content:space-between;
-  left: 50%;
-  max-width:300px;
-  position: relative;
-  transform: translateX(-50%);
-  width:100%;
-
-  .btn {
-    margin-bottom:2px;
-    margin-right:2px;
-    flex-grow: 4;
-  }
-}
-
-// Remove if the corresponding rule can be removed from the template css
-body.livestream div.video {
-  font:inherit;
-}
-
 body div.video {
   text-align:center;
   background-color:rgb(238,238,238);
@@ -165,13 +121,6 @@ body div.video {
     padding-bottom: 56.25%;
     margin-bottom: 4em;
     position: relative;
-    font-style: inherit;
-    font-variant: inherit;
-    font-weight: inherit;
-    font-stretch: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    font-family: "Whitney SSm A", "Whitney SSm B", "Open Sans", sans-serif;
     border-radius: 0;
   }
 
@@ -188,6 +137,43 @@ body div.video {
     right: 0;
     border: 0;
   }
+}
+
+div.btn-set {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content:space-between;
+  left: 50%;
+  max-width:300px;
+  position: relative;
+  transform: translateX(-50%);
+  width:100%;
+
+  .btn {
+    margin-bottom:2px;
+    margin-right:2px;
+    flex-grow: 4;
+  }
+}
+
+span.sourceButtons {
+  display: grid;
+  max-width: 300px;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+  justify-self: start;
+  margin-left: auto;
+  margin-right: auto;
+
+  .btn {
+    margin-bottom:2px;
+    margin-right:2px;
+  }
+}
+
+// Remove if the corresponding rule can be removed from the template css
+body.livestream div.video {
+  font:inherit;
 }
 
 li#otherStreamsTab {
@@ -252,5 +238,26 @@ div.sidebar {
 
   .narrowOnly, div.narrowOnly{
     display:none;
+  }
+}
+
+.starts-chapter .chapter-num {
+  & {
+    font-family: "adobe-garamond-pro", Garamond, serif;
+    color: #49917b;
+    float: left;
+    font-size: 5em;
+    line-height:.8em;
+    margin-right: -.15em;
+    font-weight:normal;
+  }
+}
+
+.main .section-nav ul.nav.nav-tabs.row-fluid {
+  & a {
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    padding-left: 0;
   }
 }
