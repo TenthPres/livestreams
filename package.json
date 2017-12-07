@@ -11,6 +11,6 @@
     "knockout": ">=3.4"
   },
   "devDependencies": {
-    "less": "^2.7.2"
+    "less": "^2.7.3"
   }
 }

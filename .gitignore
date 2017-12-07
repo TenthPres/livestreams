@@ -4,6 +4,7 @@ tmp/
 
 !node_modules/.htaccess
 composer.lock
+package-lock.json
 
 *.css
 *.min.js
