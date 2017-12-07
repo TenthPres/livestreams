@@ -33,7 +33,7 @@ This code repository, while open, is proprietary.  You may not use it without ou
 
 ## Building
 
-This is a PHP application, which uses some Node packages for minifying and building the code for production.  To build for deployment, you will need both Composer and Node on your build machine.  
+This is a PHP application, which uses some Node packages for minifying and building the code for production.  To build for deployment, you will need both [Composer](https://getcomposer.org/) and [Node](https://nodejs.org/en/) on your build machine.    
 
 To install the Node packages used as libraries, run `npm install`.
 
@@ -50,3 +50,11 @@ To build and minify Less and JavaScript files:
 Your server can be practically any machine with PHP 5.5+.  The code was developed on Windows for deployment on AWS Linux, but OS doesn't matter much.
 
 This package uses Guzzle to make HTTPS requests to the APIs of the streaming providers.  Guzzle is installed with composer, but make sure your server allows outgoing connections.  (Free versions of App Engine, for instance, do not.)
+
+The files you need to deploy are:
+ - Everything in the `/vendor` directory. (These are the libraries installed by Composer).
+ - `/script.min.js`  This is the script file. 
+ - `/style.min.css`  This is the stylesheet that defines appearances for many of the 
+ - `/json/index.php`  This provides the server-side logic, determining which streams are live.  
+
+These files have been deployed to `https://west.tenth.org/live/`

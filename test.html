@@ -156,7 +156,7 @@
 			<div class="body">
 
 				<div class="video">
-					<script language="JavaScript" type="text/javascript" src="script.js"></script>
+					<script language="JavaScript" type="text/javascript" src="script.min.js"></script>
 				</div>
 
 			</div>
@@ -370,7 +370,7 @@
 					<h3 data-bind="text: name" ></h3>
 					<p data-bind="text: description"></p>
 					<p>
-						<span class="sourceButtons" data-bind="foreach: sources">
+						<span class="sourceButtons" data-bind="foreach: Array.prototype.slice.call(sources).sort(compareSourceByVerb)">
 							<a data-bind="click: playSource, text: playVerb($data), attr: {title: providerName($data), class: type + ' btn btn-xs btn-default', id: id }, css: { 'active': vm.currentMode() === id }"></a>
 						</span>
 					</p>
@@ -378,7 +378,7 @@
 				<hr />
 			</div>
 
-			<div class="video_messages wideOnly"><i>Loading...</i></div>
+			<div class="video_messages wideOnly"><p style="text-align:center">Loading...</p></div>
 			<hr class="wideOnly" data-bind="visible: (vm.messages().length > 0)" />
 
 			<div class="btn-set wideOnly">
@@ -394,7 +394,7 @@
 					<h3 data-bind="text: name" ></h3>
 					<p data-bind="text: description"></p>
 					<p>
-						<span data-bind="foreach: sources">
+						<span class="sourceButtons" data-bind="foreach: Array.prototype.slice.call(sources).sort(compareSourceByVerb)">
 							<a data-bind="click: playSource, text: playVerb($data), attr: {title: providerName($data), class: type + ' btn btn-xs btn-default', id: id }, css: { 'active': vm.currentMode() === id }"></a>
 						</span>
 					</p>

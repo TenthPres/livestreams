@@ -82,27 +82,6 @@ div#progList {
 /* Everything below this point is essentially an overriding of the Tenth.org default css.  */
 
 
-.sidebar {
-  .btn.btn-xs {
-    &:after {
-      font-family: FontAwesome, serif;
-      padding-left: .4em;
-    }
-    &.yt:after {
-      content: @fa-var-youtube-play;
-    }
-    &.fbl:after {
-      content: @fa-var-facebook-official;
-    }
-    &.sa-vid:after {
-      content: @fa-var-video-camera;
-    }
-    &.sa-aud:after {
-      content: @fa-var-volume-up;
-    }
-  }
-}
-
 body div.video {
   text-align:center;
   background-color:rgb(238,238,238);
@@ -139,7 +118,7 @@ body div.video {
   }
 }
 
-div.btn-set {
+div.btn-set { // green call-to-action buttons
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -157,17 +136,37 @@ div.btn-set {
   }
 }
 
-span.sourceButtons {
-  display: grid;
+span.sourceButtons { // grey
+
+  display: flex;
   max-width: 300px;
-  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
-  justify-self: start;
   margin-left: auto;
   margin-right: auto;
+  flex-wrap: wrap;
+  font-size: .8em;
 
   .btn {
-    margin-bottom:2px;
-    margin-right:2px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    flex-grow: 1;
+    min-width: 70px;
+
+    &:after {
+      font-family: FontAwesome, serif;
+      padding-left: .4em;
+    }
+    &.yt:after {
+      content: @fa-var-youtube-play;
+    }
+    &.fbl:after {
+      content: @fa-var-facebook-official;
+    }
+    &.sa-vid:after {
+      content: @fa-var-video-camera;
+    }
+    &.sa-aud:after {
+      content: @fa-var-volume-up;
+    }
   }
 }
 
@@ -216,6 +215,9 @@ div.video_messages {
 }
 
 div.sidebar {
+  & > *:first-child, & > *:first-child > *:first-child {
+    margin-top:0;
+  }
   & > p {
     font-weight: normal;
   }

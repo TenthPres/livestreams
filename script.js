@@ -163,10 +163,12 @@ function liveStreamJsonListener() {
     }
 }
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * For UI iterations that allow attachments (scripture, order of worship, etc.) to be shown to the user.
  *
- * @param caller The html node which is the selected tab.
+ * @param attachment {object} The attachment object, originating with the json response.
+ * @param event {event} The event (probably click) by which the attachment has been selected.
  */
 function selectAttachment(attachment, event) {
     switchTabs_reset(event.target);
@@ -293,7 +295,6 @@ function _getProgramFromSourceId(sourceId) {
  */
 function playSource(source) {
     createMediaFrame();
-    console.log(_getProgramFromSourceId(source.id));
     vm.currentProgram(_getProgramFromSourceId(source.id));
     vm.currentMode(source.id);
     switch (source.type) {
@@ -393,4 +394,23 @@ function getUrlParameter(name) {
     if (uri === null)
         return uri;
     return decodeURIComponent(uri.replace(/\+/g, '%20'));
+}
+
+// noinspection JSUnusedGlobalSymbols
+/**
+ * Comparison function for sorting sources by their verb.  Puts "Watch" first.
+ *
+ * @function
+ * @param a {object} A source object
+ * @param b {object} A source object
+ * @returns {number}
+ */
+function compareSourceByVerb(a, b) {
+    if (playVerb(a) === playVerb(b))
+        return 0;
+    if (playVerb(a) === 'Watch')
+        return -1;
+    if (playVerb(b) === 'Watch')
+        return 1;
+    return 0;
 }
