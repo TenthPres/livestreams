@@ -13,21 +13,19 @@ This library can be used in two different ways.
 
 To embed the video player, use code such as the following: 
 
-    <div class="video">
-        <script language="JavaScript" type="text/javascript" src="script.min.js"></script>
-    </div>
-    
-The video elements will be placed in the DOM tree as siblings of the `script` node. 
+    <script language="JavaScript" type="text/javascript" src="script.min.js"></script>
+
+The media elements (of various types) will be placed in the DOM tree as siblings of the `script` node.
 
 ### Indicate when a Livestream is available
     
-To simply determine whether streams are available, place code such as the following in the *`head`* of your document. 
+To simply determine whether streams are available, place code such as the following in the `head` of your document. 
 
-    <script language="JavaScript" type="text/javascript" src="script.min.js" defer></script>
+    <script language="JavaScript" type="text/javascript" src="script.min.js"></script>
 
 When a stream is available, the `body` element will have the class `livestreamActive`.  This can thus be used to adjust the UI as dictated by your css. 
 
-In order to only provide that status, and not embed the video players, this code *must* have the `defer` attribute present, and *must* be located in the head of the document.
+In order to only provide that status, and not embed the video players this script *must* be located in the `head` of the document.
 
 ## Licensure
 

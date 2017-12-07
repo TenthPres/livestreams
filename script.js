@@ -6,39 +6,50 @@
  * @licence See https://github.com/TenthPres/livestreams for terms
  */
 
-/** Create new HTML elements & define variables */
-var knockoutLib = document.createElement('script'),
+var container = document.scripts[document.scripts.length-1].parentNode,
     head  = document.getElementsByTagName('head')[0],
-    stylesht = document.createElement('link'),
-    container = document.scripts[document.scripts.length-1].parentNode,
-    scriptBase = document.scripts[document.scripts.length-1].src.replace(/(\/\/.*?\/.*\/).*/g, '$1'),
-    mediaElt = document.createElement('p'),
-    progList = document.createElement('div'),
     vm = {},
+    scriptBase = document.scripts[document.scripts.length - 1].src.replace(/(\/\/.*?\/.*\/).*/g, '$1'),
     isTestingMode = (!(getUrlParameter('test') !== null)) + 2 * (!(getUrlParameter('static') !== null));
 
-/** Load Knockout */
-knockoutLib.src = scriptBase + 'node_modules/knockout/build/output/knockout-latest.js';
-knockoutLib.type = 'text/javascript';
-knockoutLib.onload = initalizeModels;
-head.appendChild(knockoutLib);
+if (container === head) {
+    /* Status-only mode */
 
-/** Load additional custom CSS */ // Ideally, this would probably be integrated into the css templating already present.
-stylesht.rel  = 'stylesheet';
-stylesht.type = 'text/css';
-stylesht.href = scriptBase + 'style.min.css';
-head.appendChild(stylesht);
+    doRequest();
+    setInterval(doRequest, 15000);
 
-/** Create and place the "Program List" which appears under the video player */
-progList.id = "progList";
-progList.setAttribute("data-bind", "foreach: vm.livePrograms");
-progList.setAttribute("oncontextmenu","return false;");
-progList.innerHTML = "<div data-bind=\"foreach: sources \"><a data-bind=\"attr: {title: providerName($data), class: type, id: id }, css: { 'active': vm.currentMode() === id }, click: playSource \"></a></div>";
-container.appendChild(progList);
+} else {
+    /* Video Player mode */
 
-/** Insert "Loading..." into the video container. */
-mediaElt.innerHTML = "loading...";
-container.appendChild(mediaElt);
+    /** Create new HTML elements & define variables */
+    var knockoutLib = document.createElement('script'),
+        stylesht = document.createElement('link'),
+        mediaElt = document.createElement('p'),
+        progList = document.createElement('div');
+
+    /** Load Knockout */
+    knockoutLib.src = scriptBase + 'node_modules/knockout/build/output/knockout-latest.js';
+    knockoutLib.type = 'text/javascript';
+    knockoutLib.onload = initalizeModels;
+    head.appendChild(knockoutLib);
+
+    /** Load additional custom CSS */ // Ideally, this would probably be integrated into the css templating already present.
+    stylesht.rel = 'stylesheet';
+    stylesht.type = 'text/css';
+    stylesht.href = scriptBase + 'style.min.css';
+    head.appendChild(stylesht);
+
+    /** Create and place the "Program List" which appears under the video player */
+    progList.id = "progList";
+    progList.setAttribute("data-bind", "foreach: vm.livePrograms");
+    progList.setAttribute("oncontextmenu", "return false;");
+    progList.innerHTML = "<div data-bind=\"foreach: sources \"><a data-bind=\"attr: {title: providerName($data), class: type, id: id }, css: { 'active': vm.currentMode() === id }, click: playSource \"></a></div>";
+    container.appendChild(progList);
+
+    /** Insert "Loading..." into the video container. */
+    mediaElt.innerHTML = "loading...";
+    container.appendChild(mediaElt);
+}
 
 // noinspection JSUnusedGlobalSymbols
 /**
@@ -86,7 +97,7 @@ function initalizeModels() {
     vm.livePrograms = ko.observableArray([]);
     vm.archive = ko.observableArray([]);
     vm.messages = ko.observableArray([]);
-    vm.currentProgram = ko.observable("loading");
+    vm.currentProgram = ko.observable({attachments:[]});
     vm.currentMode = ko.observable("loading");
     vm.currentAttachment = ko.observable(null);
 
@@ -102,8 +113,20 @@ function initalizeModels() {
  * @function
  */
 function liveStreamJsonListener() {
+
     // receive response.
-    var response = JSON.parse(this.responseText);
+    var response = JSON.parse(this.responseText),
+        livestreamActiveBodyClassName = "livestreamActive";
+
+    // update status class
+    if (document.body.classList.contains(livestreamActiveBodyClassName) && response.live.length <= 0)
+        document.body.classList.remove(livestreamActiveBodyClassName);
+    if (!document.body.classList.contains(livestreamActiveBodyClassName) && response.live.length > 0)
+        document.body.classList.add(livestreamActiveBodyClassName);
+
+    // if we only care about status, then stop here.
+    if (container === head)
+        return;
 
     if (JSON.stringify(vm.livePrograms()) !== JSON.stringify(response.live)) { // update vm streams if there's a change
         vm.livePrograms(response.live);
@@ -116,7 +139,7 @@ function liveStreamJsonListener() {
     if (!sourceIsValid(vm.currentMode())) { // if the client is watching a source that's no longer valid.
         clearMediaWindow();
         vm.currentMode("loading");
-        vm.currentProgram("loading");
+        vm.currentProgram({attachments:[]});
     }
 
     if (vm.currentMode() === "loading") { // if the client is in "loading" mode
@@ -143,15 +166,17 @@ function liveStreamJsonListener() {
 /**
  * For UI iterations that allow attachments (scripture, order of worship, etc.) to be shown to the user.
  *
- * @param attachment The html node which is the selected tab.
+ * @param caller The html node which is the selected tab.
  */
-function selectAttachment(attachment) {
-    switchTabs_reset(attachment);
+function selectAttachment(attachment, event) {
+    switchTabs_reset(event.target);
+    console.log(attachment);
+    attachment.selectedBefore = "true"; // placeholder for attachment content
 }
 
 /**
  * When the window is narrow, the list of possible streams appears as one of the attachment tabs.  The considerations
- * for that particular tab are a little special, so it gets its own function.  TODO is it actually special?
+ * for that particular tab are a little special 'cuz of that extra display line, so it gets its own function.
  *
  * @function
  * @param caller
@@ -202,7 +227,10 @@ function doRequest() {
     req.addEventListener('load', liveStreamJsonListener);
     req.addEventListener('timeout', liveStreamJsonTimeout);
     // req.open("GET", scriptBase + "json/test.json");
-    req.open("GET", scriptBase + "json/?current=" + vm.currentMode() + (isTestingMode ? '&test='+isTestingMode : ''));
+    if (container === head) // status mode
+        req.open("GET", scriptBase + "json/" + (isTestingMode ? '?test='+isTestingMode : ''));
+    else // video mode
+        req.open("GET", scriptBase + "json/?current=" + vm.currentMode() + (isTestingMode ? '&test='+isTestingMode : ''));
     req.send();
 }
 
@@ -240,11 +268,21 @@ function sourceIsValid(sourceId) {
  * @private
  */
 function _getProgramFromSourceId(sourceId) {
-    return vm.livePrograms().find(function (prg) {
+    var prg = vm.livePrograms().find(function (prg) {
         return undefined !== prg.sources.find(function(src) {
             return(src.id === this.id);
         }, this);
     }, {"id":sourceId});
+    if (prg !== undefined)
+        return prg;
+    prg = vm.archive().find(function (prg) {
+        return undefined !== prg.sources.find(function(src) {
+            return(src.id === this.id);
+        }, this);
+    }, {"id":sourceId});
+    if (prg !== undefined)
+        return prg;
+    return {};
 }
 
 /**
@@ -255,6 +293,8 @@ function _getProgramFromSourceId(sourceId) {
  */
 function playSource(source) {
     createMediaFrame();
+    console.log(_getProgramFromSourceId(source.id));
+    vm.currentProgram(_getProgramFromSourceId(source.id));
     vm.currentMode(source.id);
     switch (source.type) {
         case "yt":

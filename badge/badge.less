@@ -14,16 +14,20 @@ body.livestreamActive div.content > div.weeks > div.livestream > a.livestream-li
     font-weight: 700;
   }
 
+  & > *::before {
+    color:#c00;
+    animation: pulses 1.5s linear infinite;
+  }
+}
+
+body div.content > div.weeks > div.livestream > a.livestream-link[href="/livestream"] {
   &:hover > *::before {
     font-size: 105%;
     line-height:100%;
   }
-
   & > *::before {
     transition: line-height 0.1s, font-size 0.1s;
-    line-height:105%;
-    color:#c00;
-    animation: pulses 1.5s linear infinite;
+    line-height: 105%;
   }
 }
 

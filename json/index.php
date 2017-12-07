@@ -210,7 +210,6 @@ if ($youTubeActive && $_SERVER['HTTP_USER_AGENT'] === 'Mozilla/5.0 (Windows NT 6
 } else {
 
 	// Assuming first provider is the best provider, provide an indication to the user when they're watching a provider other than the first.
-	// TODO: refactor, with fewer assumptions
 	if (count($r->live) > 0 && $current !== 'loading' && explode( '-', $current, 2 )[0] !== explode( '-', $r->live[0]->sources[0]->id, 2 )[0] && $youTubeActive ) {
 		$r->msg[] = "A better quality stream may be available than the one you're currently watching.  <a href=\"#\" onclick='playSource(" . json_encode( $r->live[0]->sources[0] ) . "); return false;'>Click here to switch</a>.";
 	}
