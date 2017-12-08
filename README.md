@@ -49,6 +49,10 @@ To build and minify Less and JavaScript files:
 
 Your server can be practically any machine with PHP 5.5+.  The code was developed on Windows for deployment on AWS Linux, but OS doesn't matter much.
 
+This application can run on [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/getting-started/), [App Engine Flexible Environments](https://cloud.google.com/appengine/docs/php/), or with many off-the-shelf hosting providers.  
+
+When choosing infrastructure, be aware that demand can vary dramatically depending on how the data is used.  The status-only mode sends a request to the server from every client every 15 seconds.  The video-embedding mode increases that frequency to every 5 seconds.  With a few hundred people online, this can become several thousand requests per minute. 
+
 This package uses Guzzle to make HTTPS requests to the APIs of the streaming providers.  Guzzle is installed with composer, but make sure your server allows outgoing connections.  (Free versions of App Engine, for instance, do not.)
 
 The files you need to deploy are:
@@ -57,4 +61,4 @@ The files you need to deploy are:
  - `/style.min.css`  This is the stylesheet that defines appearances for many of the 
  - `/json/index.php`  This provides the server-side logic, determining which streams are live.  
 
-These files have been deployed to `https://west.tenth.org/live/`
+These files have been deployed to `https://west.tenth.org/live/`.
