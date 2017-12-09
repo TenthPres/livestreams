@@ -123,16 +123,22 @@ div.btn-set { // green call-to-action buttons
   flex-flow: row wrap;
   justify-content: center;
   align-content:space-between;
-  left: 50%;
+  margin-left: auto;
+  margin-right: auto;
   max-width:300px;
   position: relative;
-  transform: translateX(-50%);
   width:100%;
+  padding-left:15px;
+  padding-right:15px;
 
   .btn {
     margin-bottom:2px;
     margin-right:2px;
     flex-grow: 4;
+  }
+
+  &.narrowOnly {
+    padding-bottom: .8em;
   }
 }
 
@@ -183,8 +189,26 @@ li#otherStreamsTab {
 @media (max-width: 767px) {
   body > .content > .row > .main {
     h3, div.features-grid {
-      display:none;
+      //display:none;
     }
+  }
+
+  body.livestream div.main > header {
+    display:none;
+  }
+
+  body.livestream div.main > div.body > div.video {
+    padding-bottom: ~"calc(56.25% + 17px)";
+    margin: -30px -15px 0;
+    width:auto;
+  }
+
+  body > footer.site-footer {
+    display:none;
+  }
+
+  div#progList {
+    display:none;
   }
 
   li#otherStreamsTab {

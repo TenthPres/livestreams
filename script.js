@@ -257,8 +257,10 @@ function sourceIsValid(sourceId) {
     if (sourceId.indexOf('yt-') === 0) // youtube is always a valid source (at least, for now).
         return true;
 
+    console.info(_getProgramFromSourceId(sourceId));
+
     // for everything else, if it's in the list of current sources, it's valid.  If it's not, it's not.
-    return undefined !== _getProgramFromSourceId(sourceId);
+    return JSON.stringify(_getProgramFromSourceId(sourceId)) !== "{}";
 }
 
 /**

@@ -53,7 +53,7 @@ try { // this catches quota exceeding errors.
 
 // Facebook Query  TODO reset and remove the access tokens from the public repo
 if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from... wherever convenient
-	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/bboyworld/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
+	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/FoxNews/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
 } else {
 	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
 }

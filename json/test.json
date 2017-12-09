@@ -1,10 +1,10 @@
 {
   "live": [
     {
-      "name": "Worship Live 10\/29\/17 9AM Reformation 500: \u201cJustification\u201d Romans 5:1-2",
+      "name": "Morning Worship Service",
       "priority": 1,
       "id": "ev-ytEUPEWfeyoL0",
-      "description": "Live Stream of the Sunday Morning Worship Service 10\/29\/17 9AM Dr. Liam Goligher, Senior Minister, preaching: \u201cJustification\u201d based on Romans 5:1-2 The ...",
+      "description": "Liam Goligher preaching \u201cJustification\u201d from Romans 5:1-2.",
       "sources": [
         {
           "type": "yt",
@@ -34,7 +34,7 @@
       ],
       "attachments": [
         {
-          "name": "Bulletin"
+          "name": "Order of Worship"
         },
         {
           "name": "Romans 5:1-2"
