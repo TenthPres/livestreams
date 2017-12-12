@@ -39,6 +39,8 @@ To install the Node packages used as libraries, run `npm install`.
 
 To install the Composer packages used as libraries, run `composer install`. 
 
+You will need to manually rename `credentials.sample.json` to take out `.sample`, and you will need to add to that file your API key and App Token for YouTube and Facebook respectively.  [Get the YouTube API key here.](https://console.cloud.google.com/apis/credentials)  [Get a Facebook App Token here.](https://developers.facebook.com/tools/explorer/) 
+
 To build and minify Less and JavaScript files:
 
 	lessc --no-color style.less > style.css
@@ -60,5 +62,6 @@ The files you need to deploy are:
  - `/script.min.js`  This is the script file. 
  - `/style.min.css`  This is the stylesheet that defines appearances for many of the 
  - `/json/index.php`  This provides the server-side logic, determining which streams are live.  
+ - `/credentials.json`  This tells the application what the API keys are for YouTube and Facebook. 
 
 These files have been deployed to `https://west.tenth.org/live/`.

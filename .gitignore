@@ -8,8 +8,9 @@ package-lock.json
 
 *.css
 *.min.js
-json/usage.csv
+/json/usage.csv
 
 
-.idea/deployment.xml
-.idea/workspace.xml
+/.idea/deployment.xml
+/.idea/workspace.xml
+/credentials.json

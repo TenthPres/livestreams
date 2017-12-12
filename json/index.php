@@ -10,7 +10,9 @@ use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
 use Kevinrob\GuzzleCache\Storage\DoctrineCacheStorage;
 use Doctrine\Common\Cache\FilesystemCache;
 
-YouTubeLiveEmbed::setApiKey('AIzaSyCsseQhaNsjAsuUjV97nlA8KXXmrydyNRY'); // TODO reset and remove this from the public repo
+$credentials = json_decode(file_get_contents('../credentials.json'));
+
+YouTubeLiveEmbed::setApiKey($credentials->YouTube);
 
 $r = (object)[];
 $r->live = [];
@@ -51,11 +53,11 @@ try { // this catches quota exceeding errors.
 	$ytV = [];
 }
 
-// Facebook Query  TODO reset and remove the access tokens from the public repo
+// Facebook Query
 if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from... wherever convenient
-	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/FoxNews/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
+	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/FoxNews/videos?fields=live_status%2Ctitle&limit=10&access_token=" . $credentials->Facebook );
 } else {
-	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=375363394495%7CGP_y4DVVrNCC06XMkwHr6Hz81hE" );
+	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=" . $credentials->Facebook );
 }
 $fblObj             = json_decode($fbReq->getBody());
 $facebookSrcObjects = [];

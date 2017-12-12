@@ -1,0 +1,4 @@
+<files credentials.json>
+order allow,deny
+deny from all
+</files>
