@@ -161,7 +161,7 @@
 
 			</div>
 
-			<div class="section-nav depth-2" data-bind="visible: (vm.livePrograms().length + vm.archive().length > 0) || vm.currentProgram().attachments.length > 0">
+			<div class="section-nav depth-2" data-bind="visible: (vm.livePrograms().length + vm.archive().length > 0 && vm.currentProgram().attachments.length > 0) || vm.currentProgram().attachments.length > 1">
 				<ul class="nav nav-tabs row-fluid">
 					<li style="float:right" id="otherStreamsTab" data-bind="visible: (vm.livePrograms().length + vm.archive().length > 0)"><a onclick="switchTabs_streamsList(this)">Streams</a></li>
 					<!-- ko foreach: vm.currentProgram().attachments -->
@@ -404,19 +404,19 @@
 				<hr class="narrowOnly">
 			</div>
 		</div>
-		<div class="btn-set narrowOnly">
-			<a class="btn btn-primary" href="https://www.tenth.org/about/sundays-at-tenth">Join Us</a>
-			<a class="btn btn-primary" href="https://secure.accessacs.com/access/oglogin.aspx?sn=91460">Give</a>
-			<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
+		<div class="main narrowOnly">
+			<div class="btn-set narrowOnly">
+				<a class="btn btn-primary" href="https://www.tenth.org/about/sundays-at-tenth">Join Us</a>
+				<a class="btn btn-primary" href="https://secure.accessacs.com/access/oglogin.aspx?sn=91460">Give</a>
+				<a class="btn btn-primary" href="https://www.tenth.org/resource-library">More Resources</a>
+			</div>
+			<p class="narrowOnly">Pick a streaming mode for the demo:</p>
+			<div class="btn-set narrowOnly">
+				<a class="btn btn-primary" style="background-color:red; border-color:#d00;" onclick="isTestingMode = 0">None</a>
+				<a class="btn btn-primary" style="background-color:red; border-color:#d00;" onclick="isTestingMode = 2">Several</a>
+			</div>
+			<hr class="narrowOnly" />
 		</div>
-		<p class="narrowOnly">Pick a streaming mode for the demo:</p>
-		<div class="btn-set narrowOnly">
-			<a class="btn btn-primary" style="background-color:red; border-color:#d00;" onclick="isTestingMode = 0">None</a>
-			<a class="btn btn-primary" style="background-color:red; border-color:#d00;" onclick="isTestingMode = 2">Several</a>
-		</div>
-		<hr class="narrowOnly" />
-
-
 
 	</div>
 

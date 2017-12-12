@@ -128,8 +128,6 @@ div.btn-set { // green call-to-action buttons
   max-width:300px;
   position: relative;
   width:100%;
-  padding-left:15px;
-  padding-right:15px;
 
   .btn {
     margin-bottom:2px;
@@ -191,6 +189,9 @@ li#otherStreamsTab {
     h3, div.features-grid {
       //display:none;
     }
+    &:last-child {
+      margin-top:15px;
+    }
   }
 
   body.livestream div.main > header {
@@ -221,6 +222,10 @@ li#otherStreamsTab {
 
   div.content div.sidebar {
     padding-top:10px;
+
+    hr:last-child {
+      margin-bottom:0;
+    }
   }
 
   .wideOnly, div.wideOnly{
