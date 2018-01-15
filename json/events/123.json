@@ -1,0 +1,45 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 1,
+  "description": "Featuring Liam Goligher preaching \"The Finished Work\" from Hebrews 10:1-18.",
+  "startDT_formatted": "Sun, 14 Jan 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-KPuPvzDHPVs",
+      "url": "\/\/www.youtube.com\/embed\/KPuPvzDHPVs?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/KPuPvzDHPVs\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a45733f60a0c84ee400004b/files/180114.pdf?1515688468"
+    },
+    {
+      "name": "TH 361"
+    },
+    {
+      "name": "TH 159"
+    },
+    {
+      "name": "Hebrews 10:1-18"
+    },
+    {
+      "name": "TH 604"
+    }
+  ]
+}

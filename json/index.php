@@ -10,14 +10,36 @@ use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
 use Kevinrob\GuzzleCache\Storage\DoctrineCacheStorage;
 use Doctrine\Common\Cache\FilesystemCache;
 
-$credentials = json_decode(file_get_contents('../credentials.json'));
 
-YouTubeLiveEmbed::setApiKey($credentials->YouTube);
+// Some variables to keep things clean later.
+if (isset($_COOKIE['kurtz'])) {
+	$sid = $_COOKIE['kurtz'];
+} else {
+	$sid = null;
+}
+$current = (isset($_GET['current']) ? $_GET['current'] : null);
+$credentials = json_decode(file_get_contents('../credentials.json'));
+$eventFileList = array_diff(scandir("events"), array('..', '.', 'default.json'));
+$eventFileList = array_reverse($eventFileList, true);
+$eventList = [];
 
 $r = (object)[];
 $r->live = [];
 $r->archive = [];
 $r->msg = [];
+
+$r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: {$sid} %0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.";
+
+
+
+// Load the Event Files
+foreach ($eventFileList as $ef) {
+	$id = substr($ef, 0, -5);
+	$eventList[$id] = json_decode(file_get_contents("events/" . $ef));
+	$eventList[$id]->id = intval($id);
+}
+
+YouTubeLiveEmbed::setApiKey($credentials->YouTube);
 
 
 // Create default HandlerStack, add cache to the stack.
@@ -28,13 +50,14 @@ $stack->push(
 			new DoctrineCacheStorage(
 				new FilesystemCache('../tmp/')
 			),
-			5 // the TTL in seconds
+			10 // the TTL in seconds
 		)
 	),
 	'greedy-cache'
 );
 
 $client = new Client(['handler' => $stack]);
+
 
 try { // this catches quota exceeding errors.
 
@@ -43,184 +66,241 @@ try { // this catches quota exceeding errors.
 	$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
 	$ytV                = $ytle->videos();
 
-// YouTube: Just in case there aren't any current live streams...
-	if ( isset( $_GET['test'] ) && ( intval( $_GET['test'] ) & 1 ) ) { // test video from California Academy of Natural Sciences
-		$ytle               = new YouTubeLiveEmbed( 'UCZvXaNYIcapCEcaJe_2cP7A' );
-		$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
-		$ytV                = $ytle->videos();
-	}
+//// YouTube: Just in case there aren't any current live streams...
+//	if ( isset( $_GET['test'] ) && ( intval( $_GET['test'] ) & 1 ) ) { // test video from California Academy of Natural Sciences
+//		$ytle               = new YouTubeLiveEmbed( 'UCZvXaNYIcapCEcaJe_2cP7A' );
+//		$ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
+//		$ytV                = $ytle->videos();
+//	}
 } catch (GuzzleHttp\Exception\ClientException $e) {
 	$ytV = [];
+	$r->msg[] = "<p>There seems to have been an issue querying the YouTube API.  Apologies.</p>";
 }
 
-// Facebook Query
-if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from... wherever convenient
-	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/FoxNews/videos?fields=live_status%2Ctitle&limit=10&access_token=" . $credentials->Facebook );
-} else {
-	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=" . $credentials->Facebook );
-}
-$fblObj             = json_decode($fbReq->getBody());
-$facebookSrcObjects = [];
-$facebookTitle      = "Livestream";
-foreach ($fblObj->data as $video) {
-	if (isset($video->live_status) && $video->live_status === "LIVE") {
-		$facebookSrcObjects[] = (object)[
-			'type' => 'fbl',
-			'language' => 'en-us',
-			'id' => "fbl-" . $video->id,
-			'url' => "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F" . $video->id . "%2F&mute=0&autoplay=1"
-		];
-		if (isset($video->title)) {
-			$facebookTitle = $video->title;
-		}
-	}
-}
-
+//
+//// Facebook Query
+//if (isset($_GET['test']) && (intval($_GET['test']) & 1)) { // test video from... wherever convenient
+//	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/News18TamilNadu/videos?fields=live_status%2Ctitle&limit=10&access_token=" . $credentials->Facebook );
+//} else {
+//	$fbReq = $client->request( 'GET', "https://graph.facebook.com/v2.11/tenth/videos?fields=live_status%2Ctitle&limit=10&access_token=" . $credentials->Facebook );
+//}
+//$fblObj             = json_decode($fbReq->getBody());
+//$facebookSrcObjects = [];
+//$facebookTitle      = "Facebook Live";
+//foreach ($fblObj->data as $video) {
+//	if (isset($video->live_status) && $video->live_status === "LIVE") {
+//		$facebookSrcObjects[] = (object)[
+//			'type' => 'fbl',
+//			'language' => 'en-us',
+//			'id' => "fbl-" . $video->id,
+//			'url' => "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F" . $video->id . "%2F&mute=0&autoplay=1"
+//		];
+//		if (isset($video->title)) {
+//			$facebookTitle = $video->title;
+//		}
+//	}
+//}
 
 
 // SermonAudio Query
+try { // this catches SermonAudio Server errors (which, apparently, happen sometimes).
+	$sourceID = 'tenth';
 
-$sourceID = 'tenth';
+// URL queried to determine *if* the webcast is online.  Currently, this ONLY determines *whether* the stream is online.
+	$sa_curl = $client->request( 'GET', 'https://embed.sermonaudio.com/button/l/' . $sourceID . '/' )->getBody();
 
-// URL queried to determine if the webcast is online.  Currently, this ONLY determines whether the stream is online.
-$sa_curl = $client->request('GET', 'https://embed.sermonaudio.com/button/l/'.$sourceID.'/')->getBody();
-
-//$sa_urlPos = strpos($sa_curl, "file:") + 7;
-//$sa_urlEnd = strpos($sa_curl, "'", $sa_urlPos);
-//$sa_videoUrl = substr($sa_curl, $sa_urlPos, $sa_urlEnd - $sa_urlPos);
-//$sa_urlPos = strpos($sa_curl, "image:", $sa_urlEnd) + 8;
-//$sa_urlEnd = strpos($sa_curl, "'", $sa_urlPos);
-//$sa_imageUrl = substr($sa_curl, $sa_urlPos, $sa_urlEnd - $sa_urlPos);
-$sa = (object)[
-	'isLive' => (strpos($sa_curl, "Webcast Offline") === false),
-
-	'videoIfrUrl' => '//embed.sermonaudio.com/player/l/'.$sourceID.'/?autoplay=true',
-
-//	'videoUrl' => $sa_videoUrl, // this is the m3u8 file
-
-	'audioIfrUrl' => "//embed.sermonaudio.com/player/l/".$sourceID."/?autoplay=true&quality=audio",
-
-//	'audioUrl' => $sa_videoUrl . "?wowzaaudioonly=true", // this is the m3u8 file
-
-//	'thumbUrl' => $sa_imageUrl
-];
-
-// Create Events based on the YouTube Streams.  Assuming only one stream per event.
-foreach ($ytV as $v) {
-	$LO = (object)[
-		'name' => $v->title,
-		'priority' => 1,
-		'id' => "ev-yt" . $v->id,
-		'description' => $v->description,
-		'sources' => [],
-		'attachments' => []
-		];
-
-	// Work-around for Internet Explorer on Windows 7. (See Issue #3)
-	if ($_SERVER['HTTP_USER_AGENT'] !== 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko') {
-		$LO->sources[] = (object) [
-			'type'     => 'yt',
-			'language' => 'en-us',
-			'id'       => "yt-" . $v->id,
-			'url'      => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0&color=white",
-			'thumb'    => $v->thumb_high
-		];
-	}
-
-	$r->live[] = $LO;
-}
-
-$youTubeActive = (count($r->live) > 0);
-
-// SermonAudio: Create source objects
-if ($sa->isLive) {
-	$sources[] = (object)[
-		'type' => 'sa-vid',
-		'language' => 'en-us',
-		'id' => "sa-vid",
-		'url' => $sa->videoIfrUrl,
-//		'thumb' => $sa->thumbUrl
+	$sa = (object) [
+		'isLive'      => ( strpos( $sa_curl, "Webcast Offline" ) === false ),
+		'videoIfrUrl' => '//embed.sermonaudio.com/player/l/' . $sourceID . '/?autoplay=true',
+		'audioIfrUrl' => "//embed.sermonaudio.com/player/l/" . $sourceID . "/?autoplay=true&quality=audio",
 	];
-	$sources[] = (object)[
-		'type' => 'sa-aud',
-		'language' => 'en-us',
-		'id' => "sa-aud",
-		'url' => $sa->audioIfrUrl,
-//		'thumb' => $sa->thumbUrl
+} catch (GuzzleHttp\Exception\ClientException $e) {
+	$sa = (object) [
+		'isLive'      => false,
+		'videoIfrUrl' => "//embed.sermonaudio.com/player/l/" . $sourceID . "/?autoplay=true",
+		'audioIfrUrl' => "//embed.sermonaudio.com/player/l/" . $sourceID . "/?autoplay=true&quality=audio",
 	];
-
-// SermonAudio: Merge into YouTube-based event or create a new generic one.
-	if (count($r->live) > 0) {
-		// TODO: select which event should be selected if there are multiple options.
-		$r->live[0]->sources = array_merge($r->live[0]->sources, $sources);
-	} else {
-		$r->live[] = (object)[
-			'name' => "Livestream",
-			'priority' => 1,
-			'id' => "ev-sa",
-			'description' => "",
-			'sources' => $sources,
-			'attachments' => []
-		];
-	}
-
-	unset($sources);
+	$r->msg[] = "<p>There seems to have been an issue querying the SermonAudio API.  Apologies.</p>";
 }
 
 
-// Facebook: merge into existing event or create a new one.  TODO match better, and better handle the possibility of more than one.
-if (count($facebookSrcObjects) > 0) {
+// Match events to streams.
+foreach ($eventList as &$e) {
+	$e->active = false;
+	foreach ($e->sources as &$s) {
+		// iterating on every source.
 
-	if (count($r->live) > 0) {
-		$r->live[0]->sources = array_merge($r->live[0]->sources, $facebookSrcObjects);
-	} else {
-		$r->live[] = (object)[
-			'name' => $facebookTitle,
-			'priority' => 1,
-			'id' => "ev-" . $facebookSrcObjects[0]->id,
-			'description' => "",
-			'sources' => $facebookSrcObjects
-		];
+		// check to see if YouTube is Live
+		if ($s->type === "yt") {
+			foreach ( $ytV as &$v ) {
+				if ( $s->id === "yt-" . $v->id ) {
+					$e->active = true;
+					$s->active = true;
+					$r->live[] = $e;
+					$v->used   = true;
+					break;
+				}
+			}
+			unset($v);
+		}
+
+//		// check to see if facebook is live
+//		if ($s->type === "fbl") {
+//			foreach ( $facebookSrcObjects as &$v ) {
+//				if ( $s->id === "fbl-" . $v->id ) {
+//					$e->active = true;
+//					$s->active = true;
+//					$r->live[] = $e;
+//					$v->used   = true;
+//					break;
+//				}
+//			}
+//			unset($v);
+//		}
 	}
+	unset($s);
 
-	unset($sources);
+	// event isn't live, so add to archive list.
+	if (!$e->active)
+		$r->archive[] = $e;
+}
+unset($e);
+
+// Assign SermonAudio to an event (or create one if one isn't available)
+$saIsAssigned = false;
+if ($sa->isLive && count($r->live) > 0) {
+	foreach($r->live as $e) {
+		foreach ($e->sources as $v) {
+			if ($v->type === "sa-vid" || $v->type === "sa-aud") {
+				$saIsAssigned = true;
+				break 2;
+			}
+		}
+		unset($v);
+	}
+	unset($e);
 }
 
+//// Create Events for SermonAudio streams that don't belong to an event.
+//if ($sa->isLive && !$saIsAssigned) {
+//	$sources[] = (object) [
+//		'type'     => 'sa-vid',
+//		'language' => 'en-us',
+//		'id'       => "sa-vid",
+//		'active'   => true,
+//		'url'      => $sa->videoIfrUrl,
+//	];
+//	$sources[] = (object) [
+//		'type'     => 'sa-aud',
+//		'language' => 'en-us',
+//		'id'       => "sa-aud",
+//		'active'   => true,
+//		'url'      => $sa->audioIfrUrl,
+//	];
+//	$r->live[] = (object) [
+//		'name'        => "Livestream",
+//		'priority'    => 1,
+//		'id'          => "ev-sa",
+//		'description' => "",
+//		'sources'     => $sources,
+//		'attachments' => []
+//	];
+//}
+//
+//
+//// Create Events for YouTube streams that don't belong to an event.
+//foreach ($ytV as $v) {
+//	if ( !isset( $v->used ) ) {
+//		$r->live[] = (object) [
+//			'name'        => $v->title,
+//			'priority'    => 1,
+//			'id'          => "ev-yt" . $v->id,
+//			'description' => $v->description,
+//			'sources'     => [
+//				(object) [
+//					'type'     => 'yt',
+//					'language' => 'en-us',
+//					'id'       => "yt-" . $v->id,
+//					'active'   => true,
+//					'url'      => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0&color=white",
+//					'thumb'    => $v->thumb_high
+//				]
+//			],
+//			'attachments' => []
+//		];
+//	}
+//}
+//unset($v);
+//
+//// Create Events for Facebook streams that don't belong to an event.
+//foreach ($facebookSrcObjects as $v) {
+//	if ( !isset( $v->used ) ) {
+//		$r->live[] = (object) [
+//			'name'        => $facebookTitle,
+//			'priority'    => 1,
+//			'id'          => "ev-fbl" . substr($v->id,4),
+//			'description' => "",
+//			'sources'     => [$v],
+//			'attachments' => []
+//		];
+//	}
+//}
+//unset($v);
 
-// Some variables to keep things clean later.
-$sid = $_COOKIE['kurtz'];
-$current = (isset($_GET['current']) ? $_GET['current'] : null);
 
+// Source Validation (Live)
+$includeError3 = false;
 
-// Static Test values
-if (isset($_GET['test']) && (intval($_GET['test']) & 2)) {
-	$json = json_decode(file_get_contents('test.json'));
-	foreach ($r as $k => &$v) {
-		$v = array_merge($json->$k, $v);
+foreach ($r->live as &$e) {
+	foreach ($e->sources as $sk => $s) {
+		$valid = true;
+		switch ($s->type) {
+			case "yt":
+//				if (!isset($s->active)) {
+//					$valid = false;
+//					break;
+//				}
+				if ($_SERVER['HTTP_USER_AGENT'] === 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko') {
+					$valid = false;
+					$includeError3 = true;
+					break;
+				}
+				break;
+
+			case "fbl":
+				if (!isset($s->active))
+					$valid = false;
+				break;
+		}
+		if (!$valid) {
+			unset( $e->sources[ $sk ] );
+		}
 	}
+	unset($s, $sk);
+}
+unset($e);
+
+if ($includeError3) {
+	$r->msg[] = "<span style=\"color: #f00;\">Please note that some streams are available, but won't work with Internet Explorer on Windows 7.  Please consider using a different browser.</span>";
 }
 
-// Work-around for Internet Explorer on Windows 7. (See Issue #3)
-if ($youTubeActive && $_SERVER['HTTP_USER_AGENT'] === 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko') {
-
-	// Add Message for End-users
-	if ($current === 'loading') {
-		$r->msg[] = "<span style=\"color: #f00;\">Streams are available, but won't work with Internet Explorer on Windows 7.  Please consider using a different browser.</span>";
-	} else {
-		$r->msg[] = "Other streams are available, but won't work with Internet Explorer on Windows 7.  Please consider using a different browser.";
+// Source Validation (Archive)
+foreach ($r->archive as &$e) {
+	foreach ($e->sources as $sk => $s) {
+		$valid = true;
+		switch ($s->type) {
+			case "sa-aud":
+			case "sa-vid":
+				$valid = false;
+				break;
+		}
+		if (!$valid) {
+			unset( $e->sources[ $sk ] );
+		}
 	}
-
-} else {
-
-	// Assuming first provider is the best provider, provide an indication to the user when they're watching a provider other than the first.
-	if (count($r->live) > 0 && $current !== 'loading' && explode( '-', $current, 2 )[0] !== explode( '-', $r->live[0]->sources[0]->id, 2 )[0] && $youTubeActive ) {
-		$r->msg[] = "A better quality stream may be available than the one you're currently watching.  <a href=\"#\" onclick='playSource(" . json_encode( $r->live[0]->sources[0] ) . "); return false;'>Click here to switch</a>.";
-	}
+	unset($s, $sk);
 }
-
-// Message Presentation
-//$r->msg[] = "<span style=\"background-color: yellow;\">This morning's worship services will not be broadcast due to the sensitive nature of our preacher's work.</span>  Please join us for the livestream of our Evening Service and the conclusion of our Global Outreach Conference at 6:15pm EST (23:30 UTC).  You can <a href=\"https://bit.ly/goconferences\">find previous GO Conference Services here</a>.";
-$r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: {$sid} %0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.";
+unset($e);
 
 // Session & Cookie Management
 session_name("kurtz");

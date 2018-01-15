@@ -1,0 +1,47 @@
+{
+  "name": "Tenth Family Christmas",
+  "priority": 1,
+  "description": "Featuring Tenth Children's Music",
+  "startDT_formatted": "Sun, 24 Dec 2017 ⋅ 4:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-gXHVGvnYpTU",
+      "url": "\/\/www.youtube.com\/embed\/gXHVGvnYpTU?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/gXHVGvnYpTU\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "TH 195"
+    },
+    {
+      "name": "Isa 7:14-15"
+    },
+    {
+      "name": "TH 199"
+    },
+    {
+      "name": "TH 196"
+    },
+    {
+      "name": "Luke 2:8-14"
+    },
+    {
+      "name": "TH 210"
+    }
+  ]
+}

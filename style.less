@@ -174,9 +174,33 @@ span.sourceButtons { // grey
   }
 }
 
-// Remove if the corresponding rule can be removed from the template css
+
+div.attachment {
+  & > iframe {
+    width:100%;
+    height:inherit;
+    border:none;
+    min-height:49.5vh; // Change to "Inherit" if Chrome gets itself together.
+    max-height:inherit;
+  }
+  //& > img {
+  //  width:100%;
+  //  max-width: 4.8in;
+  //  float:left;
+  //}
+  max-height:50vh;
+  min-height:5in;
+  overflow:auto;
+}
+
+// Remove this rule if the corresponding rule can be removed from the template css
 body.livestream div.video {
   font:inherit;
+}
+
+// Remove this rule if the corresponding rule can be removed from the template css
+div.main > header {
+  padding: 0;
 }
 
 li#otherStreamsTab {
@@ -194,14 +218,15 @@ li#otherStreamsTab {
     }
   }
 
-  body.livestream div.main > header {
-    display:none;
-  }
-
-  body.livestream div.main > div.body > div.video {
-    padding-bottom: ~"calc(56.25% + 17px)";
-    margin: -30px -15px 0;
-    width:auto;
+  body.livestream div.main, body.livestream-beta div.main {
+    & > header  {
+      display:none;
+    }
+    & > div.video {
+      padding-bottom: ~"calc(56.25% + 17px)";
+      margin: -30px -15px 0;
+      width:auto;
+    }
   }
 
   body > footer.site-footer {
@@ -253,6 +278,11 @@ div.sidebar {
   & h3 {
     font-size: 18px;
   }
+  p.subtle {
+    font-size: .8em;
+    opacity:.6;
+    font-style: italic;
+  }
 }
 
 @media (min-width: 768px) {
@@ -272,7 +302,7 @@ div.sidebar {
   }
 }
 
-.starts-chapter .chapter-num {
+.chapter-num {
   & {
     font-family: "adobe-garamond-pro", Garamond, serif;
     color: #49917b;
@@ -285,10 +315,17 @@ div.sidebar {
 }
 
 .main .section-nav ul.nav.nav-tabs.row-fluid {
-  & a {
-    cursor: pointer;
-  }
+  margin-bottom:0;
+
   @media (min-width: 768px) {
     padding-left: 0;
   }
+
+  & a {
+    cursor: pointer;
+  }
+  & .streamsTab {
+    border-right: 1px solid #eeeeee;
+  }
 }
+

@@ -1,0 +1,48 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 1,
+  "description": "Featuring Jerry McFarland preaching \"Timing is Everything\" from 2 Peter 3:8-11.",
+  "startDT_formatted": "Sun, 31 Dec 2017 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-CgfKP2Rsl3A",
+      "url": "\/\/www.youtube.com\/embed\/CgfKP2Rsl3A?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/CgfKP2Rsl3A\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a37ffec81f85cc7bd0001e6/files/171231_bulletin-web.pdf?1514500679"
+    },
+    {
+      "name": "TH 200"
+    },
+    {
+      "name": "TH 216"
+    },
+    {
+      "name": "2 Peter 3:8-11"
+    },
+    {
+      "name": "TH 211"
+    },
+    {
+      "name": "TH 195"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 1,
+  "description": "Featuring Carroll Wynne preaching \"Praise for Christ’s Voice\" from Psalm 29.",
+  "startDT_formatted": "Sun, 7 Jan 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-rk_suS_z5Gw",
+      "url": "\/\/www.youtube.com\/embed\/rk_suS_z5Gw?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/rk_suS_z5Gw\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a4572f91b5d0d6733000038/files/180107.pdf?1515095369"
+    },
+    {
+      "name": "TH 26"
+    },
+    {
+      "name": "TH 393"
+    },
+    {
+      "name": "Psalm 29:1-11"
+    },
+    {
+      "name": "TH 45"
+    }
+  ]
+}

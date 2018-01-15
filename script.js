@@ -8,15 +8,17 @@
 
 var container = document.scripts[document.scripts.length-1].parentNode,
     head  = document.getElementsByTagName('head')[0],
-    vm = {},
+    vm = {interval: null},
     scriptBase = document.scripts[document.scripts.length - 1].src.replace(/(\/\/.*?\/.*\/).*/g, '$1'),
     isTestingMode = (!(getUrlParameter('test') !== null)) + 2 * (!(getUrlParameter('static') !== null));
 
 if (container === head) {
     /* Status-only mode */
 
-    doRequest();
-    setInterval(doRequest, 15000);
+    // doRequest();
+    if (vm.interval !== null)
+        clearInterval(vm.interval);
+    vm.interval = setInterval(doRequest, 30000);
 
 } else {
     /* Video Player mode */
@@ -104,7 +106,9 @@ function initalizeModels() {
     ko.applyBindings(vm, document.body);
 
     doRequest();
-    setInterval(doRequest, 5000);
+    if (vm.interval !== null)
+        clearInterval(vm.interval);
+    vm.interval = setInterval(doRequest, 5000);
 }
 
 /**
@@ -128,7 +132,7 @@ function liveStreamJsonListener() {
     if (container === head)
         return;
 
-    if (JSON.stringify(vm.livePrograms()) !== JSON.stringify(response.live)) { // update vm streams if there's a change
+    if (typeof vm.livePrograms !== "function" || JSON.stringify(vm.livePrograms()) !== JSON.stringify(response.live)) { // update vm streams if there's a change
         vm.livePrograms(response.live);
     }
 
@@ -143,14 +147,37 @@ function liveStreamJsonListener() {
     }
 
     if (vm.currentMode() === "loading") { // if the client is in "loading" mode
-        if (response.live.length > 0) {
-            if (response.live[0].sources.length > 0) {
-                playSource(response.live[0].sources[0]);
+        var ev = parseInt(getUrlParameter("event")),
+            evObj = undefined;
+        if (getUrlParameter("event") > 0) {
+            evObj = vm.livePrograms().find(function(evO) {
+                return evO.id === ev;
+            });
+            if (evObj === undefined) {
+                evObj = vm.archive().find(function(evO) {
+                    return evO.id === ev;
+                });
+            }
+            if (evObj !== undefined) {
+                if (evObj.sources.length > 0) {
+                    playSource(evObj.sources[0]);
+                }
             } else {
-                mediaElt.innerHTML = "A livestream is currently available, but is not compatible with your browser.<br />Please consider using a different browser."
+                mediaElt.innerHTML = "The livestream you're looking for isn't currently available.";
+                if (response.live.length > 0) {
+                    mediaElt.innerHTML += "<br />However, others are live now."
+                }
             }
         } else {
-            mediaElt.innerHTML = "There is no livestream currently available.<br />We will display the livestream here as soon as it begins."
+            if (response.live.length > 0) {
+                if (response.live[0].sources.length > 0) {
+                    playSource(response.live[0].sources[0]);
+                } else {
+                    mediaElt.innerHTML = "A livestream is currently available, but is not compatible with your browser.<br />Please consider using a different browser."
+                }
+            } else {
+                mediaElt.innerHTML = "There is no livestream currently available.<br />We will display the livestream here as soon as it begins."
+            }
         }
     }
     
@@ -168,12 +195,76 @@ function liveStreamJsonListener() {
  * For UI iterations that allow attachments (scripture, order of worship, etc.) to be shown to the user.
  *
  * @param attachment {object} The attachment object, originating with the json response.
- * @param event {event} The event (probably click) by which the attachment has been selected.
+ * @param event {event} Optional. The event (probably click) by which the attachment has been selected.
  */
 function selectAttachment(attachment, event) {
-    switchTabs_reset(event.target);
-    console.log(attachment);
-    attachment.selectedBefore = "true"; // placeholder for attachment content
+    if (event !== undefined)
+        switchTabs_reset(event.target);
+    else
+        switchTabs_reset();
+    if (!attachment.hasOwnProperty('contentBox')) {
+        attachment.contentBox = document.createElement('div');
+        attachment.contentBox.classList.add('attachment');
+        document.getElementsByClassName('attachmentContentSection')[0].appendChild(attachment.contentBox);
+        if (attachment.name.substr(0, 3) === "TH ") { // Hymnal
+            attachment.type = "Hymn";
+            populateAttachment_TH(attachment);
+        } else if (attachment.hasOwnProperty("ifrUrl")) {
+            attachment.type = "Document";
+            populateAttachment_ifr(attachment);
+        } else {
+            attachment.type = "Scripture";
+            populateAttachment_ESV(attachment);
+        }
+    }
+    vm.currentAttachment(attachment);
+    attachment.contentBox.style.display = "";
+    if (typeof ga === 'function') { // assume Google Analytics is loaded.
+        ga('send', 'event', { 'eventCategory': 'Livestream', 'eventAction': 'Attachment: ' + attachment.type, 'eventLabel': attachment.name });
+    }
+}
+
+
+function populateAttachment_TH(attachment) {
+    attachment.contentBox.innerHTML = "<p>loading...</p>";
+    var hymnNumber = attachment.name.substr(3),
+        xhr = new XMLHttpRequest();
+    xhr.open('GET', scriptBase + 'attachments/TH/?h=' + hymnNumber);
+    xhr.addEventListener('load', function() {
+        if (this.responseText === '') {
+            attachment.contentBox.innerHTML = "<p>Due to copyright constraints, we cannot provide the music for this hymn online.</p>"
+        } else {
+            attachment.contentBox.innerHTML = this.responseText;
+        }
+    });
+    xhr.send();
+}
+
+
+function populateAttachment_ESV(attachment) {
+    attachment.contentBox.innerHTML = "<p>loading...</p>";
+    var passage = attachment.name.split(':',2)[0],
+        xhr = new XMLHttpRequest();
+    xhr.open('GET', scriptBase + 'attachments/ESV/?q=' + passage);
+    xhr.addEventListener('load', function() {
+        if (this.responseText === '') {
+            attachment.contentBox.innerHTML = "<p>Hmmm... couldn't load the passage.  Sorry about that.</p>"
+        } else {
+            attachment.contentBox.innerHTML = this.responseText;
+        }
+    });
+    xhr.send();
+}
+
+
+function populateAttachment_ifr(attachment) {
+    if (attachment.hasOwnProperty('ifrUrl')) {
+        var ifr = document.createElement('iframe');
+        ifr.src = attachment.ifrUrl;
+        attachment.contentBox.appendChild(ifr);
+    } else {
+        attachment.contentBox.innerHTML = "Can't load content, because it was not correctly specified.  Sorry about that.";
+    }
 }
 
 /**
@@ -186,6 +277,7 @@ function selectAttachment(attachment, event) {
 function switchTabs_streamsList(caller) {
     switchTabs_reset(caller);
     document.getElementsByClassName('sidebar')[0].style.display = 'block';
+    vm.currentAttachment(null);
 }
 
 /**
@@ -196,24 +288,26 @@ function switchTabs_streamsList(caller) {
  */
 function switchTabs_reset(caller) {
     /* Hide other content sections. */
-    document.getElementsByClassName('sidebar')[0].style.display = '';
-    var sects = document.getElementsByClassName('section-content');
-    for(var si in sects) {
-        if (!sects.hasOwnProperty(si))
-            continue;
-        sects[si].style.display = 'none';
+    if (vm.currentAttachment() !== null) {
+        vm.currentAttachment().contentBox.style.display = 'none';
     }
+
+    var sidebars = document.getElementsByClassName('sidebar');
+    if (sidebars.length > 0)
+        sidebars[0].style.display = '';
 
     /* Remove 'active' class from tab */
-    var tabs = caller.parentNode.parentNode.children;
-    for(var ti in tabs) {
-        if (!tabs.hasOwnProperty(ti))
-            continue;
-        tabs[ti].classList.remove('active');
-    }
+    if (caller !== undefined) {
+        var tabs = caller.parentNode.parentNode.children;
+        for (var ti in tabs) {
+            if (!tabs.hasOwnProperty(ti))
+                continue;
+            tabs[ti].classList.remove('active');
+        }
 
-    /* Add 'active' class to caller tab */
-    caller.parentNode.classList.add('active');
+        /* Add 'active' class to caller tab */
+        caller.parentNode.classList.add('active');
+    }
 
 }
 
@@ -223,7 +317,8 @@ function switchTabs_reset(caller) {
  * @function
  */
 function doRequest() {
-    var req = new XMLHttpRequest();
+    var req = new XMLHttpRequest(),
+        eventId = getUrlParameter("event");
     req.Timeout = 3800;
     req.withCredentials = true;
     req.addEventListener('load', liveStreamJsonListener);
@@ -232,7 +327,7 @@ function doRequest() {
     if (container === head) // status mode
         req.open("GET", scriptBase + "json/" + (isTestingMode ? '?test='+isTestingMode : ''));
     else // video mode
-        req.open("GET", scriptBase + "json/?current=" + vm.currentMode() + (isTestingMode ? '&test='+isTestingMode : ''));
+        req.open("GET", scriptBase + "json/?current=" + vm.currentMode() + (isTestingMode ? '&test='+isTestingMode : '') + (eventId ? '&event='+eventId : ''));
     req.send();
 }
 
@@ -297,7 +392,16 @@ function _getProgramFromSourceId(sourceId) {
  */
 function playSource(source) {
     createMediaFrame();
-    vm.currentProgram(_getProgramFromSourceId(source.id));
+    var newProgram = _getProgramFromSourceId(source.id)
+    if (JSON.stringify(vm.currentProgram) !== JSON.stringify(newProgram)) {
+        // New program is different from current one (attachments and such thus change).
+        vm.currentProgram(newProgram);
+        window.history.pushState(null, null, "?event=" + vm.currentProgram().id);
+        if (typeof ga === 'function')  // assume Google Analytics is loaded.
+            ga('send', 'event', { 'eventCategory': 'Livestream', 'eventAction': 'Select Program', 'eventLabel': 'Program ' + vm.currentProgram().id });
+        if (vm.currentProgram().attachments.length > 0 && document.getElementsByClassName('attachmentContentSection').length > 0)
+            selectAttachment(vm.currentProgram().attachments[0]);
+    }
     vm.currentMode(source.id);
     switch (source.type) {
         case "yt":
