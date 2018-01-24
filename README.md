@@ -41,11 +41,7 @@ To install the Composer packages used as libraries, run `composer install`.
 
 You will need to manually rename `credentials.sample.json` to take out `.sample`, and you will need to add to that file your API key and App Token for YouTube and Facebook respectively.  [Get the YouTube API key here.](https://console.cloud.google.com/apis/credentials)  [Get a Facebook App Token here.](https://developers.facebook.com/tools/explorer/) 
 
-To build and minify Less and JavaScript files:
-
-	lessc --no-color style.less > style.css
-    csso -i style.css -o style.min.css
-    uglifyjs script.js -o script.min.js
+To build and minify Less and JavaScript files: `npm run build`
 
 ## Deploying
 

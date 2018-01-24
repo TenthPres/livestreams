@@ -11,6 +11,15 @@
     "knockout": ">=3.4"
   },
   "devDependencies": {
-    "less": "^2.7.3"
+    "csso": "",
+    "less": "^2.7.3",
+    "uslifyjs": "",
+    "npm-build-all": ""
+  },
+  "scripts": {
+    "build": "npm-run-all build:*",
+    "build:less": "lessc --no-color style.less > style.css",
+    "build:csso": "csso -i style.css -o style.min.css",
+    "build:ugjs": "uglifyjs script.js -o script.min.js"
   }
 }
