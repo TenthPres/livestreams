@@ -57,7 +57,10 @@ The files you need to deploy are:
  - Everything in the `/vendor` directory. (These are the libraries installed by Composer).
  - `/script.min.js`  This is the script file. 
  - `/style.min.css`  This is the stylesheet that defines appearances for many of the 
- - `/json/index.php`  This provides the server-side logic, determining which streams are live.  
+ - `/json/index.php`  This provides the server-side response to the clients, determining which streams to present. 
+ - `/json/cron.php`  This is the script you need to have cron run in order for the APIs to be queried.  
  - `/credentials.json`  This tells the application what the API keys are for YouTube and Facebook. 
 
 These files have been deployed to `https://west.tenth.org/live/`.
+
+Once the files are deployed, you'll need to setup a task (probably through cron) to run `/json/cron.php` __once per minute.__
