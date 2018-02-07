@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 1,
+  "description": "Featuring Liam Goligher preaching \"The Song of Songs\" from Song of Solomon 1:1-4.",
+  "startDT_formatted": "Sun, 21 Jan 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-QSdMmwB1Cbo",
+      "url": "\/\/www.youtube.com\/embed\/QSdMmwB1Cbo?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/QSdMmwB1Cbo\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a4e848a17d85f9cca0001b8/files/180121.pdf?1516294242"
+    },
+    {
+      "name": "TH 32"
+    },
+    {
+      "name": "Song of Solomon 1:1-4"
+    },
+    {
+      "name": "TH 508"
+    },
+    {
+      "name": "TH 85"
+    }
+  ]
+}
