@@ -106,8 +106,12 @@ session_set_cookie_params(3600 * 24 * 90); // 90 days
 session_start();
 
 // Headers
+
+$origin = $_SERVER['HTTP_ORIGIN'];
+if (strpos($origin, 'tenth.', 7) === false)
+	$origin = "https://www.tenth.org";
+header("Access-Control-Allow-Origin: " . $origin);
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: https://www.tenth.org");
 header("Access-Control-Allow-Credentials: true");
 header_remove('X-Powered-By');
 

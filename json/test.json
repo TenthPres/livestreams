@@ -34,13 +34,17 @@
       ],
       "attachments": [
         {
-          "name": "Order of Worship"
+          "name": "Bulletin",
+          "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59ee6a53e6a0b4a8d50001fa/files/171112.pdf?1510330387"
         },
         {
           "name": "Romans 5:1-2"
         },
         {
           "name": "TH 188"
+        },
+        {
+          "name": "TH 230"
         }
       ]
     }

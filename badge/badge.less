@@ -20,6 +20,18 @@ body.livestreamActive div.content > div.weeks > div.livestream > a.livestream-li
   }
 }
 
+body:not(.livestreamActive) .livestreamActive-only {
+  display:none !important;
+}
+
+// text stroke for the text overlaid on the homepage header image.
+@headShadowColor: rgba(0,0,0,.5);
+.head > .details > h1,
+.head > .details > h2,
+.head > .details > h3 {
+  text-shadow: @headShadowColor 1px 1px 0, @headShadowColor 0 1px 0, @headShadowColor -1px 1px 0, @headShadowColor -1px 0 0, @headShadowColor 1px 0 0, @headShadowColor -1px -1px 0, @headShadowColor 0 -1px 0, @headShadowColor 1px -1px 0;
+}
+
 body div.content > div.weeks > div.livestream > a.livestream-link[href="/livestream"] {
   &:hover > *::before {
     font-size: 105%;
@@ -41,4 +53,14 @@ body div.content > div.weeks > div.livestream > a.livestream-link[href="/livestr
   100% {
     opacity: 1.0;
   }
+}
+
+/* Fixes issues with blog post listings. */
+.resource-listing .resource-meta {
+  width: auto;
+}
+
+/* Deals with issues from header:after background images forcing a horizontal scroll. */
+body {
+  overflow-x: hidden;
 }
