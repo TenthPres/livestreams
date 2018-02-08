@@ -33,7 +33,10 @@ $esvReq = $client->request( 'GET', "https://api.esv.org/v3/passage/html/?q={$_GE
 	]
 ]);
 
-header("Access-Control-Allow-Origin: https://www.tenth.org");
+$origin = $_SERVER['HTTP_ORIGIN'];
+if (strpos($origin, 'tenth.', 7) === false)
+	$origin = "https://www.tenth.org";
+header("Access-Control-Allow-Origin: " . $origin);
 header("Access-Control-Allow-Credentials: true");
 header_remove('X-Powered-By');
 foreach (json_decode($esvReq->getBody())->passages as $p) {
