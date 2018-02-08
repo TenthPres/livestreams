@@ -392,7 +392,7 @@ function _getProgramFromSourceId(sourceId) {
  */
 function playSource(source) {
     createMediaFrame();
-    var newProgram = _getProgramFromSourceId(source.id)
+    var newProgram = _getProgramFromSourceId(source.id);
     if (JSON.stringify(vm.currentProgram) !== JSON.stringify(newProgram)) {
         // New program is different from current one (attachments and such thus change).
         vm.currentProgram(newProgram);
