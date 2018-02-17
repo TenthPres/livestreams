@@ -64,3 +64,14 @@ body div.content > div.weeks > div.livestream > a.livestream-link[href="/livestr
 body {
   overflow-x: hidden;
 }
+
+/* Swaps logo png for an SVG */
+#site-header div.navbar-brand a.site-logo {
+  background: data-uri('../assets/logoRGB-Optimized.svg') no-repeat;
+  width:168px;
+  height:37px;
+
+  img {
+    display:none;
+  }
+}
