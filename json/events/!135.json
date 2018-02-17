@@ -1,0 +1,46 @@
+{
+  "!comment!": "This stream included things which should not have been broadcast.  This event thus should not be published.",
+  "name": "Morning Worship Service",
+  "priority": 1,
+  "description": "Featuring Liam Goligher preaching \"Stepping Out the Fold of Christ\" from Hebrews 10:26-31.",
+  "startDT_formatted": "Sun, 11 Feb 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-fbUU1U7QlG0",
+      "url": "\/\/www.youtube.com\/embed\/fbUU1U7QlG0?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/fbUU1U7QlG0\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a6f59f105e7d0c26e0001f5/files/180211_bulletin_web.pdf?1518205901"
+    },
+    {
+      "name": "TH 165"
+    },
+    {
+      "name": "Psalm 31:1-12"
+    },
+    {
+      "name": "Hebrews 10:26-31"
+    },
+    {
+      "name": "TH 172"
+    }
+  ]
+}
