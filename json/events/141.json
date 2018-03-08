@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 1,
+  "description": "Featuring Liam Goligher preaching \"At the Table of the King\" from Song of Songs 1:12-14.",
+  "startDT_formatted": "Sun, 18 Feb 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt--sofL2m35SI",
+      "url": "\/\/www.youtube.com\/embed\/-sofL2m35SI?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/-sofL2m35SI\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a6f5a68dc068db61f00030f/files/180218_web.pdf?1518970193"
+    },
+    {
+      "name": "TH 73"
+    },
+    {
+      "name": "Song of Songs 1:12-14"
+    },
+    {
+      "name": "TH 427"
+    },
+    {
+      "name": "TH 263"
+    }
+  ]
+}
