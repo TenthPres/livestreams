@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"By Faith We Understand\" from Hebrews 11:1-3.",
+  "startDT_formatted": "Sun, 11 Mar 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-S7DxfrDsXp8",
+      "url": "\/\/www.youtube.com\/embed\/S7DxfrDsXp8?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/S7DxfrDsXp8\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a8b8eb0333ec2f3d8000413/files/180311.pdf?1520449683"
+    },
+    {
+      "name": "TH 38"
+    },
+    {
+      "name": "Psalm 33:1-11"
+    },
+    {
+      "name": "TH 36"
+    },
+    {
+      "name": "Hebrews 11:1-3"
+    },
+    {
+      "name": "TH 513"
+    }
+  ]
+}
