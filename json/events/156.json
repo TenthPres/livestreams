@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"When Love Declines\" from Song of Songs 2:8-17",
+  "startDT_formatted": "Sun, 25 Mar 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-U8roj1Sxw0g",
+      "url": "\/\/www.youtube.com\/embed\/U8roj1Sxw0g?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/U8roj1Sxw0g\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5aa5953eb8b192917e0006ea/files/180325_Palm_Sunday.pdf?1521731321"
+    },
+    {
+      "name": "TH 163"
+    },
+    {
+      "name": "Song of Songs 2:8-17"
+    },
+    {
+      "name": "TH 182"
+    },
+    {
+      "name": "TH 533"
+    }
+  ]
+}

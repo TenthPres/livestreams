@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"Cain and Abel\" from Genesis 4:1-5 and Hebrews 11:4",
+  "startDT_formatted": "Sun, 18 Mar 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-4_ob4Iqu0-c",
+      "url": "\/\/www.youtube.com\/embed\/4_ob4Iqu0-c?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/4_ob4Iqu0-c\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5a9850951438c2806c00065d/files/180318.pdf?1521140563"
+    },
+    {
+      "name": "TH 115"
+    },
+    {
+      "name": "TH 654"
+    },
+    {
+      "name": "Genesis 4:1-5"
+    },
+    {
+      "name": "Hebrews 11:4"
+    },
+    {
+      "name": "TH 542"
+    }
+  ]
+}
