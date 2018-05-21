@@ -6,10 +6,20 @@ $path = explode('/', $path, 3);
 $desiredEvent = "";
 $currentEvent = 0;
 $e = new StdClass();
-if (isset($path[1]) && $path[1] !== "" && file_exists("../json/events/" . $path[1] . ".json")) {
+if (isset($path[1]) && $path[1] !== "" && file_exists("../json/events/" . intval($path[1]) . ".json")) {
 	$desiredEvent = intval($path[1]);
 	$e = json_decode(file_get_contents("../json/events/" . $desiredEvent . ".json"));
 }
+
+if (strpos($_SERVER['HTTP_USER_AGENT'], "facebookexternalhit") === false && strpos($_SERVER['HTTP_USER_AGENT'], "Twitterbot") === false) {
+    if ($desiredEvent === 0) {
+        header( "Location: https://www.tenth.org/livestream-beta" );
+    } else {
+        header( "Location: https://www.tenth.org/livestream-beta?event=" . $desiredEvent );
+    }
+    die();
+}
+
 
 // check to see if absent fields can be replaced with substitutes
 if (!isset($e->summary) && isset($e->description)) {
@@ -29,16 +39,6 @@ foreach ($requiredFields as $rf) {
 }
 unset($eDefault);
 
-
-
-if (strpos($_SERVER['HTTP_USER_AGENT'], "facebookexternalhit") === false && strpos($_SERVER['HTTP_USER_AGENT'], "Twitterbot") === false) {
-	if ($desiredEvent === 0) {
-		header( "Location: https://www.tenth.org/livestream-beta" );
-	} else {
-		header( "Location: https://www.tenth.org/livestream-beta?event=" . $desiredEvent );
-	}
-	die();
-}
 
 $combinedDescription = "";
 if (isset($e->startDT_formatted) && $desiredEvent !== $currentEvent)

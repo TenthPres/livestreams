@@ -59,13 +59,17 @@ function doCron()
 //            "url"   => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0&color=white"
 //        ];
             $list[] = "yt-" . $v->id;
+            echo "  yt-" . $v->id . "\n";
         }
         unset($v);
     } catch (GuzzleHttp\Exception\ClientException $e) {
+        echo $e->getMessage();
         // TODO error reporting (has only been noticed on account of quota issues)
     } catch (RuntimeException $e) {
         // no network connection, probably.
     }
+
+//    $list[] = "yt-M6BjQCSD1v0"; // TODO refactor so this absurdity isn't necessary
 
 
 // Facebook Query
@@ -91,6 +95,8 @@ function doCron()
         // TODO error reporting (hasn't been noticed as happening, but hypothetically could.)
     } catch (RuntimeException $e) {
         // no network connection, probably
+    } catch (GuzzleException $e) {
+
     }
 
 
@@ -129,7 +135,10 @@ function doCron()
 
     file_put_contents('liveNow.json', json_encode($list));
 
-    echo "Success";
+    echo "Success\n";
+
+    ob_flush();
+    flush();
 }
 
 set_time_limit(60);

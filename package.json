@@ -7,6 +7,7 @@
     "url": "https://github.com/TenthPres/livestreams"
   },
   "dependencies": {
+    "csso-cli": "^1.1.0",
     "font-awesome": ">=4.7",
     "knockout": ">=3.4"
   },

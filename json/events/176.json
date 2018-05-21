@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 2,
+  "description": "Featuring Maranatha Chung preaching \"Journey of Faith\" from Genesis 12:1-9",
+  "startDT_formatted": "Sun, 6 May 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-aCfBj0JuJw8",
+      "url": "\/\/www.youtube.com\/embed\/aCfBj0JuJw8?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/aCfBj0JuJw8\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5ad8b2e954c752bafa0001b8/files/180506.pdf?1525449209"
+    },
+    {
+      "name": "TH 453"
+    },
+    {
+      "name": "Genesis 12:1-9"
+    },
+    {
+      "name": "TH 451"
+    },
+    {
+      "name": "TH 449"
+    }
+  ]
+}

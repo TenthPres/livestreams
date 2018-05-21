@@ -1,0 +1,45 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"At World's End\" from Hebrews 11:7",
+  "startDT_formatted": "Sun, 15 Apr 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-O5E64-8rybc",
+      "url": "\/\/www.youtube.com\/embed\/O5E64-8rybc?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/O5E64-8rybc\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5ac2606059fcf472890000f0/files/180415.pdf?1523569502"
+    },
+    {
+      "name": "Psalm 35:1-13"
+    },
+    {
+      "name": "TH 500"
+    },
+    {
+      "name": "Hebrews 11:7"
+    },
+    {
+      "name": "TH 295"
+    }
+  ]
+}

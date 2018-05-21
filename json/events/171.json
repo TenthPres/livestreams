@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"Heirs Together of Life\" from Hebrews 11:11-12",
+  "startDT_formatted": "Sun, 29 Apr 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-eH-v8xfteww",
+      "url": "\/\/www.youtube.com\/embed\/eH-v8xfteww?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/eH-v8xfteww\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5accd42a3323e5d091000643/files/180429.pdf?1524862398"
+    },
+    {
+      "name": "TH 76"
+    },
+    {
+      "name": "Psalm 36:1-12"
+    },
+    {
+      "name": "TH 508"
+    },
+    {
+      "name": "Hebrews 11:11-12"
+    },
+    {
+      "name": "TH 650"
+    }
+  ]
+}

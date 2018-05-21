@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 2,
+  "description": "Featuring Greg Hobaugh preaching \"Desperate for Jesus\" from Mark 5:22-43",
+  "startDT_formatted": "Sun, 15 Apr 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-Wy9UXV4tNuU",
+      "url": "\/\/www.youtube.com\/embed\/Wy9UXV4tNuU?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/Wy9UXV4tNuU\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5ac2606059fcf472890000f0/files/180415.pdf?1523569502"
+    },
+    {
+      "name": "TH 298"
+    },
+    {
+      "name": "Mark 5:22-43"
+    },
+    {
+      "name": "TH 648"
+    },
+    {
+      "name": "TH 263"
+    }
+  ]
+}

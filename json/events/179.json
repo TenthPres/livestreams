@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 2,
+  "description": "Featuring Deryck Barson preaching \"Eternal and Temporal Comfort\" from 2 Thessalonians 2:13–17",
+  "startDT_formatted": "Sun, 13 May 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-8Ovjm777vlo",
+      "url": "\/\/www.youtube.com\/embed\/8Ovjm777vlo?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/8Ovjm777vlo\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5ae0e0e124535ba2ab0002f2/files/180513.pdf?1526057069"
+    },
+    {
+      "name": "TH 94"
+    },
+    {
+      "name": "2 Thessalonians 2:13–17"
+    },
+    {
+      "name": "TH 619"
+    },
+    {
+      "name": "TH 498"
+    }
+  ]
+}
