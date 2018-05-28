@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"Beauty is in the Eye of the Beholder\" from Song of Songs 4:1-16",
+  "startDT_formatted": "Sun, 27 May 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-apdEPpxEzrU",
+      "url": "\/\/www.youtube.com\/embed\/apdEPpxEzrU?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/apdEPpxEzrU\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5ae887dafbdc85a04b0003a2/files/180527.pdf?1527112905"
+    },
+    {
+      "name": "TH 3"
+    },
+    {
+      "name": "Song of Songs 4:1-16"
+    },
+    {
+      "name": "TH 355"
+    },
+    {
+      "name": "TH 77"
+    }
+  ]
+}
