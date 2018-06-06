@@ -243,8 +243,13 @@ function populateAttachment_TH(attachment) {
 
 function populateAttachment_ESV(attachment) {
     attachment.contentBox.innerHTML = "<p>loading...</p>";
-    var passage = attachment.name.split(':',2)[0],
+    var passage = attachment.name.split(':',3),
         xhr = new XMLHttpRequest();
+
+    if (passage.length > 2 && passage[1].indexOf("-") !== -1)
+        passage = passage[0] + "-" + passage[1].split('-')[1];
+    else
+        passage = passage[0];
     xhr.open('GET', scriptBase + 'attachments/ESV/?q=' + passage);
     xhr.addEventListener('load', function() {
         if (this.responseText === '') {
