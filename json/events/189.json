@@ -1,0 +1,45 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Youth Worship Service, featuring Liam Goligher preaching \"Defiance\" from Hebrews 11:23",
+  "startDT_formatted": "Sun, 10 June 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-YpRA4DKk1PY",
+      "url": "\/\/www.youtube.com\/embed\/YpRA4DKk1PY?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/YpRA4DKk1PY\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5b0ea27c6dc66e8652000549/files/180610.pdf?1528467930"
+    },
+    {
+      "name": "TH 100"
+    },
+    {
+      "name": "Psalm 37:27-40"
+    },
+    {
+      "name": "Hebrews 11:23"
+    },
+    {
+      "name": "TH 642"
+    }
+  ]
+}
