@@ -1,0 +1,42 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"Choosing Christ\" from Hebrews 11:24-26",
+  "startDT_formatted": "Sun, 17 June 2018 ⋅ 11:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt--ziQUNsJbRk",
+      "url": "\/\/www.youtube.com\/embed\/-ziQUNsJbRk?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/-ziQUNsJbRk\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5b0ea2ae20bdaf025f00045f/files/180617.pdf?1528924365"
+    },
+    {
+      "name": "TH 38"
+    },
+    {
+      "name": "Hebrews 11:24-16"
+    },
+    {
+      "name": "TH 347"
+    }
+  ]
+}
