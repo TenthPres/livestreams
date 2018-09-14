@@ -26,6 +26,8 @@ YouTubeLiveEmbed::setApiKey($credentials->YouTube);
 function doCron()
 {
 
+    global $credentials;
+
 // Create the array that will become the list of live streams
     $list = [];
 
