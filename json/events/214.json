@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"The Church of God\" from Matthew 4:12-5:1",
+  "startDT_formatted": "Sun, 5 Aug 2018 ⋅ 11:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-2Gdp7AsJEsk",
+      "url": "\/\/www.youtube.com\/embed\/2Gdp7AsJEsk?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/2Gdp7AsJEsk\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5b55e593da147c213e000267/files/180805.pdf?1533423693"
+    },
+    {
+      "name": "TH 57"
+    },
+    {
+      "name": "TH 565"
+    },
+    {
+      "name": "Matthew 4:12-5:1"
+    },
+    {
+      "name": "TH 342"
+    },
+    {
+      "name": "TH 378"
+    }
+  ]
+}

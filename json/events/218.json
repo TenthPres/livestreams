@@ -1,0 +1,45 @@
+{
+  "name": "Evening Worship Service",
+  "priority": 2,
+  "description": "Featuring Phillip Henry preaching \"Wise Building\" from Matthew 7:24-27",
+  "startDT_formatted": "Sun, 12 Aug 2018 ⋅ 6:30pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-sgPKGc1nZLo",
+      "url": "\/\/www.youtube.com\/embed\/sgPKGc1nZLo?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/sgPKGc1nZLo\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5b55e5e87f74b5ba3e000553/files/180812.pdf?1533744193"
+    },
+    {
+      "name": "TH 179"
+    },
+    {
+      "name": "Matthew 7:24-27"
+    },
+    {
+      "name": "TH 619"
+    },
+    {
+      "name": "TH 558"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Gavin Lymberopoulos preaching \"The Time Has Come...\" from Haggai 1:1-15",
+  "startDT_formatted": "Sun, 24 June 2018 ⋅ 11:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-sYltPUYb6Eo",
+      "url": "\/\/www.youtube.com\/embed\/sYltPUYb6Eo?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/sYltPUYb6Eo\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5b1f1f6bcccba868a40004d5/files/180624.pdf?1529807302"
+    },
+    {
+      "name": "TH 310"
+    },
+    {
+      "name": "Psalm 38:1-12"
+    },
+    {
+      "name": "TH 565"
+    },
+    {
+      "name": "Haggai 1:1-15"
+    },
+    {
+      "name": "TH 353"
+    }
+  ]
+}

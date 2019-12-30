@@ -15,7 +15,7 @@ var container = document.scripts[document.scripts.length-1].parentNode,
 if (container === head) {
     /* Status-only mode */
 
-    // doRequest();
+    doRequest();
     if (vm.interval !== null)
         clearInterval(vm.interval);
     vm.interval = setInterval(doRequest, 30000);
@@ -108,7 +108,7 @@ function initalizeModels() {
     doRequest();
     if (vm.interval !== null)
         clearInterval(vm.interval);
-    vm.interval = setInterval(doRequest, 5000);
+    vm.interval = setInterval(doRequest, 10000);
 }
 
 /**

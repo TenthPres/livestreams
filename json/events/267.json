@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"Behold, Your King Comes\" from Hebrews 12:5-11",
+  "startDT_formatted": "Sun, 2 Dec 2018 ⋅ 11:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-1KGAJmyxbBU",
+      "url": "\/\/www.youtube.com\/embed\/1KGAJmyxbBU?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/1KGAJmyxbBU\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5bf327ccabab24a6b00003b7/files/181202.pdf?1543529273"
+    },
+    {
+      "name": "TH 208"
+    },
+    {
+      "name": "TH 194"
+    },
+    {
+      "name": "Matthew 21:1-13"
+    },
+    {
+      "name": "TH 207"
+    },
+    {
+      "name": "TH 193"
+    }
+  ]
+}

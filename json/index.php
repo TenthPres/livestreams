@@ -8,7 +8,7 @@ if (isset($_COOKIE['kurtz'])) {
 }
 $current = (isset($_GET['current']) ? $_GET['current'] : null);
 $credentials = json_decode(file_get_contents('../credentials.json'));
-$eventFileList = array_diff(scandir("events"), array('..', '.', 'default.json'));
+$eventFileList = array_diff(scandir("events"), array('..', '.', 'default.json', 'archive'));
 $eventFileList = array_reverse($eventFileList, true);
 $eventList = [];
 
@@ -100,10 +100,14 @@ foreach ($r->archive as &$e) {
 }
 unset($e, $valid);
 
+
 // Session & Cookie Management
 session_name("kurtz");
 session_set_cookie_params(3600 * 24 * 90); // 90 days
 session_start();
+
+if (isset($_SESSION['user']))
+    $r->user = $_SESSION['user']['FullName'];
 
 // Headers
 
@@ -123,6 +127,7 @@ ob_flush();
 flush();
 
 // Logging & Analytics
-$f_csv = fopen("usage.csv", "a");
-fputcsv($f_csv, [(new DateTime())->format('Y-m-d H:i:s'), $sid, $_SERVER['REMOTE_ADDR'], $current, $_SERVER['HTTP_USER_AGENT']]);
+$f_csv = fopen("usageUsers.csv", "a");
+$user = (isset($_SESSION['user']) ? $_SESSION['user']['IndividualId'] : '');
+fputcsv($f_csv, [(new DateTime())->format('Y-m-d H:i:s'), $sid, $_SERVER['REMOTE_ADDR'], $current, $_SERVER['HTTP_USER_AGENT'], $user]);
 fclose($f_csv);

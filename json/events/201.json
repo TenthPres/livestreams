@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Deryck Barson preaching \"The Lord Is My Shepherd\" from Psalm 23:1-6",
+  "startDT_formatted": "Sun, 8 July 2018 ⋅ 9:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-UFCX3c0iEmA",
+      "url": "\/\/www.youtube.com\/embed\/UFCX3c0iEmA?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/UFCX3c0iEmA\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5b2bb8f2185a961f2e000489/files/180708_bulletin-web.pdf?1530654643"
+    },
+    {
+      "name": "TH 4"
+    },
+    {
+      "name": "Psalm 39:1-13"
+    },
+    {
+      "name": "TH 599"
+    },
+    {
+      "name": "Psalm 23:1-6"
+    },
+    {
+      "name": "TH 87"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Hensworth Jonas preaching \"The Challenge of Missions\" from Matthew 11:25-30",
+  "startDT_formatted": "Sun, 4 Nov 2018 ⋅ 11:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt--p64SLb9Uhw",
+      "url": "\/\/www.youtube.com\/embed\/-p64SLb9Uhw?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/-p64SLb9Uhw\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5bc4f291f618cdcf270005ea/files/181104_GOC.pdf?1541086909"
+    },
+    {
+      "name": "TH 297"
+    },
+    {
+      "name": "Psalm 46:1-11"
+    },
+    {
+      "name": "TH 447"
+    },
+    {
+      "name": "Matthew 11:25-30"
+    }
+  ]
+}

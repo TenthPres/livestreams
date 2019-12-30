@@ -1,0 +1,48 @@
+{
+  "name": "Morning Worship Service",
+  "priority": 2,
+  "description": "Featuring Liam Goligher preaching \"The Gospel of God\" from Romans 1:1-7",
+  "startDT_formatted": "Sun, 22 July 2018 ⋅ 11:00am",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-mykmVw9nV0I",
+      "url": "\/\/www.youtube.com\/embed\/mykmVw9nV0I?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/mykmVw9nV0I\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "Bulletin",
+      "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/5b3a66011a8e77961a00013f/files/180722.pdf?1532094377"
+    },
+    {
+      "name": "TH 5"
+    },
+    {
+      "name": "Psalm 40:9-17"
+    },
+    {
+      "name": "TH 145"
+    },
+    {
+      "name": "Romans 1:1-7"
+    },
+    {
+      "name": "TH 441"
+    }
+  ]
+}

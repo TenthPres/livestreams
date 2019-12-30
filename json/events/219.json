@@ -1,0 +1,35 @@
+{
+  "name": "Zhang-Worsham Wedding",
+  "priority": 3,
+  "description": "",
+  "startDT_formatted": "Sat, 18 Aug 2018 ⋅ 4:00pm",
+  "sources": [
+    {
+      "type": "yt",
+      "language": "en-us",
+      "id": "yt-yn1V5KtqQW4",
+      "url": "\/\/www.youtube.com\/embed\/yn1V5KtqQW4?autoplay=1&rel=0&showinfo=0&color=white",
+      "thumb": "https:\/\/i.ytimg.com\/vi\/yn1V5KtqQW4\/hqdefault_live.jpg"
+    },
+    {
+      "type": "sa-vid",
+      "language": "en-us",
+      "id": "sa-vid",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
+    },
+    {
+      "type": "sa-aud",
+      "language": "en-us",
+      "id": "sa-aud",
+      "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "TH 457"
+    },
+    {
+      "name": "TH 460"
+    }
+  ]
+}
