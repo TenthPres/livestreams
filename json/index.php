@@ -28,6 +28,10 @@ $liveNow = json_decode(file_get_contents("liveNow.json"));
 foreach ($eventFileList as $ef) {
 	$id = intval(substr($ef, 0, -5));
 	$e = json_decode(file_get_contents("events/" . $ef));
+	
+	if ($e === null) {
+		$e = (object)[];
+	}
 
     $e->active = false;
     $e->id = $id;

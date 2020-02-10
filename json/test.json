@@ -1,71 +1,225 @@
 {
   "live": [
     {
-      "name": "Morning Worship Service",
-      "priority": 1,
-      "id": "ev-ytEUPEWfeyoL0",
-      "description": "Liam Goligher preaching \u201cJustification\u201d from Romans 5:1-2.",
+      "_id": 458,
+      "name": "Evening Worship Test",
+      "priority": 2,
+      "description": "Greg Hobaugh preaching from James 2:8-13",
+      "startDT_formatted": "Sun, 5 Jan 2020 ⋅ 6:30pm",
+      "status": "LIVE",
       "sources": [
         {
-          "type": "yt",
-          "language": "en-us",
-          "id": "yt-EUPEWfeyoL0",
-          "url": "\/\/www.youtube.com\/embed\/EUPEWfeyoL0?autoplay=1&rel=0&showinfo=0&color=white",
-          "thumb": "https:\/\/i.ytimg.com\/vi\/EUPEWfeyoL0\/hqdefault_live.jpg"
+          "_id": 936,
+          "provider": "sa",
+          "providerId": "vid",
+          "status": "LIVE"
         },
         {
-          "type": "sa-vid",
-          "language": "en-us",
-          "id": "sa-vid",
-          "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true"
-        },
-        {
-          "type": "sa-aud",
-          "language": "en-us",
-          "id": "sa-aud",
-          "url": "\/\/embed.sermonaudio.com\/player\/l\/tenth\/?autoplay=true&stream=audio"
-        },
-        {
-          "type": "fbl",
-          "language": "en-us",
-          "id": "fbl-10155960098769571",
-          "url": "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F1502879466416589%2F&mute=0&autoplay=1"
+          "_id": 937,
+          "provider": "sa",
+          "providerId": "aud",
+          "status": "LIVE"
         }
       ],
-      "attachments": [
-        {
-          "name": "Bulletin",
-          "ifrUrl": "https://d1nwfrzxhi18dp.cloudfront.net/sites/55df3b36200cc96eb3000006/content_entry55df3ba87d7a14ef5e0000f4/59ee6a53e6a0b4a8d50001fa/files/171112.pdf?1510330387"
-        },
-        {
-          "name": "Romans 5:1-2"
-        },
-        {
-          "name": "TH 188"
-        },
-        {
-          "name": "TH 230"
-        }
-      ]
+      "order": {
+        "_id": 149,
+        "hasHtml": true,
+        "hasJson": true
+      }
     }
   ],
   "archive": [
     {
-      "name": "Morning Worship - Sunday, 29 October 2017",
-      "priority": 1,
-      "id": "ev-ytev_hw8OoLdM",
-      "description": "9am Service featuring Liam Goligher preaching \u201cJustification\u201d from Romans 5:1-2",
+      "_id": 457,
+      "name": "Morning Worship Service",
+      "priority": 2,
+      "description": "Gavin Lymberopoulos preaching from 2 Timothy 4:9-22",
+      "startDT_formatted": "Sun, 5 Jan 2020 ⋅ 11:00am",
+      "status": "COMPLETED",
       "sources": [
         {
-          "type": "yt",
-          "language": "en-us",
-          "id": "yt-ev_hw8OoLdM",
-          "url": "\/\/www.youtube.com\/embed\/ev_hw8OoLdM?autoplay=1&rel=0&showinfo=0",
-          "thumb": "https:\/\/i.ytimg.com\/vi\/ev_hw8OoLdM\/hqdefault_live.jpg"
+          "_id": 932,
+          "provider": "yt",
+          "providerId": "zlcKUqXp3FM",
+          "status": "COMPLETED"
         }
       ],
-      "attachments":[]
+      "order": {
+        "_id": 148,
+        "hasHtml": true,
+        "hasJson": true
+      }
+    },
+    {
+      "_id": 456,
+      "name": "Morning Worship Service",
+      "priority": 2,
+      "description": "Gavin Lymberopoulos preaching from 2 Timothy 4:9-22",
+      "startDT_formatted": "Sun, 5 Jan 2020 ⋅ 9:00am",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 929,
+          "provider": "yt",
+          "providerId": "KO_8YxxaL9s",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 148,
+        "hasHtml": true,
+        "hasJson": true
+      }
+    },
+    {
+      "_id": 455,
+      "name": "Evening Worship Service",
+      "priority": 2,
+      "description": "Featuring Gavin Lymperopoulos preaching \"Fall Down and Worship\" from Matthew 2:1-12",
+      "startDT_formatted": "Sun, 29 Dec 2019 ⋅ 6:30pm",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 926,
+          "provider": "yt",
+          "providerId": "YtKKzqM69Tg",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 142,
+        "hasHtml": true,
+        "hasJson": true
+      }
+    },
+    {
+      "_id": 454,
+      "name": "Morning Worship Service",
+      "priority": 2,
+      "description": "Featuring Jonathan Master preaching \"Confident Christianity\" from Hebrews 10:19-25",
+      "startDT_formatted": "Sun, 29 Dec 2019 ⋅ 11:00am",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 923,
+          "provider": "yt",
+          "providerId": "Mlc1fvYtO84",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 141,
+        "hasHtml": true,
+        "hasJson": true
+      }
+    },
+    {
+      "_id": 453,
+      "name": "Morning Worship Service",
+      "priority": 2,
+      "description": "Featuring Jonathan Master preaching \"Confident Christianity\" from Hebrews 10:19-25",
+      "startDT_formatted": "Sun, 29 Dec 2019 ⋅ 9:00am",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 920,
+          "provider": "yt",
+          "providerId": "I_jlcmuF5sM",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 141,
+        "hasHtml": true,
+        "hasJson": true
+      }
+    },
+    {
+      "_id": 452,
+      "name": "(ASL) Lessons & Carols",
+      "priority": 3,
+      "description": "Venite Adoremus",
+      "startDT_formatted": "Tue, 24 Dec 2019 ⋅ 7:15pm",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 944,
+          "provider": "yt",
+          "providerId": "O5QPEgfGTPE",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 140,
+        "hasHtml": false,
+        "hasJson": false
+      }
+    },
+    {
+      "_id": 451,
+      "name": "Lessons & Carols",
+      "priority": 3,
+      "description": "Venite Adoremus",
+      "startDT_formatted": "Tue, 24 Dec 2019 ⋅ 7:15pm",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 945,
+          "provider": "yt",
+          "providerId": "ES5yVg1ZuK4",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 140,
+        "hasHtml": false,
+        "hasJson": false
+      }
+    },
+    {
+      "_id": 450,
+      "name": "Tenth Family Christmas",
+      "priority": 2,
+      "description": null,
+      "startDT_formatted": "Tue, 24 Dec 2019 ⋅ 4:30pm",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 950,
+          "provider": "yt",
+          "providerId": "xLwkwOOY6jc",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 139,
+        "hasHtml": true,
+        "hasJson": true
+      }
+    },
+    {
+      "_id": 449,
+      "name": "Lessons & Carols",
+      "priority": 3,
+      "description": "Venite Adoremus",
+      "startDT_formatted": "Mon, 23 Dec 2019 ⋅ 7:15pm",
+      "status": "COMPLETED",
+      "sources": [
+        {
+          "_id": 953,
+          "provider": "yt",
+          "providerId": "WjhbVHxiuPM",
+          "status": "COMPLETED"
+        }
+      ],
+      "order": {
+        "_id": 140,
+        "hasHtml": false,
+        "hasJson": false
+      }
     }
   ],
-  "msg": []
+  "upcoming": [
+
+  ]
 }
