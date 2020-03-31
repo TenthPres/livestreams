@@ -1,10 +1,11 @@
 <?php
 
 /** The purpose of this script is to determine which streams are currently live, and save that information
- * to the file liveNow.json.  It's just an array of the currently-live IDs  */
+ * to the livestream database.   */
 
 
 require_once '../vendor/autoload.php';
+require_once '../../liveDb.php';
 
 use \jkrrv\YouTubeLiveEmbed;
 use \GuzzleHttp\Client;
@@ -27,9 +28,14 @@ function doCron()
 {
 
     global $credentials;
+    global $_db;
+    global $tz;
 
-// Create the array that will become the list of live streams
-    $list = [];
+// Create the array that will become the list of runs live now
+    $runsLiveNow = [];
+
+// Prep query to update stream sources
+    $updateStreamSrcStatus = $_db->prepare("UPDATE StreamSources SET status = :status WHERE id = :srcId");
 
 
 // Create default HandlerStack, add cache to the stack.
@@ -54,16 +60,36 @@ function doCron()
         $ytle->guzzleClient = $client; // replace guzzle client with this one, with the handler option
         $ytV = $ytle->videos();
 
-        foreach ($ytV as $v) {
-//        $list[] = (object)[
-//            "type"  => "yt",
-//            "id"    => "yt-" . $v->id,
-//            "url"   => "//www.youtube.com/embed/" . $v->id . "?autoplay=1&rel=0&showinfo=0&color=white"
-//        ];
-            $list[] = "yt-" . $v->id;
-            echo "  yt-" . $v->id . "\n";
+        $selYtSrcByProvId = $_db->prepare("SELECT src.id as srcId, src.run as runId, src.status as runStatus FROM StreamSources AS src WHERE src.provider = 'yt' AND src.providerId = :providerId");
+        $selLiveYtSrc = $_db->prepare("SELECT src.id as srcId FROM StreamSources AS src WHERE src.provider = 'yt' AND src.status = 2");
+        $selLiveYtSrc->execute();
+
+        $ytLiveSrcLiveNow = [];
+        foreach ($ytV as $v) { // each current live stream
+            $selYtSrcByProvId->execute(['providerId' => $v->id]);
+            $liveSrc = $selYtSrcByProvId->fetch(PDO::FETCH_OBJ);
+
+            // update run status
+            if ($liveSrc->status !== 2) {
+                $updateStreamSrcStatus->execute(['status' => 2, 'srcId' => $liveSrc->srcId]);
+            }
+
+            $ytLiveSrcLiveNow[] = $liveSrc->srcId;
+
+            // add to run array
+            if (!in_array($liveSrc->runId, $runsLiveNow)) {
+                $runsLiveNow[] = $liveSrc->runId;
+            }
         }
         unset($v);
+
+        while ($liveListedSrcId = $selLiveYtSrc->fetchColumn(0)) { // foreach source listed as live
+            if (!in_array($liveListedSrcId, $ytLiveSrcLiveNow)) { // if it's not actually live
+                $updateStreamSrcStatus->execute(['status' => 3, 'srcId' => $liveListedSrcId]);
+            }
+        }
+
+
     } catch (GuzzleHttp\Exception\ClientException $e) {
         echo $e->getMessage();
         // TODO error reporting (has only been noticed on account of quota issues)
@@ -71,7 +97,6 @@ function doCron()
         // no network connection, probably.
     }
 
-//    $list[] = "yt-M6BjQCSD1v0"; // TODO refactor so this absurdity isn't necessary
 
 
 // Facebook Query
@@ -85,12 +110,11 @@ function doCron()
         $fblObj = json_decode($fbReq->getBody());
         foreach ($fblObj->data as $v) {
             if (isset($v->live_status) && $v->live_status === "LIVE") {
-//            $list[] = (object)[
-//                'type' => 'fbl',
-//                'id' => "fbl-" . $v->id,
+            $runsLiveNow[] = (object)[
+                'provider' => 'fbl',
+                'providerId' => $v->id,
 //                'url' => "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fvideos%2F" . $v->id . "%2F&mute=0&autoplay=1"
-//            ];
-                $list[] = "fbl-" . $v->id;
+            ];
             }
         }
     } catch (\GuzzleHttp\Exception\ClientException  $e) {
@@ -102,42 +126,82 @@ function doCron()
     }
 
 
+
+
 // SermonAudio Query
+    $sermonAudioIsLive = false;
     try { // this catches SermonAudio Server errors (which, apparently, happen sometimes).
-        $sourceID = 'tenth';
+        $channelId = 'tenth';
         $sa_curl = 'Webcast Offline';
 
         try {
             // URL queried to determine *if* the webcast is online.  Currently, this ONLY determines *whether* the stream is online.
-            $sa_curl = $client->request('GET', 'https://embed.sermonaudio.com/button/l/' . $sourceID . '/')->getBody();
+            $sa_curl = $client->request('GET', 'https://embed.sermonaudio.com/button/l/' . $channelId . '/')->getBody();
         } catch (RuntimeException $e) {
+            echo "Could not connect to SermonAudio: " . $e . "\n";
             // no network connection, probably
         }
 
+        $selLiveSaSrc = $_db->prepare("SELECT src.id as srcId, src.run as runId FROM StreamSources AS src WHERE src.provider = 'sa' AND src.status = 2");
+        $selLiveSaSrc->execute();
 
-        if (strpos($sa_curl, "Webcast Offline") === false) {
-//        $list[] = (object)[
-//            'type' => 'sa-vid',
-//            'id' => "sa-vid",
-//            'url' => "//embed.sermonaudio.com/player/l/tenth/?autoplay=true"
-//        ];
-            $list[] = "sa-vid";
+        if (strpos($sa_curl, "Webcast Offline") === false) {  // stream is live.
+            echo "\nSermonAudio is live.";
+            $liveSrc = $selLiveSaSrc->fetch(PDO::FETCH_OBJ);
 
-//        $list[] = (object)[
-//            'type' => 'sa-aud',
-//            'id' => "sa-aud",
-//            'url' => "//embed.sermonaudio.com/player/l/tenth/?autoplay=true&quality=audio"
-//        ];
-            $list[] = "sa-aud";
+            if ($liveSrc === false) { // there is no stream already marked as live.  Runs will NOT be marked as live until the following execution.
+                // find the next likely streams to be live now.
+                $dtStart = (new DateTime())->sub(new DateInterval("PT1H"))->setTimezone($tz);
+                $dtEnd = (new DateTime())->add(new DateInterval("PT1H"))->setTimezone($tz);
+                $selPendingSaSrc = $_db->prepare("SELECT src.id as srcId FROM StreamSources AS src LEFT JOIN WorshipRun AS run ON src.run = run.id WHERE run.startDT BETWEEN :dtStart AND :dtEnd AND src.provider = 'sa' AND src.status = 1");
+                $selPendingSaSrc->execute(['dtStart' => $dtStart->format('Y-m-d H:i:s'), 'dtEnd' => $dtEnd->format('Y-m-d H:i:s')]);
+                while ($liveRuns = $selPendingSaSrc->fetchColumn(0)) {
+                    // set status to Live
+                    $updateStreamSrcStatus->execute(['status' => 2, 'srcId' => $liveRuns]);
+                }
+            } else { // there is a stream already marked as running
+                do  {
+                    if (!in_array($liveSrc->runId, $runsLiveNow)) {
+                        $runsLiveNow[] = $liveSrc->runId;
+                    }
+                } while ($liveSrc = $selLiveSaSrc->fetch(PDO::FETCH_OBJ));
+            }
+
+
+        } else { // stream is not live.
+            echo "\nSermonAudio is not live. ";
+            $liveSrc = $selLiveSaSrc->fetchColumn(0);
+
+            if ($liveSrc !== false) { // there is a stream marked as running
+                do {
+                    $updateStreamSrcStatus->execute(['status' => 3, 'srcId' => $liveSrc]);
+                } while ($liveSrc = $selLiveSaSrc->fetchColumn(0));
+            }
         }
     } catch (GuzzleHttp\Exception\ClientException $e) {
+        echo "SermonAudio Request Failed";
         // TODO error reporting (SA returns server errors reasonably often)
     }
+    
+    
+// Update Runs
+    $selLiveRuns = $_db->prepare("SELECT run.id as runId FROM WorshipRun AS run WHERE run.status = 2");
+    $selLiveRuns->execute();
+    $updateRunStatus = $_db->prepare("UPDATE WorshipRun SET status = :status WHERE id = :runId");
 
+    // mark any false live runs as completed. 
+    while ($liveRunId = $selLiveRuns->fetchColumn(0)) {
+        if (!in_array($liveRunId, $runsLiveNow)) { // if no longer live, remove.
+            $updateRunStatus->execute(['status' => 3, 'runId' => $liveRunId]);
+            echo "removing $liveRunId   ";
+        } else { // if still live, remove from array, so update isn't called in next section.
+            unset($runsLiveNow[array_search($liveRunId, $runsLiveNow)]);
+        }
+    }
 
-    file_put_contents('liveNow.json', json_encode($list));
-
-    echo "Success\n";
+    foreach ($runsLiveNow as $liveRunId) {
+        $updateRunStatus->execute(['status' => 2, 'runId' => $liveRunId]);
+    }
 
     ob_flush();
     flush();
@@ -145,16 +209,3 @@ function doCron()
 
 set_time_limit(60);
 doCron();
-sleep(9);
-doCron();
-sleep(9);
-doCron();
-sleep(9);
-doCron();
-sleep(9);
-doCron();
-sleep(9);
-doCron();
-sleep(9);
-doCron();
-

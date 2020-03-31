@@ -1,137 +1,192 @@
 <?php
 
-// Some variables to keep things clean later.
-if (isset($_COOKIE['kurtz'])) {
-	$sid = $_COOKIE['kurtz'];
-} else {
-	$sid = null;
-}
-$current = (isset($_GET['current']) ? $_GET['current'] : null);
-$credentials = json_decode(file_get_contents('../credentials.json'));
-$eventFileList = array_diff(scandir("events"), array('..', '.', 'default.json', 'archive'));
-$eventFileList = array_reverse($eventFileList, true);
-$eventList = [];
-
-$r = (object)[];
-$r->live = [];
-$r->archive = [];
-$r->msg = [];
-
-$r->msg[] = "Thank you for trying the new Livestream system.  <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Beta Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: {$sid} %0D%0A%0D%0A\">The Technology Committee would love to know what you think</a>.";
-
-
-// Load the list of Live Now
-$liveNow = json_decode(file_get_contents("liveNow.json"));
-
-
-// Load the Event Files
-foreach ($eventFileList as $ef) {
-	$id = intval(substr($ef, 0, -5));
-	$e = json_decode(file_get_contents("events/" . $ef));
-	
-	if ($e === null) {
-		$e = (object)[];
-	}
-
-    $e->active = false;
-    $e->id = $id;
-
-    // determine if the event is live
-	foreach ($e->sources as &$s) {
-	    $s->active = false;
-
-	    if (in_array($s->id, $liveNow)) {
-            $s->active = true;
-            if($s->type !== "sa-aud" && $s->type !== "sa-vid") {
-                $e->active = true;
-            }
-        }
-    }
-
-    if ($e->active) {
-	    $r->live[] = $e;
-    } else {
-	    $r->archive[] = $e;
-    }
-}
-unset ($e, $s);
-
-
-// Source Validation (Live)
-$includeError3 = false;
-
-foreach ($r->live as &$e) {
-	foreach ($e->sources as $sk => $s) {
-		$valid = isset($s->active) && !!$s->active;
-		if ($valid) {
-            switch ($s->type) {
-                case "yt":
-                    if ($_SERVER['HTTP_USER_AGENT'] === 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko') {
-                        $valid = false;
-                        $includeError3 = true;
-                        break;
-                    }
-                    break;
-            }
-        }
-		if (!$valid) {
-			unset( $e->sources[ $sk ] );
-		}
-	}
-	unset($s, $sk);
-}
-unset($e);
-
-if ($includeError3) {
-	$r->msg[] = "<span style=\"color: #f00;\">Please note that some streams are available, but won't work with Internet Explorer on Windows 7.  Please consider using a different browser.</span>";
-}
-
-// Source Validation (Archive)
-foreach ($r->archive as &$e) {
-	foreach ($e->sources as $sk => $s) {
-        $valid = true;
-        switch ($s->type) {
-            case "sa-aud":
-            case "sa-vid":
-                $valid = false;
-                break;
-        }
-		if (!$valid) {
-			unset( $e->sources[ $sk ] );
-		}
-	}
-	unset($s, $sk);
-}
-unset($e, $valid);
-
-
-// Session & Cookie Management
-session_name("kurtz");
-session_set_cookie_params(3600 * 24 * 90); // 90 days
-session_start();
-
-if (isset($_SESSION['user']))
-    $r->user = $_SESSION['user']['FullName'];
-
 // Headers
 
 $origin = $_SERVER['HTTP_ORIGIN'];
 if (strpos($origin, 'tenth.', 7) === false)
-	$origin = "https://www.tenth.org";
+    $origin = "https://www.tenth.org";
 header("Access-Control-Allow-Origin: " . $origin);
 header("Content-Type: application/json");
 header("Access-Control-Allow-Credentials: true");
 header_remove('X-Powered-By');
 
-// Body
+
+if (isset($_GET['test'])) {
+    echo file_get_contents("test.json");
+    return;
+}
+
+
+
+require_once  '../../liveDb.php';
+
+
+
+$genQuery = $_db->prepare("SELECT 
+       WorshipRun.id as r_id, 
+       WorshipRun.startDT as r_startDT, 
+       WorshipRun.status as r_status, 
+       WorshipRun.name as r_name, 
+       WorshipRun.description as r_description, 
+       WorshipOrders.id as o_id, 
+       WorshipOrders.name as o_name, 
+       WorshipOrders.type as o_type, 
+       WorshipOrders.description as o_description,
+       WorshipOrders.priority as o_priority,
+       WorshipOrders.elementsHtml IS NOT NULL as o_hasHtml,
+       WorshipOrders.elementsJson IS NOT NULL as o_hasJson
+FROM main.WorshipRun LEFT JOIN main.WorshipOrders ON WorshipRun.worshipOrder = WorshipOrders.id 
+WHERE WorshipRun.status = :status AND WorshipRun.id != :run ORDER BY abs(strftime('%s',datetime(WorshipRun.startDT)) - strftime('%s','now')), WorshipRun.id DESC LIMIT :lim");
+
+$uniQuery = $_db->prepare("SELECT 
+       WorshipRun.id as r_id, 
+       WorshipRun.startDT as r_startDT, 
+       WorshipRun.status as r_status, 
+       WorshipRun.name as r_name,
+       WorshipRun.description as r_description, 
+       WorshipOrders.id as o_id, 
+       WorshipOrders.name as o_name, 
+       WorshipOrders.type as o_type, 
+       WorshipOrders.description as o_description,
+       WorshipOrders.priority as o_priority,
+       WorshipOrders.elementsHtml IS NOT NULL as o_hasHtml,
+       WorshipOrders.elementsJson IS NOT NULL as o_hasJson
+FROM main.WorshipRun LEFT JOIN main.WorshipOrders ON WorshipRun.worshipOrder = WorshipOrders.id 
+WHERE WorshipRun.id = :run ORDER BY WorshipRun.startDT");
+
+$strQuery = $_db->prepare("SELECT
+       StreamSources.id as s_id,
+       StreamSources.provider as s_provider,
+       StreamSources.providerId as s_providerId,
+       StreamSources.status as s_status
+FROM main.StreamSources
+WHERE StreamSources.run = :run");
+
+$r = (object)[
+    'live' => [],
+    'archive' => [],
+    'upcoming' => [],
+    'messages' => [
+        "Find the Order of Worship, Scripture, and Hymns below the video on this page."
+    ]
+];
+
+function statusIntToString($int) {
+    switch (intval($int)) {
+        case 1:
+            return "SCHEDULED";
+        case 2:
+            return "LIVE";
+        case 3:
+            return "COMPLETED";
+    }
+    RETURN "UNKNOWN";
+}
+
+
+function addRunToArray($run, &$array) {
+
+    global $strQuery;
+    global $tz;
+
+    $strQuery->execute(['run' => $run['r_id']]);
+
+    $sources = [];
+    while ($src = $strQuery->fetch(PDO::FETCH_ASSOC)) {
+
+        $src['s_status'] = intval($src['s_status']);
+
+        // skip SermonAudio sources that aren't currently live
+        if ($src['s_provider'] === "sa" && $src['s_status'] !== 2)
+            continue;
+
+        $sources[] = [
+            "_id" => intval($src['s_id']),
+            "provider" => $src['s_provider'],
+            "providerId" => $src['s_providerId'],
+            "status" => statusIntToString($src['s_status'])
+        ];
+    }
+
+    $startDT = new \DateTime($run['r_startDT'], $tz);
+    $array[] = [
+        "_id" => intval($run['r_id']),
+        "name" => runName($run),
+        "priority" => intval($run['o_priority']),
+        "description" => ($run['r_description'] ? $run['r_description'] : $run['o_description']),
+        "startDT_formatted" => $startDT->format("D, j M Y ⋅ g:ia"),
+        "status" => statusIntToString($run['r_status']),
+        "sources" => $sources,
+        "order" => [
+            "_id" => intval($run['o_id']),
+            "hasHtml" => !!$run['o_hasHtml'],
+            "hasJson" => !!$run['o_hasJson']
+        ],
+    ];
+}
+
+function runName($run) {
+    if ($run['r_name'] !== "" && $run['r_name'] !== null)
+        return $run['r_name'];
+
+    if ($run['o_name'] !== "" && $run['o_name'] !== null)
+        return $run['o_name'];
+
+    switch (intval($run['o_type'])) {
+        case 1:
+            return "Morning Worship Service";
+
+        case 2:
+            return "Evening Worship Service";
+
+        case 3:
+            return "Internationals Worship Service";
+    }
+
+    return "";
+}
+
+$requestedRun = 0;
+if (isset($_GET['r'])) {
+    $requestedRun = intval($_GET['r']);
+    $uniQuery->execute(['run' => $requestedRun]);
+    while ($run = $uniQuery->fetch(PDO::FETCH_ASSOC)) {
+        switch($run['r_status']) {
+            case 1:
+                addRunToArray($run, $r->upcoming);
+                continue;
+            case 2:
+                addRunToArray($run, $r->live);
+                continue;
+            case 3:
+                addRunToArray($run, $r->archive);
+                continue;
+        }
+    }
+}
+
+$limit = 10;
+
+$genQuery->execute(['status' => 2, 'run' => $requestedRun, 'lim' => $limit]);
+while ($run = $genQuery->fetch(PDO::FETCH_ASSOC)) {
+    addRunToArray($run, $r->live);
+    $limit--;
+}
+
+$genQuery->execute(['status' => 1, 'run' => $requestedRun, 'lim' => min(3, $limit)]);
+while ($run = $genQuery->fetch(PDO::FETCH_ASSOC)) {
+    addRunToArray($run, $r->upcoming);
+    $limit--;
+}
+
+$genQuery->execute(['status' => 3, 'run' => $requestedRun, 'lim' => $limit]);
+while ($run = $genQuery->fetch(PDO::FETCH_ASSOC)) {
+    addRunToArray($run, $r->archive);
+    $limit--;
+}
+
+
 echo json_encode($r);
 
-// Push Response
-ob_flush();
-flush();
 
-// Logging & Analytics
-$f_csv = fopen("usageUsers.csv", "a");
-$user = (isset($_SESSION['user']) ? $_SESSION['user']['IndividualId'] : '');
-fputcsv($f_csv, [(new DateTime())->format('Y-m-d H:i:s'), $sid, $_SERVER['REMOTE_ADDR'], $current, $_SERVER['HTTP_USER_AGENT'], $user]);
-fclose($f_csv);
+//todo restore analytics
