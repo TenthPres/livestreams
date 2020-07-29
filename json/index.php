@@ -1,11 +1,16 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 // Headers
 
-$origin = $_SERVER['HTTP_ORIGIN'];
-if (strpos($origin, 'tenth.', 7) === false)
-    $origin = "https://www.tenth.org";
-header("Access-Control-Allow-Origin: " . $origin);
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    $origin = $_SERVER['HTTP_ORIGIN'];
+    if (strpos($origin, 'tenth.', 7) === false)
+        $origin = "https://www.tenth.org";
+    header("Access-Control-Allow-Origin: " . $origin);
+}
 header("Content-Type: application/json");
 header("Access-Control-Allow-Credentials: true");
 header_remove('X-Powered-By');
@@ -16,7 +21,11 @@ if (isset($_GET['test'])) {
     return;
 }
 
-
+if (isset($_COOKIE['kurtz'])) {
+    $sid = $_COOKIE['kurtz'];
+} else {
+    $sid = null;
+}
 
 require_once  '../../liveDb.php';
 
@@ -67,7 +76,8 @@ $r = (object)[
     'archive' => [],
     'upcoming' => [],
     'messages' => [
-        "Find the Order of Worship, Scripture, and Hymns below the video on this page."
+        "Find the Order of Worship, Scripture, and Hymns below the video on this page.",
+        "Thank you for joining us. <a style=\"background-color: transparent;\" href=\"mailto:techcmte@tenth.org?subject=Livestream Feedback&body=%0D%0A%0D%0A(please keep this identifier in your email) %0D%0ASI: {$sid} %0D%0A%0D%0A\">Let us know what you think</a>."
     ]
 ];
 
@@ -141,6 +151,9 @@ function runName($run) {
 
         case 3:
             return "Internationals Worship Service";
+
+        case 6:
+            return "Evening Prayers";
     }
 
     return "";
