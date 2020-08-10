@@ -69,7 +69,7 @@ $strQuery = $_db->prepare("SELECT
        StreamSources.providerId as s_providerId,
        StreamSources.status as s_status
 FROM main.StreamSources
-WHERE StreamSources.run = :run");
+WHERE StreamSources.run = :run ORDER BY abs(s_status - 2)");
 
 $r = (object)[
     'live' => [],

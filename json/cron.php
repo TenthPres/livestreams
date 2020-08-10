@@ -3,6 +3,7 @@
 /** The purpose of this script is to determine which streams are currently live, and save that information
  * to the livestream database.   */
 
+//die();
 
 require_once '../vendor/autoload.php';
 require_once '../../liveDb.php';
@@ -193,7 +194,7 @@ function doCron()
     while ($liveRunId = $selLiveRuns->fetchColumn(0)) {
         if (!in_array($liveRunId, $runsLiveNow)) { // if no longer live, remove.
             $updateRunStatus->execute(['status' => 3, 'runId' => $liveRunId]);
-            echo "removing $liveRunId   ";
+            echo "Marking Run $liveRunId as no longer live.";
         } else { // if still live, remove from array, so update isn't called in next section.
             unset($runsLiveNow[array_search($liveRunId, $runsLiveNow)]);
         }
@@ -201,6 +202,7 @@ function doCron()
 
     foreach ($runsLiveNow as $liveRunId) {
         $updateRunStatus->execute(['status' => 2, 'runId' => $liveRunId]);
+        echo "Marking Run $liveRunId as live.";
     }
 
     ob_flush();
