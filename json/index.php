@@ -69,7 +69,7 @@ $strQuery = $_db->prepare("SELECT
        StreamSources.providerId as s_providerId,
        StreamSources.status as s_status
 FROM main.StreamSources
-WHERE StreamSources.run = :run ORDER BY abs(s_status - 2)");
+WHERE StreamSources.run = :run ORDER BY abs(s_status - 2), s_id ASC");
 
 $r = (object)[
     'live' => [],
@@ -167,13 +167,13 @@ if (isset($_GET['r'])) {
         switch($run['r_status']) {
             case 1:
                 addRunToArray($run, $r->upcoming);
-                continue;
+                continue 2;
             case 2:
                 addRunToArray($run, $r->live);
-                continue;
+                continue 2;
             case 3:
                 addRunToArray($run, $r->archive);
-                continue;
+                continue 2;
         }
     }
 }
