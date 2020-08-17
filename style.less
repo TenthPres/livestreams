@@ -9,76 +9,6 @@
 //@import (reference,less) "@{fa_path}/icons.less";
 
 
-div#progList {
-  left:0;
-  right:0;
-  bottom:-2em;
-  height:2em;
-  border:0;
-  position:absolute;
-  text-align:left;
-
-  & > div {
-
-    display:inline-block;
-
-    opacity: 0.2;
-    transition: opacity 3s;
-
-    height: 2em;
-    &:hover {
-      opacity: 1;
-      transition: opacity .3s;
-    }
-
-    & > a {
-      width: 2.2em;
-      height:2em;
-      display:inline-block;
-      background:#eee;
-      overflow:hidden;
-      color:#444;
-      cursor:pointer;
-
-      transition: color .3s, background .3s;
-
-      font-family: FontAwesome, serif;
-      line-height:2em;
-      text-align:center;
-      text-decoration: none;
-
-      &.yt:before {
-        content:@fa-var-youtube-play;
-      }
-      &.fbl:before {
-        content:@fa-var-facebook-official;
-      }
-      &.sa-vid:before {
-        content:@fa-var-video-camera;
-      }
-      &.sa-aud:before {
-        content:@fa-var-volume-up;
-      }
-
-      &.active {
-        background-color:#49917b;
-        color:#efe;
-      }
-
-      &.active:hover {
-        background-color: #5eb697;
-        color:#fff;
-      }
-
-      &:hover {
-        color:#000;
-        background-color:#f9f9f9;
-      }
-    }
-  }
-}
-
-
 /* Everything below this point is essentially an overriding of the Tenth.org default css.  */
 
 body div.video {
@@ -161,8 +91,11 @@ span.sourceButtons { // grey
     &.yt:after {
       content: @fa-var-youtube-play;
     }
-    &.fbl:after {
+    &.fb:after {
       content: @fa-var-facebook-official;
+    }
+    &.vm:after {
+      content: @fa-var-vimeo-square;
     }
     &.sa-vid:after {
       content: @fa-var-video-camera;
@@ -188,6 +121,15 @@ div.attachment {
   max-height:90vh;
   min-height:5in;
   overflow:auto;
+
+  & > p.copyright {
+    font-size: .8em;
+    opacity: .7;
+  }
+
+  & > p.copyright:first-of-type {
+    border-top:1px solid #333;
+  }
 }
 
 // Remove this rule if the corresponding rule can be removed from the template css
@@ -276,11 +218,11 @@ div.sidebar {
   & h3 {
     font-size: 18px;
   }
-  p.subtle {
-    font-size: .8em;
-    opacity:.6;
-    font-style: italic;
-  }
+}
+p.subtle {
+  font-size: .8em;
+  opacity:.85;
+  font-style: italic;
 }
 
 @media (min-width: 768px) {
@@ -312,7 +254,7 @@ div.sidebar {
   }
 }
 
-.attachment .verse-num {
+.verse-num {
   & {
     font-family: "adobe-garamond-pro", Garamond, serif;
     color: #666;
@@ -320,6 +262,7 @@ div.sidebar {
     vertical-align: super;
   }
 }
+
 
 .main .section-nav ul.nav.nav-tabs.row-fluid {
   margin-bottom:0;
