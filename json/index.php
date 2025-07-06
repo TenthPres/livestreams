@@ -113,7 +113,7 @@ function addRunToArray($run, &$array) {
         $sources[] = [
             "_id" => intval($src['s_id']),
             "provider" => $src['s_provider'],
-            "providerId" => $src['s_providerId'],
+            "providerId" => (string)$src['s_providerId'],
             "status" => statusIntToString($src['s_status'])
         ];
     }
